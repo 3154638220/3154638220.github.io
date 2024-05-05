@@ -22,30 +22,37 @@
     var CONFIG = {"hostname":"qianianxy.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="浅念づ昔夜&#39;s Blog">
-<meta property="og:url" content="http://qianianxy.cn/index.html">
+  <meta name="description" content="前置知识   笛卡尔树   ST表   分块思想   状态压缩   简介 原名 the Method of Four Russians，可在 O(n+m)O(n+m)O(n+m) 时间内解决 RMQ 问题。 其实质为对原序列建立笛卡尔树，转变为求两点间 LCA。 根据 Euler 序的特性，可以使用状压，ST 表等奇淫技巧，转化为一种称为 +1-1RMQ 的算法。 没理解没关系，反正这几句话一点用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Method of Four Russians">
+<meta property="og:url" content="http://qianianxy.cn/2024/05/05/Russians/index.html">
 <meta property="og:site_name" content="浅念づ昔夜&#39;s Blog">
-<meta property="og:description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
+<meta property="og:description" content="前置知识   笛卡尔树   ST表   分块思想   状态压缩   简介 原名 the Method of Four Russians，可在 O(n+m)O(n+m)O(n+m) 时间内解决 RMQ 问题。 其实质为对原序列建立笛卡尔树，转变为求两点间 LCA。 根据 Euler 序的特性，可以使用状压，ST 表等奇淫技巧，转化为一种称为 +1-1RMQ 的算法。 没理解没关系，反正这几句话一点用">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/3154638220/wocaonima@main/202405051740873.png">
+<meta property="article:published_time" content="2024-05-05T09:39:15.000Z">
+<meta property="article:modified_time" content="2024-05-05T09:40:47.862Z">
 <meta property="article:author" content="浅念づ昔夜">
+<meta property="article:tag" content="笛卡尔树">
+<meta property="article:tag" content="st表">
+<meta property="article:tag" content="RMQ">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/3154638220/wocaonima@main/202405051740873.png">
 
-<link rel="canonical" href="http://qianianxy.cn/">
+<link rel="canonical" href="http://qianianxy.cn/2024/05/05/Russians/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>浅念づ昔夜's Blog</title>
+  <title>Method of Four Russians | 浅念づ昔夜's Blog</title>
   
 
 
@@ -191,9 +198,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -209,10 +217,9 @@
       <meta itemprop="name" content="浅念づ昔夜's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/05/Russians/" class="post-title-link" itemprop="url">Method of Four Russians</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Method of Four Russians
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -234,7 +241,14 @@
                 </span>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -259,7 +273,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前置知识">前置知识</h2>
+        <h2 id="前置知识">前置知识</h2>
 <ul>
 <li>
 <p><a href="http://qianianxy.cn/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/">笛卡尔树</a></p>
@@ -325,7 +339,6 @@
 <p>代码来自于 2021 CSP-S1，经过本人马蜂调整。</p>
 <p>强行啃懂了<s>这堆屎山</s>并添了点注释，可结合注释理解。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rei register int</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">read</span><span class="params">(T &amp;x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x = <span class="number">0</span>; <span class="type">int</span> f = <span class="number">1</span>; <span class="type">char</span> ch = <span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">while</span> (!<span class="built_in">isdigit</span>(ch)) &#123;<span class="keyword">if</span> (ch == <span class="string">&#x27;-&#x27;</span>) f = -f; ch = <span class="built_in">getchar</span>();&#125;</span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">isdigit</span>(ch)) &#123;x = x * <span class="number">10</span> + ch - <span class="number">48</span>; ch = <span class="built_in">getchar</span>();&#125;</span><br><span class="line">	x *= f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">100000</span>, MAXT = MAXN &lt;&lt; <span class="number">1</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXL = <span class="number">18</span>, MAXB = <span class="number">9</span>, MAXC = MAXT / MAXB;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> </span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> val;                         <span class="comment">// 权值 </span></span><br><span class="line">	<span class="type">int</span> dep, dfn, end;               <span class="comment">// 深度、深搜序、遍历完子树回来时经过的最后一个点 </span></span><br><span class="line">	node *son[<span class="number">2</span>];                    <span class="comment">// 左右儿子 </span></span><br><span class="line">&#125; T[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, t, b, c, Log2[MAXC + <span class="number">1</span>], m;      <span class="comment">// 序列长度、Euler序长度、块大小、块数量，log_2预处理、询问数量 </span></span><br><span class="line"><span class="type">int</span> Pos[(<span class="number">1</span> &lt;&lt; (MAXB - <span class="number">1</span>)) + <span class="number">5</span>], Dif[MAXC + <span class="number">1</span>]; <span class="comment">// 状压表示不同差分状态下深度最浅点 、差分数组 </span></span><br><span class="line">node *root, *A[MAXT], *Min[MAXL][MAXC]; <span class="comment">// 笛卡尔树根、Euler序、ST表 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">build</span><span class="params">()</span> <span class="comment">// 建笛卡尔树 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">static</span> node *S[MAXN + <span class="number">1</span>]; <span class="comment">// 单调栈 </span></span><br><span class="line">	<span class="type">int</span> top = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		node *p = &amp;T[i];</span><br><span class="line">		<span class="keyword">while</span> (top &amp;&amp; S[top]-&gt;val &lt; p-&gt;val) <span class="comment">// 大根堆</span></span><br><span class="line">			p-&gt;son[<span class="number">0</span>] = S[top--];  </span><br><span class="line">		<span class="keyword">if</span> (top) S[top]-&gt;son[<span class="number">1</span>] = p;</span><br><span class="line">		S[++top] = p;</span><br><span class="line">	&#125;</span><br><span class="line">	root = S[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">DFS</span><span class="params">(node *p)</span> <span class="comment">// 求出Euler序 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	A[p-&gt;dfn = t++] = p;</span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)</span><br><span class="line">		<span class="keyword">if</span> (p-&gt;son[i])</span><br><span class="line">		&#123;</span><br><span class="line">			p-&gt;son[i]-&gt;dep = p-&gt;dep + <span class="number">1</span>;</span><br><span class="line">			<span class="built_in">DFS</span>(p-&gt;son[i]);</span><br><span class="line">			A[t++] = p;</span><br><span class="line">		&#125;</span><br><span class="line">	p-&gt;end = t - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> node *<span class="title">min</span><span class="params">(node *x, node *y)</span> </span>&#123;<span class="keyword">return</span> x-&gt;dep &lt; y-&gt;dep ? x : y;&#125; <span class="comment">// 深度越小，值越大 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">ST_init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	b = (<span class="type">int</span>)(<span class="built_in">ceil</span>(<span class="built_in">log2</span>(t) / <span class="number">2</span>));</span><br><span class="line">	c = t / b;</span><br><span class="line">	Log2[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">2</span>; i &lt;= c; i++) Log2[i] = Log2[i &gt;&gt; <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">0</span>; i &lt; c; i++) <span class="comment">// 初始化Min[0]，覆盖大小为一个块 </span></span><br><span class="line">	&#123;</span><br><span class="line">		Min[<span class="number">0</span>][i] = A[i * b];                 <span class="comment">// 初始化为块i的第一个点 </span></span><br><span class="line">		<span class="keyword">for</span> (rei j = <span class="number">1</span>; j &lt; b; j++)</span><br><span class="line">			Min[<span class="number">0</span>][i] = <span class="built_in">min</span>(Min[<span class="number">0</span>][i], A[i * b + j]); <span class="comment">// 求出块内最大值 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// dp处理ST表 </span></span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">1</span>, l = <span class="number">2</span>; l &lt;= c; i++, l &lt;&lt;= <span class="number">1</span>) <span class="comment">// l: Min[i]覆盖长度（一个块长度为1） </span></span><br><span class="line">		<span class="keyword">for</span> (rei j = <span class="number">0</span>; j + l &lt;= c; j++)</span><br><span class="line">			Min[i][j] = <span class="built_in">min</span>(Min[i - <span class="number">1</span>][j], Min[i - <span class="number">1</span>][j + (l &gt;&gt; <span class="number">1</span>)]);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">small_init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">0</span>; i &lt;= c; i++) <span class="comment">// 预处理dep差分数组 </span></span><br><span class="line">		<span class="keyword">for</span> (rei j = <span class="number">1</span>; j &lt; b &amp;&amp; i * b + j &lt; t; j++)</span><br><span class="line">			<span class="keyword">if</span> (A[i * b + j]-&gt;dep &lt; A[i * b + j - <span class="number">1</span>]-&gt;dep)</span><br><span class="line">				Dif[i] |= <span class="number">1</span> &lt;&lt; (j - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (rei S = <span class="number">0</span>; S &lt; (<span class="number">1</span> &lt;&lt; (b - <span class="number">1</span>)); S++) <span class="comment">// 预处理出不同差分数组深度最浅点，S代表一种差分数组 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> mx = <span class="number">0</span>, v = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; b; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			v += (S &gt;&gt; (i - <span class="number">1</span>) &amp; <span class="number">1</span>) ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (v &lt; mx) mx = v, Pos[S] = i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> node *<span class="title">ST_query</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> <span class="comment">// ST表求解模板 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> g = Log2[r - l + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">min</span>(Min[g][l], Min[g][r - (<span class="number">1</span> &lt;&lt; g) + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> node *<span class="title">small_query</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> <span class="comment">// 同一块内求解 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> p = l / b; <span class="comment">// 块的编号 </span></span><br><span class="line">	<span class="comment">// &#x27;&amp;&#x27;的前半段：把l前的无用状态去掉。然后对二进制串1111...111做&amp;运算，去除r后无用状态     </span></span><br><span class="line">	<span class="type">int</span> S = (Dif[p] &gt;&gt; (l - p * b)) &amp; ((<span class="number">1</span> &lt;&lt; (r - l)) - <span class="number">1</span>); <span class="comment">// 二进制表示差分数组 </span></span><br><span class="line">	<span class="keyword">return</span> A[l + Pos[S]]; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> node *<span class="title">query</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l &gt; r) <span class="keyword">return</span> <span class="built_in">query</span>(r, l);</span><br><span class="line">	<span class="type">int</span> pl = l / b, pr = r / b; <span class="comment">// 所属块的编号 </span></span><br><span class="line">	<span class="keyword">if</span> (pl == pr) <span class="keyword">return</span> <span class="built_in">small_query</span>(l, r); <span class="comment">// 处于同一块内 </span></span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">	&#123;</span><br><span class="line">		node *s = <span class="built_in">min</span>(<span class="built_in">small_query</span>(l, pl * b + b - <span class="number">1</span>), <span class="built_in">small_query</span>(pr * b, r)); <span class="comment">// 分别处理两个左右碎块 </span></span><br><span class="line">		<span class="keyword">if</span> (pl + <span class="number">1</span> &lt;= pr - <span class="number">1</span>) s = <span class="built_in">min</span>(s, <span class="built_in">ST_query</span>(pl + <span class="number">1</span>, pr - <span class="number">1</span>)); <span class="comment">// ST表跨块求解 </span></span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">read</span>(n); <span class="built_in">read</span>(m);</span><br><span class="line">	<span class="keyword">for</span> (rei i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">read</span>(T[i].val);</span><br><span class="line">	<span class="built_in">build</span>();</span><br><span class="line">	<span class="built_in">DFS</span>(root);</span><br><span class="line">	<span class="built_in">ST_init</span>();</span><br><span class="line">	<span class="built_in">small_init</span>();</span><br><span class="line">	<span class="keyword">while</span> (m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> l, r;</span><br><span class="line">		<span class="built_in">read</span>(l); <span class="built_in">read</span>(r);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, <span class="built_in">query</span>(T[l].dfn, T[r].dfn)-&gt;val);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
@@ -333,496 +346,86 @@
     
 
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qianianxy.cn/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="浅念づ昔夜">
-      <meta itemprop="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅念づ昔夜's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/" class="post-title-link" itemprop="url">笛卡尔树</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-05 17:26:32 / 修改时间：17:37:10" itemprop="dateCreated datePublished" datetime="2024-05-05T17:26:32+08:00">2024-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>626</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="浅念づ昔夜 微信支付">
+        <p>微信支付</p>
+      </div>
       
-          <h2 id="定义">定义</h2>
-<p>笛卡尔树一是一棵二叉树。对于每个结点，有两个权值 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo separator="true">,</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">k,w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span>。 若只看 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>，整颗树为二叉查找树；只看 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span>，树为堆。</p>
-<p>如图，点在数组中的位置号码为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>，元素内数字为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="浅念づ昔夜 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
         
-      
-    </div>
 
-    
-    
-    
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>浅念づ昔夜
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://qianianxy.cn/2024/05/05/Russians/" title="Method of Four Russians">http://qianianxy.cn/2024/05/05/Russians/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/st%E8%A1%A8/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/RMQ/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qianianxy.cn/2024/05/05/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="浅念づ昔夜">
-      <meta itemprop="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅念づ昔夜's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/05/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9/" class="post-title-link" itemprop="url">树状数组求逆序对</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-05 16:37:36 / 修改时间：16:38:27" itemprop="dateCreated datePublished" datetime="2024-05-05T16:37:36+08:00">2024-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>250</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="分析">分析</h2>
-<p>用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>map</mtext></mrow><annotation encoding="application/x-tex">\text{map}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">map</span></span></span></span></span> 对数组离散化，防止撑爆树状数组。</p>
-<p>从左到右扫一遍数组。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 表示左边有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 个数。显然左边的数与 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 构成逆序对的数量为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 减左边比 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 小的数的数量。</p>
-<p>记得去重。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/05/05/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E6%B1%82%E9%80%86%E5%BA%8F%E5%AF%B9/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
 
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qianianxy.cn/2024/05/05/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="浅念づ昔夜">
-      <meta itemprop="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅念づ昔夜's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/05/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" class="post-title-link" itemprop="url">模拟退火</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-05 15:43:34 / 修改时间：16:34:28" itemprop="dateCreated datePublished" datetime="2024-05-05T15:43:34+08:00">2024-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>具有某些优点的随机化算法，适用于最优解问题。</p>
-<p>可以根据温度系数决定跳出当前最优解的概率，可以避免陷于局部最优解的情况。</p>
-<p>定义最大温度，降温系数，最低温度，当前温度。当前温度初始化为最大温度，每次乘以降温系数，直到低于最低温度。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/05/05/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/" rel="prev" title="笛卡尔树">
+      <i class="fa fa-chevron-left"></i> 笛卡尔树
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qianianxy.cn/2024/05/04/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="浅念づ昔夜">
-      <meta itemprop="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅念づ昔夜's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/04/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">网络流模板</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-04 22:16:37 / 修改时间：22:20:17" itemprop="dateCreated datePublished" datetime="2024-05-04T22:16:37+08:00">2024-05-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>627</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>网络流代码合集</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/05/04/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%A8%A1%E6%9D%BF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qianianxy.cn/2024/05/04/%E6%A0%B9%E5%8F%B7%E5%88%86%E6%B2%BB-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="浅念づ昔夜">
-      <meta itemprop="description" content="陌上晚烟飞素练，渡头残雪踏银沙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="浅念づ昔夜's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/04/%E6%A0%B9%E5%8F%B7%E5%88%86%E6%B2%BB-1/" class="post-title-link" itemprop="url">根号分治</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-04 21:58:08 / 修改时间：22:11:42" itemprop="dateCreated datePublished" datetime="2024-05-04T21:58:08+08:00">2024-05-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="简介">简介</h2>
-<p>对于一类问题，有两种或多种不同的解法，均无法单独在时限内过题，但在特定的数据范围内优势明显。这时可以设定阈值，对于不同的数据范围，使用不同的算法，令总时间复杂度可以接受。</p>
-<p>常见的阈值：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.23972em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8002800000000001em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathdefault">n</span></span></span><span style="top:-2.76028em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.23972em;"><span></span></span></span></span></span></span></span></span>  等。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/05/04/%E6%A0%B9%E5%8F%B7%E5%88%86%E6%B2%BB-1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81OTgwNy8zNjI2OQ=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -869,6 +472,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="nav-number">3.</span> <span class="nav-text">名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#euler-%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">Euler 序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1rmq"><span class="nav-number">3.2.</span> <span class="nav-text">+1-1RMQ</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">5.</span> <span class="nav-text">code</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1105,6 +709,21 @@ $(document).ready(function() {
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
