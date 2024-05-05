@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #6b0dbf;
+  background: #347f36;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2722,7 +2722,7 @@ ul.breadcrumb li + li:last-child {
   }
 }
 body {
-  background: url("https://raw.githubusercontent.com/3154638220/wocaonima/main/202405041622997.jpg");
+  background: url("https://cdn.jsdelivr.net/gh/3154638220/wocaonima@main/202405051525045.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
