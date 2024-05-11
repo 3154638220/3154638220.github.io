@@ -604,7 +604,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -617,7 +617,7 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -674,14 +674,14 @@ M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">�
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">31 分钟</span>
+    <span title="站点阅读时长">33 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共9k字</span>
+  <span class="post-count">博客全站共10.4k字</span>
 </div>
 
 
@@ -809,6 +809,56 @@ NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
   })(document, 'script');
 });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 查找所有 div.table-container 元素
+    const tableContainers = document.querySelectorAll(".table-container");
 
+    // 遍历所有 div.table-container 元素
+    tableContainers.forEach(function(tableContainer) {
+      // 获取 div.table-container 内的 span 元素数量
+      const spanCount = tableContainer.querySelectorAll("tbody > tr > td.code > pre > span").length;
+
+      // 检查 span 元素数量是否 >= 3
+      if (spanCount >= 3) {
+        // 检查 div.table-container 前面是否有 figcaption 元素，如果没有则添加一个
+        const prevElement = tableContainer.previousElementSibling;
+        let figcaption;
+        let iElement;
+        if (!prevElement || prevElement.tagName.toLowerCase() !== "figcaption") {
+          // 在 div.table-container 前插入一个 figcaption 元素
+          figcaption = document.createElement("figcaption");
+
+          // 将 figcaption 插入到 DOM 中
+          tableContainer.parentNode.insertBefore(figcaption, tableContainer);
+        } else {
+          figcaption = prevElement;
+        }
+
+        // 创建一个 <i> 标签并添加功能
+        iElement = document.createElement("i");
+        iElement.className = "fas fa-angle-down";
+        // 插入一点空格
+        iElement.innerHTML = "&nbsp;&nbsp;&nbsp;";
+        figcaption.insertBefore(iElement, figcaption.firstChild);
+
+        // 为 <i> 标签添加点击事件
+        iElement.addEventListener("click", function() {
+          // 切换 tableContainer 的 "code-hidden" 类
+          tableContainer.classList.toggle("code-hidden");
+
+          // 切换 <i> 标签的类名
+          if (iElement.classList.contains("fa-angle-down")) {
+            iElement.classList.remove("fa-angle-down");
+            iElement.classList.add("fa-angle-right");
+          } else {
+            iElement.classList.remove("fa-angle-right");
+            iElement.classList.add("fa-angle-down");
+          }
+        });
+      }
+    });
+  });
+</script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>

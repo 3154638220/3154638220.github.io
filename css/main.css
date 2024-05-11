@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffed9c;
+  background: #4928d1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2749,4 +2749,8 @@ body {
 }
 .luogu:hover {
   opacity: 1;
+}
+/* 代码块隐藏 */
+.code-hidden {
+  display: none;
 }
