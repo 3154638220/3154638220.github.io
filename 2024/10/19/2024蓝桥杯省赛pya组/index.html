@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"www.qianianxy.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题目传送门  A 拼正方形  Solution 二分答案。根据题目所求为满足条件的最大值，因此二分枚举所得正方形的最大边长，并检验是否能拼成。 又因为二分答案时，边长分别为奇偶时才各自有单调性。所以分开两类讨论，得出两个答案，取最大值即可。  Code 1234567891011121314151617181920212223242526272829303132333435363738394041">
+  <meta name="description" content="题目传送门  A 拼正方形  Solution 二分答案。根据题目所求为满足条件的最大值，因此二分枚举所得正方形的最大边长，并检验是否能拼成。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2024 蓝桥杯省赛 py A组解题报告">
 <meta property="og:url" content="http://www.qianianxy.cn/2024/10/19/2024%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%81%E8%B5%9Bpya%E7%BB%84/index.html">
 <meta property="og:site_name" content="浅念づ昔夜&#39;s Blog">
-<meta property="og:description" content="题目传送门  A 拼正方形  Solution 二分答案。根据题目所求为满足条件的最大值，因此二分枚举所得正方形的最大边长，并检验是否能拼成。 又因为二分答案时，边长分别为奇偶时才各自有单调性。所以分开两类讨论，得出两个答案，取最大值即可。  Code 1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:description" content="题目传送门  A 拼正方形  Solution 二分答案。根据题目所求为满足条件的最大值，因此二分枚举所得正方形的最大边长，并检验是否能拼成。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-19T08:07:03.000Z">
-<meta property="article:modified_time" content="2024-10-19T09:10:32.278Z">
+<meta property="article:modified_time" content="2024-10-19T09:28:19.354Z">
 <meta property="article:author" content="浅念づ昔夜">
 <meta property="article:tag" content="蓝桥杯">
 <meta property="article:tag" content="解题报告">
@@ -227,7 +227,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-10-19 16:07:03 / 修改时间：17:10:32" itemprop="dateCreated datePublished" datetime="2024-10-19T16:07:03+08:00">2024-10-19</time>
+              <time title="创建时间：2024-10-19 16:07:03 / 修改时间：17:28:19" itemprop="dateCreated datePublished" datetime="2024-10-19T16:07:03+08:00">2024-10-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>726</span>
+              <span>727</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -268,6 +268,7 @@
 <h2 id="a-拼正方形"><a class="markdownIt-Anchor" href="#a-拼正方形"></a> A 拼正方形</h2>
 <h3 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h3>
 <p>二分答案。根据题目所求为满足条件的最大值，因此二分枚举所得正方形的最大边长，并检验是否能拼成。</p>
+<span id="more"></span>
 <p>又因为二分答案时，边长分别为奇偶时才各自有单调性。所以分开两类讨论，得出两个答案，取最大值即可。</p>
 <h3 id="code"><a class="markdownIt-Anchor" href="#code"></a> Code</h3>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line">n = <span class="number">7385137888721</span></span><br><span class="line">m = <span class="number">10470245</span></span><br><span class="line">L = <span class="number">1</span></span><br><span class="line">R = <span class="number">10</span>**<span class="number">9</span></span><br><span class="line">ansa = ansb = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">if</span> x &amp; <span class="number">1</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> n * <span class="number">4</span> + m &gt;= x**<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1000</span>, <span class="number">2</span>):</span><br><span class="line">            <span class="keyword">if</span> x &lt; i:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> n * <span class="number">4</span> &gt;= (x - i)**<span class="number">2</span> <span class="keyword">and</span> m &gt;= x**<span class="number">2</span> - (x - i)**<span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">l = L</span><br><span class="line">r = R</span><br><span class="line"><span class="keyword">while</span> l &lt;= r:</span><br><span class="line">    mid = (l + r) &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> check(<span class="number">2</span> * mid):</span><br><span class="line">        l = mid + <span class="number">1</span></span><br><span class="line">        ansa = mid</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        r = mid - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">l = L</span><br><span class="line">r = R</span><br><span class="line"><span class="keyword">while</span> l &lt;= r:</span><br><span class="line">    mid = (l + r) &gt;&gt; <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> check(<span class="number">2</span> * mid - <span class="number">1</span>):</span><br><span class="line">        l = mid + <span class="number">1</span></span><br><span class="line">        ansb = mid</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        r = mid - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(ansa * <span class="number">2</span>, ansb * <span class="number">2</span> - <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
