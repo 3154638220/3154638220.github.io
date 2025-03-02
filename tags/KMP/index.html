@@ -327,7 +327,7 @@
         <a href="https://github.com/3154638220" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;3154638220" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:3154638220@qq.com" title="E-Mail → mailto:3154638220@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:202311079262@mail.bnu.edu.cn" title="E-Mail → mailto:202311079262@mail.bnu.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://www.zhihu.com/people/78-95-9-85-41" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;78-95-9-85-41" rel="noopener" target="_blank"><i class="fab fa-gratipay fa-fw"></i>知乎</a>
@@ -472,6 +472,29 @@
         iElement.className = "fas fa-angle-down";
         // 插入一点空格
         iElement.innerHTML = "&nbsp;&nbsp;&nbsp;";
+        figcaption.insertBefore(iElement, figcaption.firstChild);
+
+        // 为 <i> 标签添加点击事件
+        iElement.addEventListener("click", function() {
+          // 切换 tableContainer 的 "code-hidden" 类
+          tableContainer.classList.toggle("code-hidden");
+
+          // 切换 <i> 标签的类名
+          if (iElement.classList.contains("fa-angle-down")) {
+            iElement.classList.remove("fa-angle-down");
+            iElement.classList.add("fa-angle-right");
+          } else {
+            iElement.classList.remove("fa-angle-right");
+            iElement.classList.add("fa-angle-down");
+          }
+        });
+      }
+    });
+  });
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+bsp;&nbsp;";
         figcaption.insertBefore(iElement, figcaption.firstChild);
 
         // 为 <i> 标签添加点击事件
