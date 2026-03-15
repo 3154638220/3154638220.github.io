@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blood Cousins - 洛谷 | 计算机科学教育新生态 luogu.com.cnhttps://www.luogu.com.cn/problem/CF208E Solution 用倍增可以快速求出 v_i 的 p_i 级祖先 u_i，然后对 u_i 打上标记，表示它与询问 i 有关。标记可用 vector 维护。">
+  <title>CF208E Blood Cousins - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF208E Blood Cousins</h1>
+        <time class="article-date" datetime="2024-09-17">2024-09-17</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF208E">Blood Cousins - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)</a></p>
+<h2>Solution</h2>
+<p>用倍增可以快速求出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>v</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">v_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">p</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 级祖先 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>u</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">u_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">u</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，然后对 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>u</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">u_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">u</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 打上标记，表示它与询问 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 有关。标记可用 <code>vector</code> 维护。</p>
+<!--more-->
+<p>接着第一次 dfs 求出每个结点的深度和重儿子。第二遍 dfs 计算以不同点为根的子树中分别有多少个对应深度的结点，以深度为下标开桶计算。此处使用树上启发式合并，轻儿子子树暴力遍历，重儿子子树的信息直接获取。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1e5 + 10, logN = 21;
+
+int n, m, fa[N][logN + 5], son[N], dep[N], siz[N], cnt[N], ans[N];
+vector&lt;int&gt; g[N], que[N];
+struct Query {
+    int x, k, u;
+} q[N];
+
+void dfs1(int u)
+{
+    siz[u] = 1;
+    for (auto v : g[u]) {
+        dep[v] = dep[u] + 1;
+        dfs1(v);
+        siz[u] += siz[v];
+        if (siz[v] &gt; siz[son[u]])
+            son[u] = v;
+    }
+}
+
+void clear(int u)
+{
+    cnt[dep[u]]--;
+    for (auto v : g[u])
+        clear(v);
+}
+
+void calc(int u, int S)
+{
+    cnt[dep[u]]++;
+    for (auto v : g[u]) {
+        if (v == S) continue;
+        calc(v, S);
+    }
+}
+
+void dfs2(int u)
+{
+    if (u == 0) {
+        for (auto v : g[u]) {
+            dfs2(v);
+            clear(v);
+        }
+        return;
+    }
+    for (auto v : g[u]) {
+        if (v == son[u]) continue;
+        dfs2(v);
+        clear(v);
+    }
+    if (son[u])
+        dfs2(son[u]);
+    calc(u, son[u]);
+    for (auto k : que[u])
+        ans[k] = cnt[q[k].k + dep[u]] - 1;
+}
+
+int main()
+{
+    scanf("%d", &n);
+    for (int i = 1; i &lt;= n; i++) {
+        scanf("%d", &fa[i][0]);
+        g[fa[i][0]].push_back(i);
+    }
+    for (int i = 1; i &lt;= logN; i++)
+        for (int j = 1; j &lt;= n; j++)
+            fa[j][i] = fa[fa[j][i - 1]][i - 1];
+    dfs1(0);
+    scanf("%d", &m);
+    for (int i = 1; i &lt;= m; i++) {
+        scanf("%d%d", &q[i].x, &q[i].k);
+        int p = q[i].k, u = q[i].x;
+        for (int j = logN; ~j; j--) {
+            if (p &gt;= (1 &lt;&lt; j)) {
+                p -= (1 &lt;&lt; j);
+                u = fa[u][j];
+            }
+        }
+        q[i].u = u;
+        que[u].push_back(i);
+    }
+    dfs2(0);
+    for (int i = 1; i &lt;= m; i++)
+        printf("%d ", ans[i]);
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

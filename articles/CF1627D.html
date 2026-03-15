@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.luogu.com.cn/problem/CF1627D Solution 注意数据范围。用桶记录某数是否在数组内出现。从 10^6 枚举 x 到 1，检查是否能生成 x。若所有在数组内的 x 的倍数的最大公约数等于 x，则可生成 x。 设数组内最大的数为 N，时间复杂度 ON\log N">
+  <title>CF1627D Not Adding - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF1627D Not Adding</h1>
+        <time class="article-date" datetime="2024-08-25">2024-08-25</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF1627D">传送门</a></p>
+<h2>Solution</h2>
+<p>注意数据范围。用桶记录某数是否在数组内出现。从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">10^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">6</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 枚举 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>，检查是否能生成  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>。若所有在数组内的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> 的倍数的最大公约数等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>，则可生成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>。</p>
+<p>设数组内最大的数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span>，时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>log</mi><mi>N</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(N\log N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></p>
+<!--more-->
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1e6 + 10;
+
+int f[N], ans, n, maxn;
+
+int main()
+{
+    scanf("%d", &n);
+    for (int i = 1; i &lt;= n; i++) {
+        int x;
+        scanf("%d", &x);
+        f[x] = 1;
+        maxn = max(maxn, x);
+    }
+    for (int i = maxn - 1; i; i--) {
+        int gcd = -1;
+        if (f[i]) continue;
+        for (int j = i + i; j &lt;= maxn; j += i) {
+            if (!f[j]) continue;
+            if (gcd == -1)
+                gcd = j;
+            else
+                gcd = __gcd(gcd, j);
+        }
+        if (gcd == i) {
+            ans++;
+            f[i] = 1;
+        }
+    }
+    printf("%d", ans);
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

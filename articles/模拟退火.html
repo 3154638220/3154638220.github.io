@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="具有某些优点的随机化算法，适用于最优解问题。 可以根据温度系数决定跳出当前最优解的概率，可以避免陷于局部最优解的情况。 定义最大温度，降温系数，最低温度，当前温度。当前温度初始化为最大温度，每次乘以降温系数，直到低于最低温度。">
+  <title>模拟退火 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">模拟退火</h1>
+        <time class="article-date" datetime="2024-05-05">2024-05-05</time>
+      </header>
+      <div class="article-body">
+        <p>具有某些优点的随机化算法，适用于最优解问题。</p>
+<p>可以根据温度系数决定跳出当前最优解的概率，可以避免陷于局部最优解的情况。</p>
+<p>定义最大温度，降温系数，最低温度，当前温度。当前温度初始化为最大温度，每次乘以降温系数，直到低于最低温度。</p>
+<!--more-->
+<p>当前解更优时，更新最优解。</p>
+<p>否则通过计算含温度的多项式概率，决定是否接受这个劣解。</p>
+<pre class="code-block"><code class="language-cpp">if (exp((ans - eans) / t) * RAND_MAX &lt; (double)rand()) // not acceptable
+</code></pre>
+<p>可以得出，温度越低，多项式概率越小，解的范围越稳定。</p>
+<p>有几个技巧，可以提升欧率。</p>
+<ul>
+<li>
+<p><strong>去厕所洗把脸</strong></p>
+</li>
+<li>
+<p>随机种子</p>
+</li>
+</ul>
+<pre class="code-block"><code class="language-cpp">srand(time(NULL));
+
+</code></pre>
+<ul>
+<li>卡时</li>
+</ul>
+<pre class="code-block"><code class="language-cpp">while ((double)clock() / CLOCKS_REC_SEC &lt; MAX_TIME) SA();
+</code></pre>
+<p>原因：既然题目给了足够的时限，那为什么不都用上呢。</p>
+<p>\text{MAX\_TIME} 为自定义变量，个人喜欢设为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mi mathvariant="normal">.</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">0.8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">8</span></span></span></span>。</p>
+<ul>
+<li>\text{random\_shuffle()}</li>
+</ul>
+<p>求最优序列时，可以打乱一下原序列。用法类似 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">s</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">(</mi><mi mathvariant="normal">)</mi></mtext></mrow><annotation encoding="application/x-tex">\text{sort()}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="text mord textstyle uncramped"><span class="mord mathrm">s</span><span class="mord mathrm">o</span><span class="mord mathrm">r</span><span class="mord mathrm">t</span><span class="mord mathrm">(</span><span class="mord mathrm">)</span></span></span></span></span>。</p>
+<h2>一些感想：</h2>
+<p><s>当一个人下定决心学这个的时候，他多半是内心遭受了什么挫折，才来学这种奇奇怪怪的玩意儿。</s></p>
+<p><s>当然如果你只是个想拓宽眼界的 dalao 那就当我放了个 p。</s></p>
+<p>其实也没有很吃脸白了。</p>
+<p>主要还是靠调参技巧。</p>
+<p>当你学会了这个你会巴不得 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">N</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">I</mi><mi mathvariant="normal">P</mi></mtext></mrow><annotation encoding="application/x-tex">\text{NOIP}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="text mord textstyle uncramped"><span class="mord mathrm">N</span><span class="mord mathrm">O</span><span class="mord mathrm">I</span><span class="mord mathrm">P</span></span></span></span></span> 年年 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">4</span></span></span></span> 道最优解问题。</p>
+<h2>例题</h2>
+<h3><a href="https://www.luogu.com.cn/problem/P1337">P1337</a></h3>
+<p>最裸的模板题了。</p>
+<p>首先根据物理知识可以得知，当每个点的势能贡献矢量和为零时，达到平衡点。</p>
+<p>所以对平衡点的坐标随机枚举，判断势能和是否比当前解更接近零，然后根据模拟退火的规则决定是否更新。</p>
+<p>参数参考：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mn>0</mn><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>9</mn><mn>9</mn><mn>7</mn><mo separator="true">,</mo><msup><mn>1</mn><mrow><mo>−</mo><mn>1</mn><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10000,0.997,1^{-13}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mord mathrm">7</span><span class="mpunct">,</span><span class="mord"><span class="mord mathrm">1</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord">−</span><span class="mord mathrm">1</span><span class="mord mathrm">3</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 100010
+using namespace std;
+const double down = 0.997;
+const double T0 = 10000;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; int f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+struct node {int x, y, w;} a[N];
+double ansx, ansy, answ;
+int n;
+
+inline double energy(double x, double y)
+{
+	double r = 0, delx, dely;
+	for (rei i = 1; i &lt;= n; i++)
+	{
+		delx = x - a[i].x; dely = y - a[i].y;
+		r += sqrt(delx * delx + dely * dely) * a[i].w;
+	}
+	return r;
+}
+
+inline void SA()
+{
+	double t = T0;
+	while (t &gt; 1e-13)
+	{
+		double ex = ansx + (rand() * 2 - RAND_MAX) * t;
+		double ey = ansy + (rand() * 2 - RAND_MAX) * t;
+		double ew = energy(ex, ey);
+		double dele = ew - answ;
+		if (dele &lt; 0) ansx = ex, ansy = ey, answ = ew;
+		else if (exp(-dele / t) * RAND_MAX &gt; rand()) ansx = ex, ansy = ey;
+		t *= down;
+	}
+}
+
+inline void solve() {SA(); SA(); SA();}
+
+int main()
+{
+	srand(time(NULL));
+	read(n);
+	for (rei i = 1; i &lt;= n; i++)
+	{
+		read(a[i].x); read(a[i].y); read(a[i].w);
+		ansx += a[i].x; ansy += a[i].y;
+	}
+	ansx /= n; ansy /= n; answ = energy(ansx, ansy);
+	solve();
+	printf("%.3lf %.3lf", ansx, ansy);
+	return 0;
+}
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P2210">P2210</a></h3>
+<p>求最优的序列顺序，常见的模拟退火板子。</p>
+<p>思路是随机交换两个数，使序列发生变化。</p>
+<p>代码中运用了卡时的技巧。</p>
+<p>参数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mn>0</mn><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>9</mn><mn>9</mn><mn>9</mn><mo separator="true">,</mo><msup><mn>1</mn><mrow><mo>−</mo><mn>1</mn><mn>2</mn></mrow></msup><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>9</mn></mrow><annotation encoding="application/x-tex">10000,0.999,1^{-12},0.9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mpunct">,</span><span class="mord"><span class="mord mathrm">1</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord">−</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">9</span></span></span></span></p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 25
+using namespace std;
+const int inf = 1e9;
+const double MAX_TIME = 0.9;
+const double T0 = 10000;
+const double down = 0.999;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; int f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+int a[N], n, m, g[N][5], pos[N], ans = inf;
+
+inline int solve()
+{
+	int ret = 0;
+	for (rei i = 1; i &lt;= n; i++)
+		for (rei j = 1; j &lt;= 3; j++)
+			ret += abs(pos[i] - pos[g[i][j]]);
+	return ret;
+}
+
+inline void SA()
+{
+	double t = T0; int x, y, eans, delans;
+	while (t &gt; 1e-12)
+	{
+		do
+		{
+			x = rand() % n + 1;
+			y = rand() % n + 1;
+		} while (x == y);
+		swap(pos[x], pos[y]);
+		eans = solve();
+		delans = eans - ans;
+		if (delans &lt; 0) ans = eans;
+		else if (exp(-delans / t) * RAND_MAX &gt; rand()) swap(pos[x], pos[y]);
+		t *= down;
+	}
+}
+
+int main()
+{
+	srand(time(NULL));
+	read(n);
+	for (rei i = 1; i &lt;= n; i++)
+		for (rei j = 1; j &lt;= 3; j++)
+			read(g[i][j]);
+	for (rei i = 1; i &lt;= n; i++) pos[i] = i;
+	random_shuffle(pos + 1, pos + n + 1);
+	ans = solve(); int sum = 0;
+	while ((double)clock() / CLOCKS_PER_SEC &lt; MAX_TIME) SA(), sum++;
+	printf("%d", ans / 2);
+	return 0;
+}
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P3878">P3878</a></h3>
+<p>一道可以大大提升退火人对自己运气自信的题。</p>
+<p>因为数据实在是太 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∗</mo><mo>∗</mo></mrow><annotation encoding="application/x-tex">**</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.46528em;"></span><span class="strut bottom" style="height:0.46528em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord">∗</span><span class="mbin">∗</span></span></span></span> 水了。</p>
+<p>就连笔者这种非酋都一遍过了</p>
+<p>求最优序列，同样选择交换顺序。</p>
+<p>参数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>0</mn><mn>0</mn><mn>0</mn><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mi mathvariant="normal">.</mi><mn>9</mn><mn>9</mn><mn>7</mn><mo separator="true">,</mo><msup><mn>1</mn><mrow><mo>−</mo><mn>1</mn><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10000,0.997,1^{-12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mord mathrm">.</span><span class="mord mathrm">9</span><span class="mord mathrm">9</span><span class="mord mathrm">7</span><span class="mpunct">,</span><span class="mord"><span class="mord mathrm">1</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord">−</span><span class="mord mathrm">1</span><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 35
+using namespace std;
+typedef long long ll;
+const double MAX_TIME = 0.8;
+const double T0 = 10000, down = 0.997, T1 = 1e-12;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; T f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+ll n, T, a[N], suma, sumb, ans;
+
+inline ll solve()
+{
+	ll suma = 0, sumb = 0;
+	for (rei i = 1; i &lt;= (n + 1) / 2; i++) suma += a[i];
+	for (rei i = (n + 1) / 2 + 1; i &lt;= n; i++) sumb += a[i];
+	return abs(suma - sumb);
+}
+
+inline void SA()
+{
+	double t = 10000; ll x = 0, y = 0;
+	while (t &gt; 1e-15)
+	{
+		x = rand() % n + 1;
+		y = rand() % n + 1;
+		swap(a[x], a[y]);
+		ll eans = solve();
+		if (eans &lt; ans) ans = eans;
+		else if (exp((ans - eans) / t) * RAND_MAX &lt; (double)rand()) swap(a[x], a[y]);
+		t *= 0.997;
+	}
+}
+
+inline void WORK()
+{
+	read(n); suma = sumb = ans = 0;
+	for (rei i = 1; i &lt;= n; i++) read(a[i]);
+	random_shuffle(a + 1, a + 1 + n);
+	ans = solve();
+	for (rei i = 1; i &lt;= 20; i++) SA();
+	printf("%lld\n", ans);
+}
+
+int main()
+{
+	srand(time(NULL));
+	read(T);
+	while (T--) WORK();
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

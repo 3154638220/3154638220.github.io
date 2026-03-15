@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="前置知识 - 笛卡尔树http://qianianxy.cn/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/ - ST表https://www.luogu.com.cn/problem/P3865 - 分块思想 - 状态压缩">
+  <title>Method of Four Russians - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">Method of Four Russians</h1>
+        <time class="article-date" datetime="2024-05-05">2024-05-05</time>
+      </header>
+      <div class="article-body">
+        <h2>前置知识</h2>
+<ul>
+<li>
+<p><a href="http://qianianxy.cn/2024/05/05/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/">笛卡尔树</a></p>
+</li>
+<li>
+<p><a href="https://www.luogu.com.cn/problem/P3865">ST表</a></p>
+</li>
+<li>
+<p>分块思想</p>
+</li>
+<li>
+<p>状态压缩</p>
+<!--more-->
+</li>
+</ul>
+<h2>简介</h2>
+<p>原名 <code>the Method of Four Russians</code>，可在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n+m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span> 时间内解决 <code>RMQ</code> 问题。</p>
+<p>其实质为对原序列建立笛卡尔树，转变为求两点间 <code>LCA</code>。</p>
+<p>根据 <code>Euler</code> 序的特性，可以使用状压，ST 表等奇淫技巧，转化为一种称为 <code>+1-1RMQ</code> 的算法。</p>
+<p>没理解没关系，反正这几句话一点用没有。</p>
+<h2>名词解释</h2>
+<h3>Euler 序</h3>
+<blockquote>
+<p>即树按照 DFS 过程，经过所有点，环游回根的序列。</p>
+</blockquote>
+<p>以下图（一棵笛卡尔树）为例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/3154638220/wocaonima@main/202405051740873.png" alt=""></p>
+<p>根据定义，从根结点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span> 出发，<strong>环游</strong>所有点，回根的序列为：</p>
+<pre class="code-block"><code class="language-text">1 3 9 3 7 3 1 5 8 10 12 10 15 20 15 18 15 10 8 5 1
+</code></pre>
+<p>此序列即为该树的 <code>Euler</code> 序，可手动模拟理解。</p>
+<h3>+1-1RMQ</h3>
+<p>亦称约束 <code>RMQ</code>，与普通 <code>RMQ</code> 相同，求一段序列的最值问题。</p>
+<p>但其所求序列相邻元素的差值绝对值必然为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>。</p>
+<p>此时对序列建立差分数组 <code>Dif</code>，可知 <code>Dif</code> 内只包括 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">+1,-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord">+</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord">−</span><span class="mord mathrm">1</span></span></span></span>。</p>
+<p>若将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord">−</span><span class="mord mathrm">1</span></span></span></span> 化为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span>，则 <code>Dif</code> 变为一个二进制串。</p>
+<p>为方便状态压缩，防止表示状态的十进制数过大，对 <code>Dif</code> 进行分块。</p>
+<p>设 <code>Euler</code> 序长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span></span></span></span>，块大小 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>=</mo><mo>⌈</mo><mfrac><mrow><msub><mi>log</mi><mn>2</mn></msub><mi>t</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>⌉</mo></mrow><annotation encoding="application/x-tex">b=\lceil\dfrac{\log_2t}{2}\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.37144em;"></span><span class="strut bottom" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="base textstyle uncramped"><span class="mord mathit">b</span><span class="mrel">=</span><span class="mopen">⌈</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit">t</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mclose">⌉</span></span></span></span>，则块数量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mo>=</mo><mo>⌈</mo><mfrac><mrow><mi>t</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo>⌉</mo></mrow><annotation encoding="application/x-tex">c=\lceil\dfrac{t}{b}\rceil</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.29208em;"></span><span class="strut bottom" style="height:1.9780799999999998em;vertical-align:-0.686em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span><span class="mrel">=</span><span class="mopen">⌈</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathit">b</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">t</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mclose">⌉</span></span></span></span>。</p>
+<p>对一个块进行讨论。将块视为长为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">b</span></span></span></span> 的，形式为二进制串的差分数组。</p>
+<p>这个串上每一位非 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span> 即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>，所以理论上可能的串共有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>b</mi></msup></mrow><annotation encoding="application/x-tex">2^b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:0.849108em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">b</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 种。</p>
+<p>用状压方法枚举所有可能情况。对于每一种情况，都要从头到尾枚举串，求出其所代表的原数组中的最值所在位置。并将位置下标存在数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>o</mi><mi>s</mi><mo>(</mo><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">Pos(S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span> 中。<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span> 为状态。</p>
+<p>举个例子，有一个序列：</p>
+<pre class="code-block"><code class="language-text">原+1-1序列          1 2 3 4 3 2 1 2
+
+差分且转化为二进制后 1 1 1 1 0 0 0 1
+
+下标                 8 7 6 5 4 3 2 1
+</code></pre>
+<p>定义一个变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">sum</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">s</span><span class="mord mathit">u</span><span class="mord mathit">m</span></span></span></span>，从头开始加上差分数组的值，便可逐位还原原序列并比较大小。</p>
+<p>最后可求出位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">5</span></span></span></span> 处最大。又因该串的十进制形式为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>4</mn><mn>1</mn></mrow><annotation encoding="application/x-tex">241</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">1</span></span></span></span>，则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>o</mi><mi>s</mi><mo>(</mo><mn>2</mn><mn>4</mn><mn>1</mn><mo>)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">Pos(241)=5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit">o</span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mord mathrm">4</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">5</span></span></span></span>。</p>
+<p>此过程的时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>b</mi><msup><mn>2</mn><mi>b</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(b2^b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">b</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>。将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">b</span></span></span></span> 代入，复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 级别。</p>
+<p>上述过程是对<strong>询问区间在一个块内</strong>情况的预处理，询问时可 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> 求解。</p>
+<p>下面对于<strong>询问区间跨块</strong>的情况，就要使用 ST 表。</p>
+<p>单独 ST 表处理 <code>RMQ</code> 问题时，以数组<strong>一个元素</strong>为基本单位。但是此时要做一些小改动，变为以<strong>一个块</strong>为基本单位。</p>
+<p>所以我们要先暴力 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 求每个块的最值并储存。ST 表预处理时，直接取块最值而不用考虑块内具体情况。</p>
+<p>ST 表预处理复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>c</mi><mi>log</mi><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(c\log c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">c</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span>，同样为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span> 级别。</p>
+<p>预处理完结撒花，接着轮到询问。</p>
+<p>对于询问区间，采用分块思想。左右两边不完整块单独处理。中间一片连续完整块的区域用 ST 表处理。</p>
+<p>对于询问区间两边两个不完整块，每一个都是一个完整块的部分。用位运算技巧剪出该不完整块的二进制形式，利用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mi>o</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Pos</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit">o</span><span class="mord mathit">s</span></span></span></span> 数组直接取出答案。复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>。</p>
+<p>对于中间连续完整块，ST 表 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> 查询。此处默认读者熟练 ST 表，不再赘述。</p>
+<p>单个询问复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>。若有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> 个询问，则复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>。</p>
+<p>总时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n+m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>。</p>
+<h2>算法分析</h2>
+<p>~~进入正题。~~最难的部分已经讲完，现在仅剩的问题是如何将 <code>+1-1RMQ</code> 与笛卡尔树结合，成为四毛子算法。</p>
+<p>由于笛卡尔树具有堆的性质，且结点编号具有二叉查找树的性质，所以序列中区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 的最值点，为点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 和点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span> 在笛卡尔树中的 <code>LCA</code>。</p>
+<p>已知 <code>Euler</code> 序中相邻点之间深度相差必定为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>。所以 <code>Euler</code> 序可以使用 <code>+1-1RMQ</code> 处理。</p>
+<p>截取从第一次到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 至第一次到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span> 的 <code>Euler</code> 序片段，用 <code>+1-1RMQ</code> 求出该片段中深度最浅的点，即为 <code>LCA</code>，即为区间内最值点。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>+</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n+m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>。</p>
+<h2>code</h2>
+<p>代码来自于 2021 CSP-S1，经过本人马蜂调整。</p>
+<p>强行啃懂了<s>这堆屎山</s>并添了点注释，可结合注释理解。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;cstdio&gt;
+#define rei register int
+using namespace std;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; int f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+const int MAXN = 100000, MAXT = MAXN &lt;&lt; 1;
+const int MAXL = 18, MAXB = 9, MAXC = MAXT / MAXB;
+
+struct node 
+{
+	int val;                         // 权值 
+	int dep, dfn, end;               // 深度、深搜序、遍历完子树回来时经过的最后一个点 
+	node *son[2];                    // 左右儿子 
+} T[MAXN];
+
+int n, t, b, c, Log2[MAXC + 1], m;      // 序列长度、Euler序长度、块大小、块数量，log_2预处理、询问数量 
+int Pos[(1 &lt;&lt; (MAXB - 1)) + 5], Dif[MAXC + 1]; // 状压表示不同差分状态下深度最浅点 、差分数组 
+node *root, *A[MAXT], *Min[MAXL][MAXC]; // 笛卡尔树根、Euler序、ST表 
+
+inline void build() // 建笛卡尔树 
+{
+	static node *S[MAXN + 1]; // 单调栈 
+	int top = 0;
+	for (int i = 0; i &lt; n; i++)
+	{
+		node *p = &T[i];
+		while (top && S[top]-&gt;val &lt; p-&gt;val) // 大根堆
+			p-&gt;son[0] = S[top--];  
+		if (top) S[top]-&gt;son[1] = p;
+		S[++top] = p;
+	}
+	root = S[1];
+}
+
+inline void DFS(node *p) // 求出Euler序 
+{
+	A[p-&gt;dfn = t++] = p;
+	for (rei i = 0; i &lt; 2; i++)
+		if (p-&gt;son[i])
+		{
+			p-&gt;son[i]-&gt;dep = p-&gt;dep + 1;
+			DFS(p-&gt;son[i]);
+			A[t++] = p;
+		}
+	p-&gt;end = t - 1;
+}
+
+inline node *min(node *x, node *y) {return x-&gt;dep &lt; y-&gt;dep ? x : y;} // 深度越小，值越大 
+
+inline void ST_init()
+{
+	b = (int)(ceil(log2(t) / 2));
+	c = t / b;
+	Log2[1] = 0;
+	for (rei i = 2; i &lt;= c; i++) Log2[i] = Log2[i &gt;&gt; 1] + 1;
+	for (rei i = 0; i &lt; c; i++) // 初始化Min[0]，覆盖大小为一个块 
+	{
+		Min[0][i] = A[i * b];                 // 初始化为块i的第一个点 
+		for (rei j = 1; j &lt; b; j++)
+			Min[0][i] = min(Min[0][i], A[i * b + j]); // 求出块内最大值 
+	}
+	// dp处理ST表 
+	for (rei i = 1, l = 2; l &lt;= c; i++, l &lt;&lt;= 1) // l: Min[i]覆盖长度（一个块长度为1） 
+		for (rei j = 0; j + l &lt;= c; j++)
+			Min[i][j] = min(Min[i - 1][j], Min[i - 1][j + (l &gt;&gt; 1)]);
+	
+}
+
+inline void small_init()
+{
+	for (rei i = 0; i &lt;= c; i++) // 预处理dep差分数组 
+		for (rei j = 1; j &lt; b && i * b + j &lt; t; j++)
+			if (A[i * b + j]-&gt;dep &lt; A[i * b + j - 1]-&gt;dep)
+				Dif[i] |= 1 &lt;&lt; (j - 1);
+	for (rei S = 0; S &lt; (1 &lt;&lt; (b - 1)); S++) // 预处理出不同差分数组深度最浅点，S代表一种差分数组 
+	{
+		int mx = 0, v = 0;
+		for (int i = 1; i &lt; b; i++)
+		{
+			v += (S &gt;&gt; (i - 1) & 1) ? -1 : 1;
+			if (v &lt; mx) mx = v, Pos[S] = i;
+		}
+	}
+}
+
+inline node *ST_query(int l, int r) // ST表求解模板 
+{
+	int g = Log2[r - l + 1];
+	return min(Min[g][l], Min[g][r - (1 &lt;&lt; g) + 1]);
+}
+
+inline node *small_query(int l, int r) // 同一块内求解 
+{
+	int p = l / b; // 块的编号 
+	// '&'的前半段：把l前的无用状态去掉。然后对二进制串1111...111做&运算，去除r后无用状态     
+	int S = (Dif[p] &gt;&gt; (l - p * b)) & ((1 &lt;&lt; (r - l)) - 1); // 二进制表示差分数组 
+	return A[l + Pos[S]]; 
+}
+
+inline node *query(int l, int r)
+{
+	if (l &gt; r) return query(r, l);
+	int pl = l / b, pr = r / b; // 所属块的编号 
+	if (pl == pr) return small_query(l, r); // 处于同一块内 
+	else 
+	{
+		node *s = min(small_query(l, pl * b + b - 1), small_query(pr * b, r)); // 分别处理两个左右碎块 
+		if (pl + 1 &lt;= pr - 1) s = min(s, ST_query(pl + 1, pr - 1)); // ST表跨块求解 
+		return s;
+	}
+}
+
+int main()
+{
+	read(n); read(m);
+	for (rei i = 0; i &lt; n; i++) read(T[i].val);
+	build();
+	DFS(root);
+	ST_init();
+	small_init();
+	while (m--)
+	{
+		int l, r;
+		read(l); read(r);
+		printf("%d\n", query(T[l].dfn, T[r].dfn)-&gt;val);
+	}
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

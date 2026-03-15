@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="定义 笛卡尔树一是一棵二叉树。对于每个结点，有两个权值 k,w。 若只看 k，整颗树为二叉查找树；只看 w，树为堆。 如图，点在数组中的位置号码为 k，元素内数字为 w。">
+  <title>笛卡尔树 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">笛卡尔树</h1>
+        <time class="article-date" datetime="2024-05-05">2024-05-05</time>
+      </header>
+      <div class="article-body">
+        <h2>定义</h2>
+<p>笛卡尔树一是一棵二叉树。对于每个结点，有两个权值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo separator="true">,</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">k,w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>。 若只看 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>，整颗树为二叉查找树；只看 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>，树为堆。</p>
+<p>如图，点在数组中的位置号码为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span>，元素内数字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span>。</p>
+<!--more-->
+<p><img src="https://cdn.jsdelivr.net/gh/3154638220/wocaonima@main/202405051726316.png" alt=""></p>
+<h2>性质</h2>
+<ul>
+<li>
+<p>若每个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo separator="true">,</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">k,w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> 均不相同，则笛卡尔树的形式是唯一的。</p>
+</li>
+<li>
+<p>结点要么没有左儿子，要么左儿子没有左儿子。</p>
+</li>
+</ul>
+<h2>建树</h2>
+<p>这里默认堆为小根堆。</p>
+<p>用单调栈维护树的右链。</p>
+<p>设新加入点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span>，若栈中（即右链）所有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> 值均大于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>u</mi></msub></mrow><annotation encoding="application/x-tex">w_u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">u</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，则栈底（即右链头即当前树根）变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> 左儿子。</p>
+<p>若栈中第一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> 小于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> 的点为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span>，则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> 的右儿子全部变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> 的左儿子，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span></span></span></span> 成为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> 的右儿子。</p>
+<h3>code</h3>
+<p><a href="https://www.luogu.com.cn/problem/P5854"><strong>模板题 [P5854] 笛卡尔树</strong></a></p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 10000010
+using namespace std;
+typedef long long ll;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; int f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+int n, a[N], st[N], top, ls[N], rs[N];
+ll ansl, ansr;
+
+int main()
+{
+	read(n);
+	for (rei i = 1; i &lt;= n; i++) read(a[i]);
+	for (rei i = 1; i &lt;= n; i++)
+	{
+		while (top && a[st[top]] &gt; a[i]) top--;
+		if (!top) ls[i] = st[top + 1];
+		else ls[i] = rs[st[top]], rs[st[top]] = i;
+		st[++top] = i;
+	}
+	for (rei i = 1; i &lt;= n; i++) ansl ^= (1ll * i * (ls[i] + 1)), ansr ^= (1ll * i * (rs[i] + 1));
+	printf("%lld %lld", ansl, ansr);
+	return 0;
+}
+</code></pre>
+<h3>例题1</h3>
+<p><a href="https://www.luogu.com.cn/problem/P1377">P1377 [TJOI2011]树的序</a></p>
+<p>此题与模板不同在于，位置号码为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span> 值，元素内数字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span> 值。</p>
+<p>则需对原数组排序，再按排序后顺序建树。</p>
+<p>求 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span></span> 值字典序最小，根据二叉查找树性质，答案为先序遍历结果。</p>
+<p>顺便得出结论：谁有二叉查找树性质，就要按其顺序建树。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 100010
+using namespace std;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; int f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+int n, st[N], top, x, ls[N], rs[N];
+struct Node {int k, w;} a[N];
+
+inline void Dfs(int u)
+{
+	printf("%d ", u);
+	if (ls[u]) Dfs(ls[u]);
+	if (rs[u]) Dfs(rs[u]);
+}
+
+inline bool cmp(const Node &a, const Node &b) {return a.k &lt; b.k;}
+
+int main()
+{
+	read(n);
+	for (rei i = 1; i &lt;= n; i++) read(a[i].k), a[i].w = i;
+	sort(a + 1, a + 1 + n, cmp);
+	for (rei i = 1; i &lt;= n; i++)
+	{
+		while (top && a[st[top]].w &gt; a[i].w) top--;
+		if (!top) ls[i] = st[top + 1];
+		else ls[i] = rs[st[top]], rs[st[top]] = i;
+		st[++top] = i;
+	}
+	Dfs(st[1]);
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

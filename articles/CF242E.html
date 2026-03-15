@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.luogu.com.cn/problem/CF242E Solution 观察到 a_i\le 10^6 &lt;2^{20}，拆位后数组变成 20 条长度为 n 的 01 串。开二十棵线段树分别维护这些串的区间和。">
+  <title>CF242E XOR on Segment - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF242E XOR on Segment</h1>
+        <time class="article-date" datetime="2024-08-27">2024-08-27</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF242E">传送门</a></p>
+<h2>Solution</h2>
+<p>观察到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup><mo>&lt;</mo><msup><mn>2</mn><mrow><mn>2</mn><mn>0</mn></mrow></msup></mrow><annotation encoding="application/x-tex">a_i\le 10^6 &lt;2^{20}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.964108em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">≤</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">6</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">&lt;</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">0</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，拆位后数组变成 20 条长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 的 <code>01</code> 串。开二十棵线段树分别维护这些串的区间和。</p>
+<!--more-->
+<p>设一个串在区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 的和为 S，该区间与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span> 异或后，新的和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>S</mi><mrow><mi mathvariant="normal">′</mi></mrow></msup><mo>=</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>+</mo><mn>1</mn><mo>−</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">S&#x27;=r-l+1-S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.751892em;"></span><span class="strut bottom" style="height:0.835222em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">′</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span>，即将区间内的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span></span></span></span> 互换。</p>
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define ls k&lt;&lt;1
+#define rs k&lt;&lt;1|1
+using namespace std;
+typedef long long ll;
+
+const ll N = 1e5 + 10, logN = 21;
+
+ll n, a[N], L[N &lt;&lt; 2], R[N &lt;&lt; 2], Q, siz[N &lt;&lt; 2];
+struct Tree {
+    ll sum, laz;
+} T[N &lt;&lt; 2][logN + 5];
+
+void push_up(ll k) 
+{
+    for (int i = 0; i &lt;= logN; i++)
+        T[k][i].sum = T[ls][i].sum + T[rs][i].sum;
+}
+
+void push_down(ll k)
+{
+    for (int i = 0; i &lt;= logN; i++) {
+        if (!T[k][i].laz) continue; 
+        T[ls][i].laz ^= T[k][i].laz;
+        T[rs][i].laz ^= T[k][i].laz;
+        T[ls][i].sum = siz[ls] - T[ls][i].sum;
+        T[rs][i].sum = siz[rs] - T[rs][i].sum;
+        T[k][i].laz = 0;
+    }
+}
+
+void build(ll k, ll l, ll r)
+{
+    L[k] = l; R[k] = r; siz[k] = r - l + 1;
+    if (l == r) {
+        ll num = a[l];
+        for (int i = 0; i &lt;= logN; i++) {
+            T[k][i].sum = (num & 1);
+            num &gt;&gt;= 1;
+        }
+        return;
+    }
+    ll mid = (l + r) &gt;&gt; 1;
+    build(ls, l, mid);
+    build(rs, mid + 1, r);
+    push_up(k);
+}
+
+void modify(ll k, ll x, ll y, ll z)
+{
+    if (x &lt;= L[k] && R[k] &lt;= y) {
+        ll num = z;
+        for (int i = 0; i &lt;= logN; i++) {
+            if (num & 1)
+                T[k][i].sum = siz[k] - T[k][i].sum;
+            T[k][i].laz ^= (num & 1);
+            num &gt;&gt;= 1;
+        }
+        return;
+    }
+    ll mid = (L[k] + R[k]) &gt;&gt; 1;
+    push_down(k);
+    if (x &lt;= mid) modify(ls, x, y, z);
+    if (mid &lt; y) modify(rs, x, y, z);
+    push_up(k);
+}
+
+ll query(ll k, ll x, ll y) 
+{
+    ll res = 0;
+    if (x &lt;= L[k] && R[k] &lt;= y) {
+        for (int i = 0; i &lt;= logN; i++)
+            res += (1 &lt;&lt; i) * T[k][i].sum;
+        return res;
+    }
+    ll mid = (L[k] + R[k]) &gt;&gt; 1;
+    push_down(k);
+    if (x &lt;= mid) res += query(ls, x, y);
+    if (mid &lt; y) res += query(rs, x, y);
+    return res;
+}
+
+int main()
+{
+    scanf("%lld", &n);
+    for (int i = 1; i &lt;= n; i++)
+        scanf("%lld", &a[i]);
+    build(1, 1, n);
+    scanf("%lld", &Q);
+    while (Q--) {
+        ll opt, x, y, z;
+        scanf("%lld%lld%lld", &opt, &x, &y);
+        if (opt == 1) {
+            printf("%lld\n", query(1, x, y));
+        } else {
+            scanf("%lld", &z);
+            modify(1, x, y, z);
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

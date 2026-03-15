@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Link 蓝桥杯\ 第二讲：搜索与优化技巧 - 题单 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/training/714047problems 提醒：本文代码均可点击左上角折叠，希望能帮助您优化阅读体验。 Solution">
+  <title>第二讲：搜索与优化技巧 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">第二讲：搜索与优化技巧</h1>
+        <time class="article-date" datetime="2025-03-02">2025-03-02</time>
+      </header>
+      <div class="article-body">
+        <h2>Link</h2>
+<p>[<a href="https://www.luogu.com.cn/training/714047#problems">蓝桥杯] 第二讲：搜索与优化技巧 - 题单 - 洛谷 | 计算机科学教育新生态</a></p>
+<h2>提醒：本文代码均可点击左上角折叠，希望能帮助您优化阅读体验。</h2>
+<h2>Solution</h2>
+<!--more-->
+<h3><a href="https://www.luogu.com.cn/problem/B3642">B3642 二叉树的遍历</a></h3>
+<ul>
+<li>
+<p>前序遍历：根子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 左子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 右子树</p>
+</li>
+<li>
+<p>中序遍历：左子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 根子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 右子树</p>
+</li>
+<li>
+<p>后序遍历：左子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 右子树 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 根子树</p>
+</li>
+</ul>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1e6 + 10;
+
+int n;
+struct Node {
+    int son_1, son_2;
+} a[N];
+
+void pre_search(int u) // 前序遍历
+{
+    printf("%d ", u);
+    if (a[u].son_1)
+        pre_search(a[u].son_1);
+    if (a[u].son_2)
+        pre_search(a[u].son_2);
+}
+
+void in_search(int u) // 中序遍历
+{
+    if (a[u].son_1)
+        in_search(a[u].son_1);
+    printf("%d ", u);
+    if (a[u].son_2)
+        in_search(a[u].son_2);
+}
+
+void post_search(int u) // 后序遍历
+{
+    if (a[u].son_1)
+        post_search(a[u].son_1);
+    if (a[u].son_2)
+        post_search(a[u].son_2);
+    printf("%d ", u);
+}
+
+int main()
+{
+    scanf("%d", &n);
+    for (int i = 1; i &lt;= n; i++)
+        scanf("%d%d", &a[i].son_1, &a[i].son_2);
+
+    pre_search(1);
+    putchar('\n');
+
+    in_search(1);
+    putchar('\n');
+    
+    post_search(1);
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+sys.setrecursionlimit(10**6)
+
+N = 10**6 + 10
+a = [[0, 0] for _ in range(N)]
+
+def pre_search(u):  # 前序遍历
+    if u == 0:
+        return
+    print(u, end=' ')
+    pre_search(a[u][0])
+    pre_search(a[u][1])
+
+def in_search(u):  # 中序遍历
+    if u == 0:
+        return
+    in_search(a[u][0])
+    print(u, end=' ')
+    in_search(a[u][1])
+
+def post_search(u):  # 后序遍历
+    if u == 0:
+        return
+    post_search(a[u][0])
+    post_search(a[u][1])
+    print(u, end=' ')
+
+def main():
+    n = int(input())
+    for i in range(1, n + 1):
+        a[i][0], a[i][1] = map(int, input().split())
+    
+    pre_search(1)
+    print()
+    in_search(1)
+    print()
+    post_search(1)
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P1219">P1219 八皇后 Checker Challenge</a></h3>
+<p>算法：深度优先搜索（DFS）</p>
+<p>先按照行的顺序递归，后枚举列选择可以放棋子的位置。</p>
+<p>枚举落子点时，需要设法保存列和对角线被占用的信息，来告诉我们此处是否可以落子。</p>
+<p>首先，设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mi>n</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">line_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 记录某列是否被占用。</p>
+<p>对于对角线，注意到：若点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(x_1,y_1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(x_2,y_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 占据了同一条左上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 右下的对角线，则有</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_1-y_1=x_2-y_2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<p>相同地，若点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(x_1,y_1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(x_2,y_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 占据了同一条右上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> 左下的对角线，则有</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>y</mi><mn>1</mn></msub><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_1+y_1=x_2+y_2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></span></p>
+<p>故可用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x+y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mbin">+</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> 为两类对角线分别标号。由于可能出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x-y&lt;0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">&lt;</span><span class="mord mathrm">0</span></span></span></span>，而数组下标不能为负数，故采用 map 定义数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">le_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><msub><mi>i</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">ri_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，分别记录两类对角线的占用情况。</p>
+<pre class="code-block"><code class="language-cpp">map&lt;int, int&gt; le, ri;
+</code></pre>
+<p>这样定义后，可将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">le_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><msub><mi>i</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">ri_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 视为下标可为负数的数组。<strong>python 可用字典实现，具体看下方代码。</strong></p>
+<p>若当前位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mi>n</mi><msub><mi>e</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">line_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><msub><mi>e</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">le_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><msub><mi>i</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">ri_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.9456279999999999em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 有一个等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>，说明该点无法放棋子，因此选择枚举下一个点。</p>
+<p>否则，向下一行搜索。在此之前，对 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mi>n</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">line_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">le_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><msub><mi>i</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">ri_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 打上标记。在下一行的 dfs 函数返回后撤销标记。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>×</mo><mi>n</mi><mo>!</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\times n!)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mbin">×</span><span class="mord mathit">n</span><span class="mclose">!</span><span class="mclose">)</span></span></span></span>。由于搜索过程中存在剪枝的情况，所以跑不满。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 25;
+
+int n, row[N], line[N], ans[N], tot;
+map&lt;int, int&gt; le, ri; // 记录对角线的占用情况
+
+void dfs(int x)
+{
+    if (x == n + 1) {
+        tot += 1;
+        if (tot &lt;= 3) {
+            for (int i = 1; i &lt;= n; i++)
+                printf("%d ", ans[i]);
+            putchar('\n');
+        }
+    }
+    for (int i = 1; i &lt;= n; i++) { // 枚举 y 坐标
+        if (line[i] == 1 || le[x - i] || ri[x + i]) // 列或对角线被占用，(x,i)不能再放棋子
+            continue;
+        line[i] = le[x - i] = ri[x + i] = 1; // 对占用的列以及对角线打上标记
+        ans[x] = i; // 第 x 行占据了第 i 列
+        dfs(x + 1); // 搜索下一行
+        line[i] = le[x - i] = ri[x + i] = 0; // 回溯，撤销标记
+    }
+}
+
+int main()
+{
+    scanf("%d", &n);
+    dfs(1);
+    printf("%d", tot);
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+
+N = 25
+n = 0
+line = [0] * N
+ans = [0] * N
+tot = 0
+le = {}
+ri = {}
+
+def dfs(x):
+    global tot
+    if x == n + 1:
+        tot += 1
+        if tot &lt;= 3:
+            print(" ".join(map(str, ans[1:n+1])))
+        return
+    
+    for i in range(1, n + 1):  # 枚举 y 坐标
+        if line[i] == 1 or le.get(x - i, 0) or ri.get(x + i, 0):  # 列或对角线被占用
+            continue
+        line[i] = le[x - i] = ri[x + i] = 1  # 标记占用
+        ans[x] = i  # 第 x 行放置在第 i 列
+        dfs(x + 1)  # 递归搜索下一行
+        line[i] = le[x - i] = ri[x + i] = 0  # 回溯撤销标记
+
+def main():
+    global n
+    n = int(input())
+    dfs(1)
+    print(tot)
+
+if __name__ == "__main__":
+    main()
+
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P8604">P8604 危险系数</a></h3>
+<p>图上搜索题。</p>
+<p>容易想到应该枚举当不同的点为断点的情况下，起点和终点是否可达。否，则答案加一。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow></msub></mrow><annotation encoding="application/x-tex">g_{u,v}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">u</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 表示点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u,v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit">u</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">v</span></span></span></span> 是否有一条边连接。</p>
+<p>题目中的图是无向图，为避免搜索进入死循环，设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>i</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">vis_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">i</span><span class="mord"><span class="mord mathit">s</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 记录当前搜索状态下，点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 是否被经过。不允许点被路径经过两次。</p>
+<p>使用搜索判断起点和终点是否联通。原理和前面的例题大致相同，细节实现参考代码。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1005;
+
+int n, m, g[N][N], st, ed, ans, vis[N], flg;
+
+void dfs(int u, int k)
+{
+    if (u == ed) {
+        flg = 1; // 联通标记
+        return;
+    }
+    for (int i = 1; i &lt;= n; i++) { // 枚举下一个去的点
+        if (g[u][i] && i != k && !vis[i]) {
+            vis[i] = 1; // 点 i 已经到达过
+            dfs(i, k);
+            vis[i] = 0; // 回溯
+            if (flg) // 已经找到了联通方案
+                return;
+        }
+    }
+}
+
+int main()
+{
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i &lt;= m; i++) {
+        int x, y;
+        scanf("%d%d", &x, &y);
+        g[x][y] = g[y][x] = 1; // x 和 y 双向可达
+    }
+    scanf("%d%d", &st, &ed);
+    vis[st] = 1;
+    dfs(st, 0); // 判断两点本来是否联通
+    if (!flg) {
+        printf("-1");
+        return 0;
+    }
+    for (int i = 1; i &lt;= n; i++) // 枚举断点
+        if (i != st && i != ed) {
+            flg = 0;
+            dfs(st, i);
+            if (!flg) // i 为断点时起点与终点不连通
+                ans += 1; 
+        }
+    printf("%d", ans);
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+sys.setrecursionlimit(10**6)
+
+N = 1005
+n = m = st = ed = ans = 0
+g = [[0] * N for _ in range(N)]
+vis = [0] * N
+flg = 0
+
+def dfs(u, k):
+    global flg, n, ed, g, vis
+    if u == ed:
+        flg = 1  # 联通标记
+        return
+    for i in range(1, n + 1):  # 枚举下一个去的点
+        if g[u][i] and i != k and not vis[i]:
+            vis[i] = 1  # 点 i 已经到达过
+            dfs(i, k)
+            vis[i] = 0  # 回溯
+            if flg:  # 已经找到了联通方案，提前返回
+                return
+
+def main():
+    global n, m, st, ed, ans, g, vis, flg
+    # 第一行输入：站点数 n 和通道数 m
+    n, m = map(int, input().split())
+    
+    # 读取 m 行边信息
+    for _ in range(m):
+        u, v = map(int, input().split())
+        g[u][v] = g[v][u] = 1  # x 和 y 双向可达
+
+    # 最后一行：查询的两个站点 st 和 ed
+    st, ed = map(int, input().split())
+    
+    # 判断起点和终点是否原本联通
+    vis[st] = 1
+    dfs(st, 0)  # k = 0 表示不移除任何点
+    if not flg:
+        print(-1)
+        return
+    
+    ans = 0
+    # 枚举断点：除了 st 和 ed 之外的每个站点
+    for i in range(1, n + 1):
+        if i == st or i == ed:
+            continue
+        flg = 0
+        vis = [0] * (n + 1)
+        vis[st] = 1
+        dfs(st, i)
+        if not flg:  # 如果移除 i 后起点与终点不连通，则 i 为断点
+            ans += 1
+    print(ans)
+
+if __name__ == "__main__":
+    main()
+
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P1443">P1443 马的遍历</a></h3>
+<p>算法：广度优先搜索（BFS)。</p>
+<p>前置知识——队列：只允许在一端进行插入操作，在另一端进行删除操作的线性表。（前出后进的数组）</p>
+<p>在本题中，先新建一个空队列，再把起点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span> 加入队列。</p>
+<p>每次 BFS 操作，第一步先取出队列最前面的点，并从队列中删除。第二步，枚举出 8 个从当前取出点下一步能到达的点，并将其中的合法点加入队列的尾端。接着重新从队头取出下一个点，重复上述操作，直到队列被取空为止。</p>
+<p><strong>本题适用 BFS 而不是 DFS 的原因在于：</strong> 本题所求为到达各点所需的最小步数，而 DFS 总是容易一条路走到黑，所以需要多次重复试错并比较结果才能得到最优的答案。而 BFS 中，点进入队列的先后，正好对应着最小步数的大小，故仅需较少的搜索次数即可得到答案。</p>
+<p>每个格子只会被访问一次，时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nm)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 405;
+
+int n, m, X, Y, ans[N][N], head = 1, tail,
+    dx[8] = {1, 1, 2, 2, -1, -1, -2, -2}, // 马的8个方向向量
+    dy[8] = {2, -2, 1, -1, 2, -2, 1, -1};
+struct Node {
+    int x, y;
+} q[1000010]; // 队列
+
+void bfs()
+{
+    q[++tail] = (Node){X, Y};
+    ans[X][Y] = 0;
+    while (head &lt;= tail) { // 队列不为空
+        int x = q[head].x, y = q[head++].y;
+        for (int i = 0; i &lt; 8; i++) {
+            int nx = x + dx[i], ny = y + dy[i]; // 下一个点为当前坐标加上方向向量
+            if (nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; m || ans[nx][ny] != -1)
+                continue;
+            ans[nx][ny] = ans[x][y] + 1;
+            q[++tail] = (Node){nx, ny}; // 新的点加入队列
+        }
+    }
+}
+
+int main()
+{
+    scanf("%d%d%d%d", &n, &m, &X, &Y);
+    memset(ans, -1, sizeof(ans));
+    bfs();
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= m; j++) 
+            printf("%d ", ans[i][j]);
+        putchar('\n');
+    }
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">from collections import deque
+
+# 马的8个方向向量
+dx = [1, 1, 2, 2, -1, -1, -2, -2]
+dy = [2, -2, 1, -1, 2, -2, 1, -1]
+
+def bfs(n, m, X, Y):
+    # 初始化结果矩阵，索引从1开始，因此额外开辟一行和一列
+    ans = [[-1] * (m + 1) for _ in range(n + 1)]
+    q = deque()
+    q.append((X, Y))
+    ans[X][Y] = 0
+    while q:
+        x, y = q.popleft()
+        for i in range(8):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx &lt; 1 or nx &gt; n or ny &lt; 1 or ny &gt; m or ans[nx][ny] != -1:
+                continue
+            ans[nx][ny] = ans[x][y] + 1
+            q.append((nx, ny))
+    return ans
+
+def main():
+    n, m, X, Y = map(int, input().split())
+    ans = bfs(n, m, X, Y)
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            print(ans[i][j], end=' ')
+        print()
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P8662">P8662 [蓝桥杯] 全球变暖</a></h3>
+<p>枚举每一个点，如果某点为 <code>#</code> 且没有被遍历过，就以该点为起点，按照上下左右进行 DFS，为联通的陆地打上标记，最后岛屿数加一。</p>
+<p>接着将被淹没的陆地标记为 <code>,</code>。</p>
+<p>重新枚举所有点，如果某点为 <code>#</code> 且没有被遍历过，就以该点为起点，按照上下左右进行 DFS。<code>, </code>可以被遍历，但不能作为起点。每遍历一个连通块就让岛屿数加一。</p>
+<p>答案即为前后两次统计得出的岛屿数之差。</p>
+<p>时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1005;
+
+int n, vis[N][N], ans,
+    dx[4] = {1, -1, 0, 0},
+    dy[4] = {0, 0, 1, -1};
+char a[N][N];
+
+void dfs(int x, int y)
+{
+    vis[x][y] = 1;
+    for (int i = 0; i &lt; 4; i++) {
+        int nx = x + dx[i], ny = y + dy[i];
+        if (nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; n || vis[nx][ny] || a[nx][ny] == '.')
+            continue;
+        dfs(nx, ny);
+    }
+}
+
+int main()
+{
+    scanf("%d", &n);
+    // 读入之前先把边界初始化为海洋，确保 a[0][*]、a[n+1][*]、a[*][0] 和 a[*][n+1] 均为 '.' 
+    for (int i = 0; i &lt;= n+1; i++) {
+        a[i][0] = '.';
+        a[i][n+1] = '.';
+    }
+    for (int j = 0; j &lt;= n+1; j++) {
+        a[0][j] = '.';
+        a[n+1][j] = '.';
+    }
+    
+    for (int i = 1; i &lt;= n; i++)
+        scanf("%s", a[i] + 1);
+    
+    // 第一次 DFS：统计所有岛屿数
+    for (int i = 1; i &lt;= n; i++)
+        for (int j = 1; j &lt;= n; j++)
+            if (!vis[i][j] && a[i][j] == '#') {
+                dfs(i, j);
+                ans++;
+            }
+    
+    // 模拟海水淹没：将原本与海洋相邻的陆地标记为 ','
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= n; j++) {
+            if (a[i][j] == '#') {
+                int flg = 0;
+                for (int k = 0; k &lt; 4; k++) {
+                    if (a[i + dx[k]][j + dy[k]] == '.')
+                        flg = 1;
+                }
+                if (flg)
+                    a[i][j] = ',';
+            }
+        }
+    }
+    
+    memset(vis, 0, sizeof(vis));
+    // 第二次 DFS：统计仍然存在陆地（未被淹没）的岛屿，并从总数中扣除
+    for (int i = 1; i &lt;= n; i++)
+        for (int j = 1; j &lt;= n; j++) {
+            if (a[i][j] == '#' && !vis[i][j]) {
+                dfs(i, j);
+                ans -= 1;
+            }
+        }
+    
+    printf("%d", ans);
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+sys.setrecursionlimit(10**6)
+
+def dfs(x, y):
+    global n, vis, a, dx, dy
+    vis[x][y] = 1
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if nx &lt; 1 or nx &gt; n or ny &lt; 1 or ny &gt; n or vis[nx][ny] or a[nx][ny] == '.':
+            continue
+        dfs(nx, ny)
+
+def main():
+    global n, vis, a, ans, dx, dy
+    input_data = sys.stdin.read().splitlines()
+    if not input_data:
+        return
+    n = int(input_data[0])
+    # 初始化二维数组 a，大小为 (n+2)×(n+2)，边界全设为海洋 '.'
+    a = [['.'] * (n + 2) for _ in range(n + 2)]
+    for i in range(1, n + 1):
+        line = input_data[i].strip()
+        for j in range(1, n + 1):
+            a[i][j] = line[j - 1]
+    
+    vis = [[0] * (n + 2) for _ in range(n + 2)]
+    ans = 0
+
+    # 第一次 DFS：统计所有岛屿数
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            if not vis[i][j] and a[i][j] == '#':
+                dfs(i, j)
+                ans += 1
+
+    # 模拟海水淹没：将原本与海洋相邻的陆地标记为 ','
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            if a[i][j] == '#':
+                flg = 0
+                for k in range(4):
+                    if a[i + dx[k]][j + dy[k]] == '.':
+                        flg = 1
+                if flg:
+                    a[i][j] = ','
+
+    # 重置访问数组
+    vis = [[0] * (n + 2) for _ in range(n + 2)]
+    # 第二次 DFS：统计未被淹没的岛屿，并从总数中扣除
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            if a[i][j] == '#' and not vis[i][j]:
+                dfs(i, j)
+                ans -= 1
+
+    print(ans)
+
+if __name__ == "__main__":
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, 1, -1]
+    n = 0
+    vis = []
+    a = []
+    ans = 0
+    main()
+
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P8658">P8658 [蓝桥杯] 填字母游戏</a></h3>
+<p>注意到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&lt;</mo><mn>2</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">n&lt;20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mrel">&lt;</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span></span></span></span>，考虑使用记忆化搜索。</p>
+<p>什么叫记忆化搜索？就是搜索时我们会多次遇到相同的中间状态，而每次都继续向下搜索的话，效率会很低。因此，我们只要搜过该状态及其衍生的状态一次，并把计算结果存起来，之后再见面的时候就可以直接返回已知的结果了。</p>
+<p>具体到这道题的思路，由于实现细节略多，单纯用文字阐述容易使人迷惑，大家不如顺着代码的逻辑阅读吧 <s>，应该很好理解的</s> 。</p>
+<p>代码解释：</p>
+<ol>
+<li>
+<p><code>dfs(k)</code> 中当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span> 时，代表轮到小明下棋。<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span> 时代表轮到 K 大师。</p>
+</li>
+<li>
+<p><code>str</code> 表示行棋至此的盘面。</p>
+</li>
+<li>
+<p><code>res[str]=0</code> 代表当前盘面的胜负结果还未算出；<code>res[str]=1</code> 代表当前状态小明必败；<code>res[str]=2</code> 代表必和；<code>res[str]=3</code> 代表小明必胜。</p>
+</li>
+<li>
+<p>中间变量 <code>flg</code> 记录的是盘面对于当前行棋方的胜负如何。当前状态搜完之后自动将 <code>flg</code> 更新到 <code>res</code> 中。</p>
+</li>
+<li>
+<p>设初始字符串为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05764em;">S</span></span></span></span>，根据第三点，答案即为 <code>res[S]-2</code>。</p>
+</li>
+<li>
+<p><code>unordered_map</code> 与 <code>map</code> 用法相同，只不过某种情况下效率更高。</p>
+</li>
+</ol>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>T</mi><mo>×</mo><msup><mn>3</mn><mi>n</mi></msup><mo>×</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(T\times 3^n \times n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mbin">×</span><span class="mord"><span class="mord mathrm">3</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">×</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int T, n;
+string str;
+unordered_map&lt;string, int&gt; res;
+
+void dfs(int k)
+{
+    if (res[str]) return; // 当前状态已经搜过了
+    
+    if ((int)str.find("LOL") != -1) { // 在上一手中已经决出胜负
+        res[str] = (k == 1 ? 3 : 1); // 判断胜者
+        return;
+    }
+    
+    if ((int)str.find("*") == -1) { // 平局
+        res[str] = 2;
+        return;
+    }
+    
+    int flg = (k == 1 ? 3 : 1);
+    for (int i = 0; i &lt; n; i++) {
+        if (str[i] != '*') continue;
+        
+        str[i] = 'L'; // 这一手在位置 i 填 L
+        dfs(1 - k);
+        if (k == 0) 
+            flg = max(res[str], flg);
+        else
+            flg = min(res[str], flg);
+        
+        if (flg == 3 && k == 0 || flg == 1 && k == 1) { // 剪枝，判断是否已经得到了最优一手
+            str[i] = '*';
+            res[str] = flg;
+            return;
+        }
+        
+        str[i] = 'O'; // 这一手在位置 i 填 O
+        dfs(1 - k);
+        if (k == 0)
+            flg = max(res[str], flg);
+        else
+            flg = min(res[str], flg);
+        str[i] = '*'; // 回溯
+        
+        if (flg == 3 && k == 0 || flg == 1 && k == 1) { // 剪枝，判断是否已经得到了最优一手
+            str[i] = '*';
+            res[str] = flg;
+            return;
+        }
+        
+    }
+    res[str] = flg;
+}
+
+void solve()
+{
+    res.clear();
+    cin &gt;&gt; str;
+    n = str.size();
+    dfs(0);
+    printf("%d\n", res[str] - 2);
+}
+
+int main()
+{
+    scanf("%d", &T);
+    while (T--) solve();
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+
+# 递归搜索函数
+def dfs(k):
+    global str_list, res, n
+    str_key = "".join(str_list)  # 将列表转换回字符串作为哈希键
+    
+    if str_key in res:  # 当前状态已经搜索过
+        return
+    
+    if "LOL" in str_key:  # 如果已经出现 "LOL"，则游戏结束，判断胜者
+        res[str_key] = 3 if k == 1 else 1
+        return
+    
+    if "*" not in str_key:  # 如果棋盘上没有空位，则平局
+        res[str_key] = 2
+        return
+    
+    flg = 3 if k == 0 else 1  # 先手玩家（0）尽量获胜，后手玩家（1）尽量让先手失败
+    
+    for i in range(n):
+        if str_list[i] != "*":
+            continue
+        
+        # 尝试在 i 位置填入 'L'
+        str_list[i] = 'L'
+        dfs(1 - k)
+        flg = max(res["".join(str_list)], flg) if k == 0 else min(res["".join(str_list)], flg)
+        
+        if (flg == 3 and k == 0) or (flg == 1 and k == 1):  # 剪枝优化，得到最优解
+            str_list[i] = '*'
+            res[str_key] = flg
+            return
+        
+        # 尝试在 i 位置填入 'O'
+        str_list[i] = 'O'
+        dfs(1 - k)
+        flg = max(res["".join(str_list)], flg) if k == 0 else min(res["".join(str_list)], flg)
+        str_list[i] = '*'  # 回溯
+        
+        if (flg == 3 and k == 0) or (flg == 1 and k == 1):  # 剪枝优化
+            str_list[i] = '*'
+            res[str_key] = flg
+            return
+    
+    res[str_key] = flg  # 记录当前状态
+
+def solve():
+    global str_list, res, n
+    res.clear()  # 清空状态记录
+    str_list = list(sys.stdin.readline().strip())  # 读取字符串并转换为列表
+    n = len(str_list)
+    dfs(0)
+    print(res["".join(str_list)] - 2)  # 输出结果
+
+if __name__ == "__main__":
+    T = int(sys.stdin.readline().strip())  # 读取测试用例个数
+    for _ in range(T):
+        res = {}  # 哈希表存储状态
+        solve()
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P10386">P10386 [蓝桥杯] 五子棋对弈</a></h3>
+<p>棋盘上有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mn>5</mn></mrow><annotation encoding="application/x-tex">25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">5</span></span></span></span> 个点，每个点有黑白两种情况，需要搜索的情况共 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mn>2</mn><mn>5</mn></mrow></msup><mo>=</mo><mn>3</mn><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mn>5</mn><mn>4</mn><mo separator="true">,</mo><mn>4</mn><mn>3</mn><mn>2</mn></mrow><annotation encoding="application/x-tex">2^{25}=33,554,432</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span><span class="mord mathrm">5</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">3</span><span class="mord mathrm">3</span><span class="mpunct">,</span><span class="mord mathrm">5</span><span class="mord mathrm">5</span><span class="mord mathrm">4</span><span class="mpunct">,</span><span class="mord mathrm">4</span><span class="mord mathrm">3</span><span class="mord mathrm">2</span></span></span></span> 种。一般对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">10^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">7</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 级别的数据量，C++ 可保证在 1s 左右完成计算。</p>
+<p>所以我们决定先枚举出所有填满棋盘的情况，并判断盘面是否和棋。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">2</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int a[8][8], ans, n = 5;
+
+int check()
+{
+    int sum, tot_1 = 0;
+    for (int i = 1; i &lt;= n; i++) {
+        sum = 0;
+        for (int j = 1; j &lt;= n; j++) {
+            sum += a[i][j]; // 判断行
+            tot_1 += a[i][j]; // 统计白子的数量
+        }
+        if (sum == 5 || sum == 0)
+            return 0;
+    }
+    
+    if (tot_1 != 13) // 白子先下，故必定有13个 
+        return 0;
+    
+    for (int i = 1; i &lt;= n; i++) {
+        sum = 0;
+        for (int j = 1; j &lt;= n; j++) 
+            sum += a[j][i]; // 判断列
+        if (sum == 5 || sum == 0)
+            return 0;
+    }
+
+    sum = 0; 
+    for (int i = 1; i &lt;= n; i++) // 判断第一条对角线
+        sum += a[i][i];
+    if (sum == 5 || sum == 0)
+        return 0;
+
+    sum = 0;
+    for (int i = 1; i &lt;= n; i++) // 判断另一条对角线
+        sum += a[i][6 - i];
+    if (sum == 5 || sum == 0)
+        return 0;
+
+    return 1;
+}
+
+void dfs(int x, int y) {
+    if (x == 6 && y == 1) {
+        ans += check();
+        return;
+    }
+    
+    a[x][y] = 0;
+    dfs(x + (y == 5 ? 1 : 0), (y == 5 ? 1 : y + 1)); // 若 y 小于 5 则向左搜索，否则跳到下一行的开头
+    
+    a[x][y] = 1;
+    dfs(x + (y == 5 ? 1 : 0), (y == 5 ? 1 : y + 1));
+}
+
+int main()
+{
+    dfs(1, 1);
+    printf("%d", ans);
+    return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">n = 5
+# 构造一个 (n+1) x (n+1) 的二维数组，模仿 C++ 中 1 索引的数组
+a = [[0] * (n + 1) for _ in range(n + 1)]
+ans = 0
+
+def check():
+    global a
+    tot_1 = 0
+    # 检查每一行
+    for i in range(1, n + 1):
+        row_sum = 0
+        for j in range(1, n + 1):
+            row_sum += a[i][j]
+            tot_1 += a[i][j]
+        if row_sum == 5 or row_sum == 0:
+            return 0
+
+    # 检查白子数量：白子先下，故必定有 13 个
+    if tot_1 != 13:
+        return 0
+
+    # 检查每一列
+    for i in range(1, n + 1):
+        col_sum = 0
+        for j in range(1, n + 1):
+            col_sum += a[j][i]
+        if col_sum == 5 or col_sum == 0:
+            return 0
+
+    # 检查第一条对角线（主对角线）
+    diag_sum = 0
+    for i in range(1, n + 1):
+        diag_sum += a[i][i]
+    if diag_sum == 5 or diag_sum == 0:
+        return 0
+
+    # 检查另一条对角线（反对角线）
+    anti_diag_sum = 0
+    for i in range(1, n + 1):
+        anti_diag_sum += a[i][n + 1 - i]
+    if anti_diag_sum == 5 or anti_diag_sum == 0:
+        return 0
+
+    return 1
+
+def dfs(x, y):
+    global ans, a
+    # 当遍历到第6行时，说明所有行均已处理
+    if x == n + 1:
+        ans += check()
+        return
+    
+    # 计算下一个位置的坐标：
+    if y == n:
+        next_x = x + 1
+        next_y = 1
+    else:
+        next_x = x
+        next_y = y + 1
+    
+    # 尝试将当前位置设为 0
+    a[x][y] = 0
+    dfs(next_x, next_y)
+    
+    # 尝试将当前位置设为 1
+    a[x][y] = 1
+    dfs(next_x, next_y)
+
+def main():
+    dfs(1, 1)
+    print(ans)
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P9234">P9234 [蓝桥杯] 买瓜</a></h3>
+<p>对于每一个瓜，它们只会落得三种结局：没人要；被切一半后买走；被整个买走。</p>
+<p>因此 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 个瓜总共有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>3</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">3^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.664392em;"></span><span class="strut bottom" style="height:0.664392em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathrm">3</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 个状态。注意到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 最大为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">30</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span><span class="mord mathrm">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>3</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(3^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">3</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span> 的时间复杂度无法通过本题。</p>
+<p>为了优化效率，我们采用折半搜索。即将所有瓜分成 A，B 两组，分别枚举每一组可能出现的瓜的价值，并记录得到这些价值分别所需的最少刀数。</p>
+<p>已知想要价值为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span> 的瓜，枚举 A 组瓜能得到的价值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span></span></span></span>，判断 B 组瓜能否得到价值 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">m-a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mbin">−</span><span class="mord mathit">a</span></span></span></span> 即可。</p>
+<p>搜索状态数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mo>×</mo><msup><mn>3</mn><mrow><mfrac><mrow><mi>n</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></msup></mrow><annotation encoding="application/x-tex">2\times 3^{\frac{n}{2}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8540800000000001em;"></span><span class="strut bottom" style="height:0.9374100000000001em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mbin">×</span><span class="mord"><span class="mord mathrm">3</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，这样时间复杂度就优化为了 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mn>3</mn><mrow><mfrac><mrow><mi>n</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(3^{\frac{n}{2}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8540800000000001em;"></span><span class="strut bottom" style="height:1.1040800000000002em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">3</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord reset-scriptstyle scriptstyle uncramped"><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22142857142857142em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-scriptstyle textstyle uncramped nulldelimiter"></span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>，可以通过本题。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define N 200010
+using namespace std;
+typedef long long ll;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; T f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+int n, m, a[N], ans = 1e9;
+unordered_map&lt;int, int&gt; mp;
+
+inline bool cmp(const int &a, const int &b) {return a &gt; b;}
+
+inline void dfs1(int x, int kni, int sum)
+{
+	if (sum &gt; m || kni &gt;= ans) return;
+	if (sum == m) {
+		ans = kni &lt; ans ? kni : ans;
+		return;
+	}
+	if (x == (n &gt;&gt; 1) + 1) {
+		if (mp.count(sum)) 
+			mp[sum] = mp[sum] &lt; kni ? mp[sum] : kni;
+		else 
+			mp[sum] = kni;
+		return;
+	}
+	dfs1(x + 1, kni + 1, sum + a[x]);
+	dfs1(x + 1, kni, sum);
+	dfs1(x + 1, kni, sum + (a[x] &lt;&lt; 1));
+}
+	
+inline void dfs2(int x, int kni, int sum)
+{
+	if (sum &gt; m || kni &gt;= ans) return;
+	if (sum == m) {
+		ans = ans &lt; kni ? ans : kni;
+		return;
+	}
+	if (x == n + 1) {
+		if (mp.count(m - sum))
+			ans = ans &lt; mp[m - sum] + kni ? ans : mp[m - sum] + kni; 
+		return;
+	}
+	dfs2(x + 1, kni + 1, sum + a[x]);
+	dfs2(x + 1, kni, sum);
+	dfs2(x + 1, kni, sum + (a[x] &lt;&lt; 1));
+}
+
+int main()
+{
+	read(n); read(m);
+	m &lt;&lt;= 1;
+	for (int i = 1; i &lt;= n; i++)
+		read(a[i]);
+	sort(a + 1, a + 1 + n);
+	dfs1(1, 0, 0);
+	dfs2((n &gt;&gt; 1) + 1, 0, 0);
+	if (ans == 1e9) printf("-1");
+	else printf("%d", ans); 
+	return 0;
+}
+</code></pre>
+<pre class="code-block"><code class="language-python">import sys
+sys.setrecursionlimit(10**6)
+
+# 全局变量
+n = 0
+m = 0
+a = []       # 1-indexed 数组，a[0]为哑元
+ans = 10**9  # 初始值取一个较大数
+mp = {}      # 用字典模拟 unordered_map
+
+def dfs1(x, kni, cur_sum):
+    global ans, mp, n, m, a
+    if cur_sum &gt; m or kni &gt;= ans:
+        return
+    if cur_sum == m:
+        ans = min(ans, kni)
+        return
+    if x == (n // 2) + 1:
+        if cur_sum in mp:
+            mp[cur_sum] = min(mp[cur_sum], kni)
+        else:
+            mp[cur_sum] = kni
+        return
+    dfs1(x + 1, kni + 1, cur_sum + a[x])
+    dfs1(x + 1, kni, cur_sum)
+    dfs1(x + 1, kni, cur_sum + a[x] * 2) 
+
+def dfs2(x, kni, cur_sum):
+    global ans, mp, n, m, a
+    if cur_sum &gt; m or kni &gt;= ans:
+        return
+    if cur_sum == m:
+        ans = min(ans, kni)
+        return
+    if x == n + 1:
+        if (m - cur_sum) in mp:
+            ans = min(ans, mp[m - cur_sum] + kni)
+        return
+    dfs2(x + 1, kni + 1, cur_sum + a[x])
+    dfs2(x + 1, kni, cur_sum)
+    dfs2(x + 1, kni, cur_sum + a[x] * 2)
+
+def main():
+    global n, m, a, ans, mp
+    data = sys.stdin.read().split()
+    if not data:
+        return
+    n = int(data[0])
+    m = int(data[1])
+    m *= 2
+    a = [0] * (n + 1)
+    for i in range(1, n + 1):
+        a[i] = int(data[i + 1])
+    # 对 a[1...n] 进行排序
+    a[1:] = sorted(a[1:])
+    dfs1(1, 0, 0)
+    dfs2((n // 2) + 1, 0, 0)
+    if ans == 10**9:
+        print(-1)
+    else:
+        print(ans)
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

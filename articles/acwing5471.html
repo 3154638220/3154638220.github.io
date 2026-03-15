@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.acwing.com/problem/content/5420/ Solution 朴素算法 遍历所有点来选择询问点，每次删点后，暴力更新每个点的 w_{\delta}。 时间复杂度 Omn^2，可通过 CCF 原数据。">
+  <title>【CSP 202312】树上搜索 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">【CSP 202312】树上搜索</h1>
+        <time class="article-date" datetime="2024-08-10">2024-08-10</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.acwing.com/problem/content/5420/">传送门</a></p>
+<h2>Solution</h2>
+<h3>朴素算法</h3>
+<p>遍历所有点来选择询问点，每次删点后，暴力更新每个点的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mrow><mi>δ</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{\delta}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.03785em;">δ</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>。</p>
+<p>时间复杂度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span>，可通过 CCF 原数据。</p>
+<!--more-->
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+
+const ll N = 5010;
+
+ll n, Q, a[N], tot, fa[N], sum[N], TOT, tag[N], b[N], rt, kk, isf[N], pre, lstu;
+vector&lt;ll&gt; g[N];
+
+void dfs(ll u) 
+{
+	sum[u] = a[u];
+	for (ll v : g[u]) {
+		dfs(v);
+		sum[u] += sum[v];
+	}
+}
+
+void del(ll u, ll rt)
+{
+	if (u == rt) return;
+	b[u] = 1;
+	for (ll v : g[u])
+		del(v, rt);
+}
+
+int main()
+{
+	scanf("%lld%lld", &n, &Q);
+	for (int i = 1; i &lt;= n; i++) {
+		scanf("%lld", &a[i]);
+		TOT += a[i];
+	} 
+	for (int i = 2; i &lt;= n; i++) {
+		scanf("%lld", &fa[i]);
+		g[fa[i]].push_back(i);
+	}
+	dfs(1);
+	for (int k = 1; k &lt;= Q; k++) {
+		lstu = 0;
+		rt = 1;
+		tot = TOT;
+		scanf("%lld", &kk);
+		memset(b, 0, sizeof(b));
+		memset(tag, 0, sizeof(tag));
+		memset(isf, 0, sizeof(isf));
+		pre = kk;
+		while (pre) {
+			isf[pre] = 1;
+			pre = fa[pre];
+		} 
+		while (1) {
+			ll minn = 1e16, u = 1, cnt = 0;
+			for (int i = 1; i &lt;= n; i++) {
+				if (b[i]) continue;
+				++cnt;
+				if (minn &gt; abs(tot - (sum[i] - tag[i]) - (sum[i] - tag[i]))) {
+					minn = abs(tot - (sum[i] - tag[i]) - (sum[i] - tag[i]));
+					u = i;
+				}
+			}
+			if (lstu == u || cnt &lt;= 1) break;
+			printf("%lld ", u);
+			lstu = u;
+			if (isf[u]) {
+				del(rt, u);
+				rt = u;
+				tot -= tot - (sum[u] - tag[u]);
+			} else {
+				if (u == kk) break;
+				del(u, 0);
+				tot -= sum[u] - tag[u];
+				pre = fa[u];
+				while (pre) {
+					tag[pre] += sum[u] - tag[u];
+					pre = fa[pre];
+				}
+			}
+		}
+		putchar('\n');
+	}
+	return 0;
+}
+</code></pre>
+<h3>AC算法</h3>
+<p>设所有点的权值和为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">tot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span></span></span></span>，以点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 为根的子树权值和为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，用 <code>set</code> 维护所有点的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">2w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>。</p>
+<p>选择询问点时，用 <code>lower_bound</code> 找出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">2w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">2</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 最接近 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">tot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span></span></span></span> 的前后两个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>i</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">i_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>i</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">i_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">i</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，并比较 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mo>−</mo><mn>2</mn><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">tot-2w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mbin">−</span><span class="mord mathrm">2</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 的大小即可。</p>
+<p>删除一个子树，则将该子树根的所有祖先在 <code>set</code> 中的值逐个更新。当树退化为链状时，复杂度最坏为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><msup><mi>n</mi><mn>2</mn></msup><mi>log</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn^2\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>。但是因为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">w_i\le 10^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.964108em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">≤</span><span class="mord mathrm">1</span><span class="mord"><span class="mord mathrm">0</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">7</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，所以不可能在大数据下出现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 个点全为询问点，且它们组成链的情况。</p>
+<p>被删除的部分要在 <code>set</code> 中逐个清除。</p>
+<p>时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>m</mi><mi>n</mi><mi>log</mi><mi>n</mi><mi>log</mi><mi>w</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(mn\log n \log w)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit">n</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+
+const ll N = 5010;
+
+ll n, Q, a[N], tot, fa[N], sum[N], TOT, rt, kk, isf[N], pre, w[N];
+vector&lt;ll&gt; g[N];
+set&lt;pair&lt;ll, ll&gt; &gt; s;
+
+void dfs(ll u) 
+{
+	sum[u] = a[u];
+	for (ll v : g[u]) {
+		dfs(v);
+		sum[u] += sum[v];
+	}
+}
+
+void del(ll u, ll rt)
+{
+	if (u == rt) return;
+	s.erase(make_pair(w[u], u));
+	for (ll v : g[u])
+		del(v, rt);
+		
+}
+
+ll find()
+{
+	ll wa, ua, wb, ub;
+	auto res = s.lower_bound(make_pair(tot, 0));
+	wa = (*res).first; ua = (*res).second;
+	res--;
+	res = s.lower_bound(make_pair((*res).first, 0));
+	wb = (*res).first; ub = (*res).second; 
+	if (abs(tot - wa) &lt; abs(tot - wb))
+		return ua;
+	else if (abs(tot - wa) &gt; abs(tot - wb))
+		return ub;
+	else
+		return min(ua, ub);
+}
+
+int main()
+{
+	scanf("%lld%lld", &n, &Q);
+	for (int i = 1; i &lt;= n; i++) {
+		scanf("%lld", &a[i]);
+		TOT += a[i];
+	} 
+	for (int i = 2; i &lt;= n; i++) {
+		scanf("%lld", &fa[i]);
+		g[fa[i]].push_back(i);
+	}
+	dfs(1);
+	for (int k = 1; k &lt;= Q; k++) {
+		rt = 1;
+		tot = TOT;
+		scanf("%lld", &kk);
+		memset(isf, 0, sizeof(isf));
+		pre = kk;
+		while (pre) {
+			isf[pre] = 1;
+			pre = fa[pre];
+		} 
+		s.clear();
+		for (int i = 1; i &lt;= n; i++) {
+			w[i] = sum[i] * 2;
+			s.insert(make_pair(w[i], i));
+		}
+		while (s.size() &gt; 1) {
+			ll u = find();
+			printf("%lld ", u);
+			if (isf[u]) {
+				tot = w[u] / 2;
+				del(rt, u);
+				rt = u;
+			} else {
+				tot -= w[u] / 2;
+				del(u, 0);
+				pre = fa[u];
+				while (pre) {
+					if (s.erase(make_pair(w[pre], pre)) == 0)
+						break;
+					w[pre] -= w[u];
+					s.insert(make_pair(w[pre], pre));
+					pre = fa[pre];
+				}
+			}
+		} 
+		putchar('\n');
+	}
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

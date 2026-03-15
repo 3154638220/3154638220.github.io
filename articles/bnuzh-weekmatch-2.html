@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="比赛链接https://www.luogu.com.cn/contest/287471">
+  <title>2025 bnuzh 周赛-2 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">2025 bnuzh 周赛-2</h1>
+        <time class="article-date" datetime="2025-11-03">2025-11-03</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/contest/287471">比赛链接</a></p>
+<!--more-->
+<h2>A 2025 图形</h2>
+<p>Python 大法好</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-python">n, m = map(int, input().split())
+s = "2025"
+for i in range(n):
+    print(s * (m // 4) + s[:m % 4])
+    s = s[1:] + s[:1]
+</code></pre>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main()
+{
+	int h, w;
+	cin &gt;&gt; h &gt;&gt; w;
+	string s = "2025";
+	for (int i = 0; i &lt; h; i++)
+	{
+		int k = i % 4;
+		for (int j = 0; j &lt; w; j++)
+			cout &lt;&lt; s[(k + j) % 4];
+		cout &lt;&lt; endl;
+	}
+	return 0;
+}
+</code></pre>
+<h2>B 迷宫</h2>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+int n, m, map[100][100], t, ans = 0, sx, sy, fx, fy;
+int dx[4] = {0, 1, 0, -1},
+	dy[4] = {1, 0, -1, 0};
+bool p[100][100];
+
+void dfs(int x, int y)
+{
+	
+	if (x == fx && y == fy)
+	{
+		ans++;
+		return;
+	}
+	p[x][y] = true;
+	for (int i = 0; i &lt; 4; i++)
+	{
+		int x1 = x + dx[i], y1 = y + dy[i];
+		if (x1 &gt; 0 && x1 &lt;= n && y1 &gt; 0 && y1 &lt;= m && !p[x1][y1] && !map[x1][y1])
+			dfs(x1, y1);
+	}
+	p[x][y] = false;
+}
+
+int main()
+{
+	int x, y;
+	memset(p, false, sizeof(p));
+	memset(map, 0, sizeof(map));
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; t &gt;&gt; sx &gt;&gt; sy &gt;&gt; fx &gt;&gt; fy;
+	for (int i = 1; i &lt;= t; i++)
+	{
+		cin &gt;&gt; x &gt;&gt; y;
+		map[x][y] = 1;
+	}
+	dfs(sx, sy);
+	cout &lt;&lt; ans &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<h2>C 在哈尔滨指路</h2>
+<h3>Solution</h3>
+<p>使用 C++ 的 <code>map</code> 或 Python 的 <code>defaultdict</code> 将方向映射到数字 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mn>2</mn><mn>3</mn><mn>4</mn></mrow><annotation encoding="application/x-tex">1234</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span><span class="mord mathrm">2</span><span class="mord mathrm">3</span><span class="mord mathrm">4</span></span></span></span> 而非字母上，更容易判断转弯的方向。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int N = 1e4 + 10;
+
+int T, n, tot, st, a[N];
+map&lt;char, int&gt; mp;
+char s[N];
+
+void solve()
+{
+    scanf("%d", &n);
+    mp['N'] = 1; mp['E'] = 2; mp['S'] = 3; mp['W'] = 4;
+    for (int i = 1; i &lt;= n; i++) {
+        cin &gt;&gt; s[i] &gt;&gt; a[i];
+    }
+    cout &lt;&lt; n * 2 - 1 &lt;&lt; ' ' &lt;&lt; s[1] &lt;&lt; endl;
+    for (int i = 1; i &lt;= n; i++) {
+        printf("Z %d\n", a[i]);
+        if (i == n) continue;
+        if (mp[s[i + 1]] == mp[s[i]] + 1 || mp[s[i]] == 4 && mp[s[i + 1]] == 1)
+            printf("R\n");
+        else
+            printf("L\n");
+    }
+}
+
+int main()
+{
+    scanf("%d", &T);
+    while (T--) solve();
+    return 0;
+}
+</code></pre>
+<h2>D 数的划分</h2>
+<h3>Solution</h3>
+<p>逐位往后搜索，枚举每个位置的数，最后判断各位相加是否等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span>。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext><mi mathvariant="normal">d</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">s</mi></mtext><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\text{dfs}(a,b,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="text mord textstyle uncramped"><span class="mord mathrm">d</span><span class="mord mathrm" style="margin-right:0.07778em;">f</span><span class="mord mathrm">s</span></span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">b</span><span class="mpunct">,</span><span class="mord mathit">c</span><span class="mclose">)</span></span></span></span> 表示当前位置为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">a</span></span></span></span>，剩余可分配的数字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">b</span></span></span></span>，还有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">c</span></span></span></span> 个位置未分配。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+int n, k, ans = 0;
+void dfs(int a, int b, int c)
+{
+	if (c == 1)
+	{
+		if (b == 0) ans++;
+		return;
+	}
+	for (int i = a; i &lt;= b / (c - 1); i++)
+		dfs(i, b - i, c - 1);
+}
+int main()
+{
+	cin &gt;&gt; n &gt;&gt; k;
+	for (int i = 1; i &lt;= n / k; i++)
+		dfs(i, n - i, k);
+	cout &lt;&lt; ans &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<h2>E 瞬移</h2>
+<h3>Solution</h3>
+<p>注意到位置状态不超过 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mo>≤</mo><mn>2</mn><mn>0</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">L\le 2000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="base textstyle uncramped"><span class="mord mathit">L</span><span class="mrel">≤</span><span class="mord mathrm">2</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span> 种，考虑使用广度优先搜索（BFS）。</p>
+<p>先枚举计算可移动的距离有哪些。</p>
+<p>搜索中，用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>i</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">vis_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">i</span><span class="mord"><span class="mord mathit">s</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 记录是否已经搜索过位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>。由于使用队列，越快到达的地点必定越快被搜索到。因此 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>i</mi><msub><mi>s</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">vis_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">i</span><span class="mord"><span class="mord mathit">s</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 存在时，可跳过点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span>。</p>
+<p>每个点只可能入队一次，时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mi>L</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2+L)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">n</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">L</span><span class="mclose">)</span></span></span></span>。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-python">import sys
+from collections import defaultdict
+
+input = sys.stdin.readline
+
+if __name__ == '__main__':
+    n, L = map(int, input().split())
+    a = list(map(int, input().split()))
+    vis = defaultdict(int)
+    d = []
+    
+    # 计算可移动的距离
+    for i in range(n):
+        for j in range(n):
+            nxt = (a[i] + a[j]) % L
+            if not vis[nxt] and nxt:
+                d.append(nxt)
+                vis[nxt] = 1
+                
+    # BFS
+    vis = defaultdict(int)
+    que, head, tail, end = [1], 0, 0, 0
+    while head &lt;= tail:
+        u = que[head]
+        head += 1
+        if u == L:
+            end = 1
+            print(vis[u])
+            break
+        for k in d:
+            nxt = (u + k - 1) % L + 1
+            if vis[nxt] or nxt == 1:
+                continue
+            tail += 1
+            que.append(nxt)
+            vis[nxt] = vis[u] + 1
+    if end == 0:
+        print(-1)
+</code></pre>
+<h2>F 贵校是构造王国吗 Ⅰ</h2>
+<h3>Solution</h3>
+<p>注意到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>gcd</mi><mo>(</mo><mi>n</mi><mo separator="true">,</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gcd(n,n+1)=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mop"><span style="margin-right:0.01389em;">g</span>cd</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span>，以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span><span class="mrel">=</span><span class="mord mathrm">4</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">k=8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">=</span><span class="mord mathrm">8</span></span></span></span> 为例，这样阶梯式填写网格一定符合题意：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">第 1 列</th>
+<th style="text-align:center">第 2 列</th>
+<th style="text-align:center">第 3 列</th>
+<th style="text-align:center">第 4 列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>第 1 行</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>第 2 行</strong></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>第 3 行</strong></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>第 4 行</strong></td>
+<td style="text-align:center">8</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">7</td>
+</tr>
+</tbody>
+</table>
+<p>同理可推广到任意 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 的网格上。</p>
+<p>当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>2</mn><mi>n</mi></mrow><annotation encoding="application/x-tex">k&gt;2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">&gt;</span><span class="mord mathrm">2</span><span class="mord mathit">n</span></span></span></span> 时，多出来的数任意填写即可。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+
+const int N = 1e5 + 10;
+
+ll n, m, a[N], ans;
+map&lt;ll, ll&gt; mp;
+
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m;
+    ll x = 1, y = 1;
+    for (int i = 1; i &lt;= (n &lt;&lt; 1) - 1; i++) {
+        printf("%lld %lld\n", x, y);
+        mp[(x - 1) * n + y] = 1;
+        if (x == y) y++;
+        else x++;
+    }
+    printf("%lld %d\n", n, 1);
+    ll p = (n &lt;&lt; 1) + 1;
+    mp[n * (n - 1) + 1] = 1;
+    for (int i = 1; p &lt;= m; i++) {
+        if (mp[i]) continue;
+        y = i % n;
+        if (y == 0) y = n;
+        x = (i - y) / n + 1;
+        printf("%lld %lld\n", x, y);
+        p++;
+    }
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

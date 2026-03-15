@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qnxy - 个人网站">
+  <title>qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">首页</a></li>
+      <li><a href="about.html">关于</a></li>
+      <li><a href="projects.html">项目</a></li>
+      <li><a href="blog.html">文章</a></li>
+      <li><a href="contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <p class="hero-greeting"><span class="prompt">$</span> whoami</p>
+        <h1 class="hero-title"><span class="glow">qnxy</span></h1>
+        <p class="hero-subtitle"><span class="accent">&lt;</span> 开发者 <span class="accent">/</span> 创作者 <span class="accent">&gt;</span></p>
+        <p class="hero-desc">// 技术探索 · 代码创造 · 持续迭代</p>
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary">explore_projects()</a>
+          <a href="about.html" class="btn btn-outline">about_me()</a>
+          <a href="contact.html" class="btn btn-outline">connect()</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">terminal</span>
+          </div>
+          <div class="terminal-body">
+            <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">developer</span> = <span class="code-string">"qnxy"</span>;</div>
+            <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">stack</span> = [<span class="code-string">"JS"</span>, <span class="code-string">"TS"</span>, <span class="code-string">"React"</span>];</div>
+            <div class="code-line"><span class="code-keyword">await</span> <span class="code-var">developer</span>.<span class="code-fn">build</span>(<span class="code-string">"未来"</span>);</div>
+            <div class="code-line"><span class="cursor-blink">_</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

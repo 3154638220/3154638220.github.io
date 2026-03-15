@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="网络流代码合集">
+  <title>网络流模板 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">网络流模板</h1>
+        <time class="article-date" datetime="2024-05-04">2024-05-04</time>
+      </header>
+      <div class="article-body">
+        <p>网络流代码合集</p>
+<!--more-->
+<h3><a href="https://www.luogu.com.cn/problem/P3376">最大流</a></h3>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define maxn 100005
+#define maxm 200005
+using namespace std;
+typedef long long ll;
+
+struct edge {ll nxt, v, w;} e[maxm];
+
+ll n, m, s, t, head[maxn], cnt = 1, dep[maxn], cur[maxn];
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; ll f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+inline void add_edge(ll u, ll v, ll w)
+{
+	e[++cnt].nxt = head[u];
+	head[u] = cnt;
+	e[cnt].v = v;
+	e[cnt].w = w;
+}
+
+inline bool Bfs()
+{
+	queue&lt;ll&gt; Q;
+	memset(dep, 0, sizeof(dep));
+	dep[s] = 1;
+	Q.push(s);
+	while (Q.size())
+	{
+		ll u = Q.front(); Q.pop();
+		cur[u] = head[u];
+		for (rei i = head[u]; i; i = e[i].nxt)
+		{
+			ll v = e[i].v;
+			if (!dep[v] && e[i].w)
+			{
+				dep[v] = dep[u] + 1;
+				Q.push(v);
+			}
+		}
+	}
+	return dep[t] != 0; 
+}
+
+inline ll Dfs(ll u, ll flow)
+{
+	if (u == t) return flow;
+	ll rest = flow;
+	for (rei i = cur[u]; i; i = e[i].nxt)
+	{
+		ll v = e[i].v; cur[u] = i;
+		if (dep[v] == dep[u] + 1 && e[i].w)
+		{
+			ll tmp = Dfs(v, min(e[i].w, rest));
+			e[i].w -= tmp;
+			e[i ^ 1].w += tmp;
+			rest -= tmp;
+			if (!rest) break;
+		}
+	}
+	return flow - rest;
+}
+
+inline ll dinic()
+{
+	ll ans = 0;
+	while (Bfs()) ans += Dfs(s, 1e18);
+	return ans;
+}
+
+int main()
+{
+	read(n); read(m); read(s); read(t);
+	for (rei i = 1; i &lt;= m; i++)
+	{
+		ll u, v, w;
+		read(u); read(v); read(w);
+		add_edge(u, v, w); add_edge(v, u, 0);
+	}
+	printf("%lld", dinic());
+	return 0;
+}
+</code></pre>
+<h3><a href="https://www.luogu.com.cn/problem/P3381">费用流</a></h3>
+<p>在最大流的基础上增加了边权的限制，使用最短路处理，本质基于 <code>Dinic</code>。</p>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define rei register int
+#define N 100010
+using namespace std;
+typedef long long ll;
+const int inf = 1e9;
+
+template &lt;typename T&gt; inline void read(T &x)
+{
+	x = 0; T f = 1; char ch = getchar();
+	while (!isdigit(ch)) {if (ch == '-') f = -f; ch = getchar();}
+	while (isdigit(ch)) {x = x * 10 + ch - 48; ch = getchar();}
+	x *= f;
+}
+
+int n, m, st, ed, head[N], edge_cnt = 1, incf[N], dis[N], pre[N], vis[N], maxflow, mincost;
+struct edge {int nxt, v, w, c;} e[N &lt;&lt; 1];
+
+inline void add_edge(int u, int v, int w, int c) {e[++edge_cnt].nxt = head[u]; head[u] = edge_cnt; e[edge_cnt].v = v; e[edge_cnt].w = w; e[edge_cnt].c = c;}
+
+inline bool SPFA()
+{
+	queue&lt;int&gt; q;
+	memset(dis, 0x3f, sizeof(dis));
+	memset(vis, 0, sizeof(vis));
+	dis[st] = 0; q.push(st); vis[st] = 1; incf[st] = inf;
+	while (!q.empty())
+	{
+		int u = q.front(); q.pop();
+		vis[u] = 0;
+		for (rei i = head[u]; i; i = e[i].nxt)
+		{
+			int v = e[i].v;
+			if (dis[u] + e[i].c &lt; dis[v] && e[i].w)
+			{
+				dis[v] = dis[u] + e[i].c;
+				incf[v] = min(incf[u], e[i].w);
+				pre[v] = i;
+				if (!vis[v]) q.push(v), vis[v] = 1;
+			}
+		}
+	}
+	return dis[ed] != 1061109567;
+}
+
+inline void MCMF()
+{
+	while (SPFA())
+	{
+		int x = ed;
+		maxflow += incf[ed];
+		mincost += dis[ed] * incf[ed];
+		int i;
+		while (x != st)
+		{
+			i = pre[x];
+			e[i].w -= incf[ed];
+			e[i ^ 1].w += incf[ed];
+			x = e[i ^ 1].v;
+		}
+	}
+}
+
+int main()
+{
+	read(n); read(m); read(st); read(ed);
+	for (rei i = 1; i &lt;= m; i++)
+	{
+		int u, v, c, w; read(u); read(v); read(w); read(c);
+		add_edge(u, v, w, c); add_edge(v, u, 0, -c);
+	}
+	MCMF();
+	printf("%d %d", maxflow, mincost);
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

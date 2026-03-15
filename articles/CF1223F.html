@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.luogu.com.cn/problem/CF1223F Solution 从 1 到 n 枚举数字，对于当前数字，若与栈顶元素相同，则弹出栈顶元素，否则压入当前数字。随后将当前栈的状态通过哈希映射到 map 数组中。map 数组负责统计该状态出现的次数。">
+  <title>CF1223F Stack Exterminable Arrays - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF1223F Stack Exterminable Arrays</h1>
+        <time class="article-date" datetime="2024-07-11">2024-07-11</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF1223F">传送门</a></p>
+<h2>Solution</h2>
+<p>从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">n</span></span></span></span> 枚举数字，对于当前数字，若与栈顶元素相同，则弹出栈顶元素，否则压入当前数字。随后将当前栈的状态通过哈希映射到 map 数组中。<strong>map 数组负责统计该状态出现的次数</strong>。</p>
+<!--more-->
+<p>若枚举到位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 时栈的状态相同，则说明序列 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>j</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[j+1,i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mbin">+</span><span class="mord mathrm">1</span><span class="mpunct">,</span><span class="mord mathit">i</span><span class="mclose">]</span></span></span></span> 是可消除的。因此以 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">i</span></span></span></span> 为结尾的可消除序列的数量就是合法的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span> 的数量。</p>
+<p>本题采用双哈希防止冲突。答案需要开 long long。</p>
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+
+const ll N = 5e5 + 10, mod = 1e9 + 7;
+
+ll ba[N], bb[N], n, ha, hb, ans, T;
+map&lt;pair&lt;ll, ll&gt;, ll&gt; mp;
+stack&lt;ll&gt; st;
+
+void solve()
+{
+	scanf("%lld", &n);
+	ha = hb = ans = 0;
+	mp.clear();
+	mp[make_pair(ha, hb)]++;
+	for (int i = 1; i &lt;= n; i++) {
+		ll x;
+		scanf("%lld", &x);
+		if (st.size() && st.top() == x) {
+			ha = (ha - x * ba[st.size()] % mod + mod) % mod;
+			hb = (hb - x * bb[st.size()] % mod + mod) % mod;
+			st.pop();
+		} else {
+			st.push(x);
+			ha = (ha + x * ba[st.size()] % mod + mod) % mod;
+			hb = (hb + x * bb[st.size()] % mod + mod) % mod;
+		}
+		ans += mp[make_pair(ha, hb)];
+		mp[make_pair(ha, hb)]++;
+	}
+	printf("%lld\n", ans);
+	while (st.size()) st.pop();
+}
+
+int main()
+{
+	scanf("%lld", &T);
+	ba[0] = bb[0] = 1;
+	for (int i = 1; i &lt;= 3e5; i++)
+		ba[i] = ba[i - 1] * 127 % mod;
+	for (int i = 1; i &lt;= 3e5; i++)
+		bb[i] = bb[i - 1] * 129 % mod;
+	while (T--) solve();
+	return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

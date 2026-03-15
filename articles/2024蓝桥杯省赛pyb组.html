@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="题目传送门https://www.lanqiao.cn/paper/4405/result/ A 穿越时空之门 Solution 枚举，按题意暴力计算即可。">
+  <title>2024 蓝桥杯省赛 python B组 解题报告 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">2024 蓝桥杯省赛 python B组 解题报告</h1>
+        <time class="article-date" datetime="2024-10-26">2024-10-26</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.lanqiao.cn/paper/4405/result/">题目传送门</a></p>
+<h2>A 穿越时空之门</h2>
+<h3>Solution</h3>
+<p>枚举，按题意暴力计算即可。</p>
+<!--more-->
+<h3>Code</h3>
+<pre class="code-block"><code class="language-python">ans = 0
+for i in range(1, 2025):
+    suma = sumb = 0
+    num = i
+    while num:
+        suma += num & 1
+        num &gt;&gt;= 1
+    num = i
+    while num:
+        sumb += num % 4
+        num //= 4
+    if suma == sumb:
+        ans += 1
+print(ans)
+</code></pre>
+<h2>B 数字串个数</h2>
+<h3>Solution</h3>
+<p>容斥定理。数字总数 - 不含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span></span></span></span> 的数字个数 - 不含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">7</span></span></span></span> 的数字个数 + 不含 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">3</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">7</span></span></span></span> 的数字个数。</p>
+<p>由乘法原理易得答案，使用快速幂进行优化。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-python">mod = 10 ** 9 + 7
+
+def fst(a, b):
+    res = 1
+    while b:
+        if b & 1:
+            res = res * a % mod
+        a = a * a % mod
+        b &gt;&gt;= 1
+    return res
+
+print((fst(9, 10000) + fst(7, 10000) - 2 * fst(8, 10000) + 10 * mod) % mod)
+</code></pre>
+<h2>C 连连看</h2>
+<h3>Solution</h3>
+<p>注意到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>A</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>≤</mo><mn>1</mn><mn>0</mn><mn>0</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">A_{i, j} \le 1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">A</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">≤</span><span class="mord mathrm">1</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span><span class="mord mathrm">0</span></span></span></span>，考虑枚举矩阵的所有斜线，然后开桶记录元素的出现次数。</p>
+<h3>Code</h3>
+<pre class="code-block"><code class="language-python">N = 1005
+a = [[0 for _ in range(N)] for _ in range(N)]
+vis = [[0 for _ in range(N)] for _ in range(N)]
+d = [[1, 1],
+     [1, -1],
+     [-1, -1]]
+ans = 0
+
+
+if __name__ == '__main__':
+
+    n, m = map(int, input().split())
+    for i in range(n):
+        a[i] = list(map(int, input().split()))
+    
+    for j in range(m): # 以上边界为起点
+        for k in range(2):
+            f = [0 for _ in range(N)]
+            x, y = 0, j
+            f[a[x][y]] = 1
+            x += d[k][0]
+            y += d[k][1]
+            while 0 &lt;= x &lt; n and 0 &lt;= y &lt; m:
+                ans += f[a[x][y]]
+                f[a[x][y]] += 1
+                x += d[k][0]
+                y += d[k][1]
+            vis[x - d[0][k]][y - d[1][k]] += 1
+            
+    for i in range(1, n): # 以右边界为起点
+        for k in range(1, 3):
+            if vis[i][m - 1] == 1 and k == 2:
+                break
+            f = [0 for _ in range(N)]
+            x, y = i, m - 1
+            f[a[x][y]] = 1
+            x += d[k][0]
+            y += d[k][1]
+            while 0 &lt;= x &lt; n and 0 &lt;= y &lt; m:
+                ans += f[a[x][y]]
+                f[a[x][y]] += 1
+                x += d[k][0]
+                y += d[k][1]
+                
+    for i in range(min(n, m) - 1): # 以下边界为起点
+        k = 3
+        f = [0 for _ in range(N)]
+        x, y = i, m - 1
+        f[a[x][y]] = 1
+        x += d[k][0]
+        y += d[k][1]
+        while 0 &lt;= x &lt; n and 0 &lt;= y &lt; m:
+            ans += f[a[x][y]]
+            f[a[x][y]] += 1
+            x += d[k][0]
+            y += d[k][1]
+            
+    print(ans * 2)
+
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

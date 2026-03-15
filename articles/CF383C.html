@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.luogu.com.cn/problem/CF383C Solution 一棵子树中的所有点的 dfs 序必定连续，因此先 dfs 求出每个点的 dfs 序和深度，以及该子树的点的 dfs 序的左右边界。">
+  <title>CF383C Propagating tree - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF383C Propagating tree</h1>
+        <time class="article-date" datetime="2024-09-03">2024-09-03</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF383C">传送门</a></p>
+<h2>Solution</h2>
+<p>一棵子树中的所有点的 dfs 序必定连续，因此先 dfs 求出每个点的 dfs 序和深度，以及该子树的点的 dfs 序的左右边界。</p>
+<!--more-->
+<p>然后就可以以 dfs 序为序列，建立线段树维护。当 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 是线段树的非叶节点时，其充当 lazy tag 的作用。从 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> pushdown 到叶节点时，根据叶节点对应树中节点的深度奇偶性，决定将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 加或减到叶节点上。若 pushdown 到非叶节点，则该子节点直接加上 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 并将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 清零。</p>
+<p>根据上述规则，执行操作 1 时，根据子树根节点的深度奇偶性决定将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 还是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>v</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">-val</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord">−</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 加到线段树对应区间上。</p>
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define ls k&lt;&lt;1
+#define rs k&lt;&lt;1|1
+using namespace std;
+typedef long long ll;
+
+const ll N = 2e5 + 10;
+
+ll n, m, L[N], dfn_cnt, a[N], R[N], siz[N], dep[N], mp[N];
+struct Node {
+    ll l, r, sum, siz;
+} T[N &lt;&lt; 2];
+vector&lt;ll&gt; g[N];
+
+void dfs(ll u, ll pre)
+{
+    dep[u] = dep[pre] + 1;
+    L[u] = ++dfn_cnt;
+    siz[u] = 1;
+    for (ll v : g[u]) {
+        if (v == pre) continue;
+        dfs(v, u);
+        siz[u] += siz[v];
+    }
+    R[u] = dfn_cnt;
+}
+
+void build(ll k, ll l, ll r)
+{
+    T[k].l = l; T[k].r = r; T[k].siz = r - l + 1;
+    if (l == r) {
+        T[k].sum = a[mp[l]];
+        return;
+    }
+    ll mid = (l + r) &gt;&gt; 1;
+    build(ls, l, mid);
+    build(rs, mid + 1, r);
+}
+
+void push_down(ll k) 
+{
+    if (T[ls].siz == 1) {
+        if (dep[mp[T[ls].l]] & 1)
+            T[ls].sum += T[k].sum;
+        else
+            T[ls].sum -= T[k].sum;
+    } else
+        T[ls].sum += T[k].sum;
+    if (T[rs].siz == 1) {
+        if (dep[mp[T[rs].l]] & 1)
+            T[rs].sum += T[k].sum;
+        else
+            T[rs].sum -= T[k].sum;
+    } else
+        T[rs].sum += T[k].sum;
+    T[k].sum = 0;
+}
+
+void modify(ll k, ll x, ll y, ll z)
+{
+    if (x &lt;= T[k].l && T[k].r &lt;= y) {
+        if (T[k].siz &gt; 1)
+            T[k].sum += z;
+        else {
+            if (dep[mp[T[k].l]] & 1)
+                T[k].sum += z;
+            else
+                T[k].sum -= z;
+        }
+        return;
+    }
+    ll mid = (T[k].l + T[k].r) &gt;&gt; 1;
+    push_down(k);
+    if (x &lt;= mid) modify(ls, x, y, z);
+    if (mid &lt; y) modify(rs, x, y, z);
+}
+
+ll query(ll k, ll x)
+{
+    if (T[k].l == T[k].r && T[k].l == x)
+        return T[k].sum;
+    push_down(k);
+    ll mid = (T[k].l + T[k].r) &gt;&gt; 1;
+    if (x &lt;= mid) return query(ls, x);
+    else return query(rs, x);
+}
+
+int main()
+{
+    scanf("%lld%lld", &n, &m);
+    for (int i = 1; i &lt;= n; i++)
+        scanf("%lld", &a[i]);
+    for (int i = 1; i &lt; n; i++) {
+        ll u, v;
+        scanf("%lld%lld", &u, &v);
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    dfs(1, 0);
+    for (int i = 1; i &lt;= n; i++)
+        mp[L[i]] = i;
+    build(1, 1, n);
+    while (m--) {
+        ll opt, x, y;
+        scanf("%lld%lld", &opt, &x);
+        if (opt == 1) {
+            scanf("%lld", &y);
+            if (dep[x] & 1)
+                modify(1, L[x], R[x], y);
+            else
+                modify(1, L[x], R[x], -y);
+        } else 
+            printf("%lld\n", query(1, L[x]));
+    }
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

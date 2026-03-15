@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="传送门https://www.luogu.com.cn/problem/CF438D Solution 设 m=n\bmod p，那么一定有 m\le \dfrac{n}{2}。因此每个点最多经过 \log a_i 次取余就会变成 1。">
+  <title>CF438D The Child and Sequence - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/katex.min.css">
+  <link rel="stylesheet" href="../vendor/highlight.min.css">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="../index.html">首页</a></li>
+      <li><a href="../about.html">关于</a></li>
+      <li><a href="../projects.html">项目</a></li>
+      <li><a href="../blog.html" class="active">文章</a></li>
+      <li><a href="../contact.html">联系</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main>
+    <article class="section article-page">
+      <header class="article-header">
+        <h1 class="article-title">CF438D The Child and Sequence</h1>
+        <time class="article-date" datetime="2024-09-03">2024-09-03</time>
+      </header>
+      <div class="article-body">
+        <p><a href="https://www.luogu.com.cn/problem/CF438D">传送门</a></p>
+<h2>Solution</h2>
+<p>设 m=n\bmod p，那么一定有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>≤</mo><mfrac><mrow><mi>n</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">m\le \dfrac{n}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.10756em;"></span><span class="strut bottom" style="height:1.7935600000000003em;vertical-align:-0.686em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mrel">≤</span><span class="mord reset-textstyle displaystyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.686em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle cramped"><span class="mord textstyle cramped"><span class="mord mathrm">2</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.677em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>。因此每个点最多经过 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\log a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 次取余就会变成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">1</span></span></span></span>。</p>
+<!--more-->
+<p>线段树维护序列区间最大值与区间和，当二分到某最大值小于模数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span> 的区间，直接返回。否则一直向下至叶节点暴力取余即可。</p>
+<h2>Code</h2>
+<pre class="code-block"><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define ls k&lt;&lt;1
+#define rs k&lt;&lt;1|1
+using namespace std;
+typedef long long ll;
+
+const ll N = 1e5 + 10;
+
+ll n, m, a[N];
+struct Node {
+    ll l, r, maxn, sum;
+} T[N &lt;&lt; 2];
+
+void push_up(ll k)
+{
+    T[k].maxn = max(T[ls].maxn, T[rs].maxn);
+    T[k].sum = T[ls].sum + T[rs].sum;
+}
+
+void build(ll k, ll l, ll r)
+{
+    T[k].l = l; T[k].r = r;
+    if (l == r) {
+        T[k].maxn = T[k].sum = a[l];
+        return;
+    }
+    ll mid = (l + r) &gt;&gt; 1;
+    build(ls, l, mid);
+    build(rs, mid + 1, r);
+    push_up(k);
+}
+
+void modify(ll k, ll x, ll y, ll z)
+{
+    if (T[k].maxn &lt; z) return;
+    if (T[k].l == T[k].r) {
+        T[k].maxn = T[k].sum = (T[k].sum % z);
+        return;
+    }
+    ll mid = (T[k].l + T[k].r) &gt;&gt; 1;
+    if (x &lt;= mid) modify(ls, x, y, z);
+    if (mid &lt; y) modify(rs, x, y, z);
+    push_up(k);
+}
+
+void change(ll k, ll x, ll z)
+{
+    if (T[k].l == T[k].r && T[k].l == x) {
+        T[k].maxn = T[k].sum = z;
+        return;
+    }
+    ll mid = (T[k].l + T[k].r) &gt;&gt; 1;
+    if (x &lt;= mid) change(ls, x, z);
+    if (mid &lt; x) change(rs, x, z);
+    push_up(k);
+}
+
+ll query(ll k, ll x, ll y)
+{
+    if (x &lt;= T[k].l && T[k].r &lt;= y) 
+        return T[k].sum;
+    ll mid = (T[k].l + T[k].r) &gt;&gt; 1, res = 0;
+    if (x &lt;= mid) res += query(ls, x, y);
+    if (mid &lt; y) res += query(rs, x, y);
+    return res;
+}
+
+int main()
+{
+    scanf("%lld%lld", &n, &m);
+    for (int i = 1; i &lt;= n; i++)
+        scanf("%lld", &a[i]);
+    build(1, 1, n);
+    while (m--) {
+        ll opt, x, y, z;
+        scanf("%lld%lld%lld", &opt, &x, &y);
+        if (opt == 1)
+            printf("%lld\n", query(1, x, y));
+        else if (opt == 2) {
+            scanf("%lld", &z);
+            modify(1, x, y, z);
+        } else
+            change(1, x, y);
+    }
+    return 0;
+}
+</code></pre>
+
+      </div>
+      <footer class="article-footer">
+        <a href="../blog.html" class="btn btn-outline">← 返回文章列表</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · built with &lt;code&gt;</p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
