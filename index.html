@@ -16,11 +16,12 @@
   <nav class="navbar">
     <div class="nav-brand"><a href="index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">首页</a></li>
+      <li><a href="index.html">首页</a></li>
       <li><a href="about.html">关于</a></li>
       <li><a href="projects.html">项目</a></li>
       <li><a href="blog.html">文章</a></li>
       <li><a href="contact.html">联系</a></li>
+      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
     </ul>
     <button class="nav-toggle" aria-label="菜单">
       <span></span>
@@ -50,11 +51,11 @@
             <span class="terminal-dot"></span>
             <span class="terminal-title">terminal</span>
           </div>
-          <div class="terminal-body">
+          <div class="terminal-body" id="terminal-body">
             <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">developer</span> = <span class="code-string">"qnxy"</span>;</div>
             <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">stack</span> = [<span class="code-string">"JS"</span>, <span class="code-string">"TS"</span>, <span class="code-string">"React"</span>];</div>
             <div class="code-line"><span class="code-keyword">await</span> <span class="code-var">developer</span>.<span class="code-fn">build</span>(<span class="code-string">"未来"</span>);</div>
-            <div class="code-line"><span class="cursor-blink">_</span></div>
+            <div class="code-line code-line-dynamic"><span class="cursor-blink">_</span></div>
           </div>
         </div>
       </div>

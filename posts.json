@@ -6,7 +6,8 @@
     "htmlFile": "bnuzh-weekmatch-10.html",
     "excerpt": "BNUZH-ACM 周赛 Round 10 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/309684",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 7
   },
   {
     "title": "bnuzh-weekmatch-9",
@@ -15,7 +16,8 @@
     "htmlFile": "bnuzh-weekmatch-9.html",
     "excerpt": "BNUZH-ACM 周赛 Round 9 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/307236",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 12
   },
   {
     "title": "bnuzh_weekmatch_7",
@@ -24,7 +26,8 @@
     "htmlFile": "bnuzh-weekmatch-7.html",
     "excerpt": "BNUZH-ACM 周赛 Round 7 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/295792problems",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 4
   },
   {
     "title": "2025 bnuzh 周赛-6",
@@ -33,7 +36,8 @@
     "htmlFile": "bnuzh-weekmatch-6.html",
     "excerpt": "BNUZH-ACM 周赛 Round 6 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/294160",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 15
   },
   {
     "title": "bnuzh 2025 周赛-5",
@@ -42,7 +46,8 @@
     "htmlFile": "bnuzh-weekmatch-5.html",
     "excerpt": "BNUZH-ACM 周赛 Round 5 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/292476",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 14
   },
   {
     "title": "2025 bnuzh 周赛-4",
@@ -51,7 +56,8 @@
     "htmlFile": "bnuzh-weekmatch-4.html",
     "excerpt": "BNUZH-ACM 周赛 Round 4 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/290567",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 14
   },
   {
     "title": "2025 bnuzh 周赛-3",
@@ -60,7 +66,8 @@
     "htmlFile": "bnuzh-weekmatch-3.html",
     "excerpt": "BNUZH-ACM 周赛 Round 3 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/289012problems",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 8
   },
   {
     "title": "2025 bnuzh 周赛-2",
@@ -69,7 +76,8 @@
     "htmlFile": "bnuzh-weekmatch-2.html",
     "excerpt": "比赛链接https://www.luogu.com.cn/contest/287471",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 7
   },
   {
     "title": "2025 bnuzh 周赛-1",
@@ -78,7 +86,8 @@
     "htmlFile": "bnuzh-weekmatch-1.html",
     "excerpt": "BNUZH-ACM 周赛 Round 1 - 洛谷 | 计算机科学教育新生态https://www.luogu.com.cn/contest/282997problems",
     "tags": [],
-    "categories": ""
+    "categories": "",
+    "readingMins": 4
   },
   {
     "title": "第十五届蓝桥杯国赛 Python B组 解题报告",
@@ -89,7 +98,8 @@
     "tags": [
       "蓝桥杯"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 12
   },
   {
     "title": "概率论 笔记",
@@ -101,7 +111,8 @@
       "数学",
       "概率论"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 3
   },
   {
     "title": "BNU Zhuhai 25春 实变函数期中考试",
@@ -113,7 +124,8 @@
       "数学",
       "原题"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 12
   },
   {
     "title": "第十四届蓝桥杯国赛 Python A组 解题报告",
@@ -125,7 +137,8 @@
       "蓝桥杯",
       "解题报告"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 11
   },
   {
     "title": "2023 蓝桥杯省赛 Python A组 解题报告",
@@ -136,7 +149,8 @@
     "tags": [
       "蓝桥杯"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 14
   },
   {
     "title": "第二讲：搜索与优化技巧",
@@ -148,7 +162,8 @@
       "搜索",
       "入门"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 32
   },
   {
     "title": "2024 蓝桥杯省赛 python B组 解题报告",
@@ -160,7 +175,8 @@
       "蓝桥杯",
       "解题报告"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "2024 蓝桥杯省赛 python A组 解题报告",
@@ -172,7 +188,8 @@
       "蓝桥杯",
       "解题报告"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 11
   },
   {
     "title": "CF2001D Longest Max Min Subsequence",
@@ -184,7 +201,8 @@
       "优先队列",
       "构造"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF837D Round Subset",
@@ -196,7 +214,8 @@
       "dp",
       "背包"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF372C Watching Fireworks is Fun",
@@ -208,7 +227,8 @@
       "dp",
       "单调队列"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF1187E Tree Painting",
@@ -220,7 +240,8 @@
       "dp",
       "换根dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF208E Blood Cousins",
@@ -231,7 +252,8 @@
     "tags": [
       "树上启发式合并"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF600E Lomsat gelral",
@@ -242,7 +264,8 @@
     "tags": [
       "树上启发式合并"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "线性基",
@@ -253,7 +276,8 @@
     "tags": [
       "线性基"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 2
   },
   {
     "title": "CCPC2024网络赛 E 随机过程",
@@ -264,7 +288,8 @@
     "tags": [
       "期望"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CCPC2024网络赛 D 编码器-解码器",
@@ -276,7 +301,8 @@
       "dp",
       "区间dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF767C Garland",
@@ -288,7 +314,8 @@
       "dp",
       "树形dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF337D Book of Evil",
@@ -300,7 +327,8 @@
       "dp",
       "树形dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF1132F Clear the String",
@@ -312,7 +340,8 @@
       "dp",
       "区间dp"
     ],
-    "categories": ""
+    "categories": "",
+    "readingMins": 2
   },
   {
     "title": "CF383C Propagating tree",
@@ -323,7 +352,8 @@
     "tags": [
       "线段树"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF432D Prefixes and Suffixes",
@@ -335,7 +365,8 @@
       "exkmp",
       "树状数组"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF438D The Child and Sequence",
@@ -347,7 +378,8 @@
       "线段树",
       "势能线段树"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF2B The least round way",
@@ -358,7 +390,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF920F SUM and REPLACE",
@@ -370,7 +403,8 @@
       "树状数组",
       "并查集"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "luoguP2391 白雪皑皑",
@@ -381,7 +415,8 @@
     "tags": [
       "链表"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "UVA1316 Supermarket",
@@ -392,7 +427,8 @@
     "tags": [
       "优先队列"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF1200E Compress Words",
@@ -403,7 +439,8 @@
     "tags": [
       "KMP"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF242E XOR on Segment",
@@ -414,7 +451,8 @@
     "tags": [
       "线段树"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF2003D2 Turtle and a MEX Problem (Hard Version)",
@@ -427,7 +465,8 @@
       "拓扑排序",
       "图论"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF1627D Not Adding",
@@ -438,7 +477,8 @@
     "tags": [
       "数论"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF19B Checkout Assistant",
@@ -449,7 +489,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF126B Password",
@@ -461,7 +502,8 @@
       "kmp",
       "exkmp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "luoguP10894 虚树",
@@ -473,7 +515,8 @@
       "dp",
       "exgcd"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF2001C Guess The Tree",
@@ -484,7 +527,8 @@
     "tags": [
       "交互题"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "luoguP10893 城市化发展委员会",
@@ -495,7 +539,8 @@
     "tags": [
       "数论"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "ABC367E Permute K times",
@@ -506,7 +551,8 @@
     "tags": [
       "倍增"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "ABC367F Rearrange Query",
@@ -517,7 +563,8 @@
     "tags": [
       "随机化"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "ABC367D Pedometer",
@@ -528,7 +575,8 @@
     "tags": [
       "前缀和"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF1998C Perform Operations to Maximize Score",
@@ -539,7 +587,8 @@
     "tags": [
       "二分答案"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "HDU7523 cats 的 k-xor",
@@ -550,7 +599,8 @@
     "tags": [
       "数论"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "二元一次不定方程（exgcd）",
@@ -562,7 +612,8 @@
       "数论",
       "exgcd"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 6
   },
   {
     "title": "ABC366F Maximum Composition",
@@ -573,7 +624,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "HDU7528 cats 的电脑中毒",
@@ -584,7 +636,8 @@
     "tags": [
       "贪心"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "【CSP 202312】树上搜索",
@@ -596,7 +649,8 @@
       "set",
       "二分"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 6
   },
   {
     "title": "CF1997F Chips on a Line",
@@ -607,7 +661,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF1993D Med-imize",
@@ -619,7 +674,8 @@
       "dp",
       "二分答案"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "【原神】 胡芙夜钟",
@@ -632,7 +688,8 @@
       "胡桃",
       "深渊"
     ],
-    "categories": "游戏"
+    "categories": "游戏",
+    "readingMins": 2
   },
   {
     "title": "ARC181C Row and Column Order",
@@ -643,7 +700,8 @@
     "tags": [
       "构造"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "ARC181D Prefix Bubble Sort",
@@ -656,7 +714,8 @@
       "逆序对",
       "优先队列"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "questions_resource",
@@ -665,7 +724,8 @@
     "htmlFile": "question-resource.html",
     "excerpt": "橙题 Collatz Conjecture - 洛谷 | 计算机科学教育新生态 luogu.com.cnhttps://www.luogu.com.cn/problem/CF1982B 黄题 XOUR - 洛谷 | 计算机科学教育新生态 luogu.com.cnhttps://www.luogu.com.cn/problem/CF1971G Boring Day - 洛谷 | 计算机科学教育新生态...",
     "tags": [],
-    "categories": "加密文章"
+    "categories": "加密文章",
+    "readingMins": 1
   },
   {
     "title": "ABC362E Count Arithmetic Subsequences",
@@ -676,7 +736,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF1223F Stack Exterminable Arrays",
@@ -687,7 +748,8 @@
     "tags": [
       "哈希"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF1982D Beauty of the mountains",
@@ -699,7 +761,8 @@
       "数论",
       "前缀和"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF1989D Smithing Skill",
@@ -710,7 +773,8 @@
     "tags": [
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "CF1982C Boring Day",
@@ -722,7 +786,8 @@
       "dp",
       "双指针"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "CF1986E Beautiful Array",
@@ -735,7 +800,8 @@
       "前缀和",
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "CF1986F Non-academic Problem",
@@ -748,7 +814,8 @@
       "割点和桥",
       "图论"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "KMP",
@@ -759,7 +826,8 @@
     "tags": [
       "KMP"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 2
   },
   {
     "title": "USACO2.3 最长前缀 Longest Prefix",
@@ -772,7 +840,8 @@
       "字符串",
       "dp"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 3
   },
   {
     "title": "Set 和 muitiset",
@@ -785,7 +854,8 @@
       "set",
       "multiset"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 2
   },
   {
     "title": "题解 CF1618G Trader Problem",
@@ -796,7 +866,8 @@
     "tags": [
       "并查集"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "题解 CF1971H ±1",
@@ -807,7 +878,8 @@
     "tags": [
       "2-SAT"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "2-SAT",
@@ -819,7 +891,8 @@
       "2-SAT",
       "Tarjan"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 4
   },
   {
     "title": "题解 CF1971G XOUR",
@@ -831,7 +904,8 @@
       "位运算",
       "STL"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "【蓝桥杯 2022 国 A】 最大公约数",
@@ -845,7 +919,8 @@
       "线段树",
       "二分答案"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 4
   },
   {
     "title": "题解 [蓝桥杯 2022 国 A] 选素数",
@@ -856,7 +931,8 @@
     "tags": [
       "线性筛"
     ],
-    "categories": "题解"
+    "categories": "题解",
+    "readingMins": 2
   },
   {
     "title": "质数筛法",
@@ -868,7 +944,8 @@
       "数论",
       "质数筛法"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 2
   },
   {
     "title": "康托展开",
@@ -881,7 +958,8 @@
       "排列组合",
       "树状数组"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 4
   },
   {
     "title": "错排问题",
@@ -892,7 +970,8 @@
     "tags": [
       "排列组合"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 1
   },
   {
     "title": "Method of Four Russians",
@@ -905,7 +984,8 @@
       "st表",
       "RMQ"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 10
   },
   {
     "title": "树状数组求逆序对",
@@ -917,7 +997,8 @@
       "树状数组",
       "逆序对"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 2
   },
   {
     "title": "模拟退火",
@@ -928,7 +1009,8 @@
     "tags": [
       "模拟退火"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 9
   },
   {
     "title": "笛卡尔树",
@@ -941,7 +1023,8 @@
       "堆",
       "二叉查找树"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 4
   },
   {
     "title": "根号分治",
@@ -952,7 +1035,8 @@
     "tags": [
       "根号分治"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 12
   },
   {
     "title": "网络流模板",
@@ -965,6 +1049,7 @@
       "最大流",
       "费用流"
     ],
-    "categories": "笔记"
+    "categories": "笔记",
+    "readingMins": 6
   }
 ]

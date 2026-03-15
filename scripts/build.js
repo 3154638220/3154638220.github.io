@@ -74,6 +74,14 @@ function getExcerpt(content, maxLen = 200) {
   return text.length > maxLen ? text.slice(0, maxLen) + '...' : text;
 }
 
+// 估算阅读时间（字符数 / 400 字/分钟，中文约 400 字/分钟）
+function getReadingTime(content) {
+  const text = content.replace(/[#*`$\[\]()\s]/g, '').replace(/<!--.*?-->/gs, '');
+  const len = text.length;
+  const mins = Math.max(1, Math.ceil(len / 400));
+  return mins;
+}
+
 // 读取模板
 const template = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
 
@@ -100,6 +108,7 @@ for (const file of mdFiles) {
   const processed = preprocessFold(content);
   const html = md.render(processed);
   const excerpt = getExcerpt(content);
+  const readingMins = getReadingTime(content);
 
   const slug = file.replace(/\.md$/, '');
   const htmlFile = slug + '.html';
@@ -107,6 +116,7 @@ for (const file of mdFiles) {
   const htmlContent = template
     .replace(/\{\{TITLE\}\}/g, escapeHtml(title))
     .replace(/\{\{DATE\}\}/g, date)
+    .replace(/\{\{READING_TIME\}\}/g, String(readingMins))
     .replace('{{BODY}}', html)
     .replace(/\{\{META_DESCRIPTION\}\}/g, escapeHtml(excerpt));
 
@@ -119,7 +129,8 @@ for (const file of mdFiles) {
     htmlFile,
     excerpt,
     tags,
-    categories
+    categories,
+    readingMins
   });
 }
 
@@ -137,6 +148,7 @@ fs.writeFileSync(
 const blogListHtml = posts.map(p => `
           <article class="blog-card">
             <time datetime="${p.date}">${p.date}</time>
+            <span class="blog-reading-time">约 ${p.readingMins} 分钟</span>
             <h3><a href="articles/${p.htmlFile}">${escapeHtml(p.title)}</a></h3>
             <p>${escapeHtml(p.excerpt)}</p>
           </article>`).join('');
