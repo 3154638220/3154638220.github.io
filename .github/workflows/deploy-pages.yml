@@ -6,9 +6,9 @@ on:
   push:
     branches: [main]
 
-# 使用 Node.js 24 运行 Actions，避免 Node 20 弃用警告
+# 使用 Node.js 24 运行 Actions（弃用警告为已知 bug，可能仍会显示）
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 permissions:
   contents: read
@@ -33,7 +33,9 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm install
 
       - name: Build site
         run: npm run build
