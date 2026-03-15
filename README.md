@@ -13,6 +13,7 @@ Blog/
 ├── posts/             # Markdown 文章源文件（.md）
 ├── articles/          # 构建输出的文章 HTML（勿手改）
 ├── vendor/            # 构建时复制的 KaTeX、代码高亮等静态资源
+├── CNAME              # 自定义域名（GitHub Pages 用）
 ├── index.html         # 首页
 ├── about.html / projects.html / blog.html / contact.html
 ├── styles.css / script.js
@@ -94,6 +95,14 @@ npm run build
 3. **自动部署**
    - 每次推送到 `main` 分支时，工作流会执行 `npm ci` 和 `npm run build`，再把构建结果部署到 GitHub Pages。
    - 部署完成后访问：`https://<你的用户名>.github.io/<仓库名>/`
+
+4. **绑定自定义域名**（如 qianianxy.cn）
+   - 项目根目录已包含 `CNAME` 文件，推送后 GitHub Pages 会自动识别。
+   - 在域名服务商处添加 DNS 解析：
+     - **A 记录**：`@` → `185.199.108.153`、`185.199.109.153`、`185.199.110.153`、`185.199.111.153`
+     - **CNAME 记录**（若使用 www）：`www` → `<你的用户名>.github.io`
+   - 在仓库 **Settings** → **Pages** → **Custom domain** 中填入 `qianianxy.cn`，勾选 **Enforce HTTPS**。
+   - DNS 生效后（通常几分钟到 48 小时），即可通过 https://qianianxy.cn 访问。
 
 若之前用的是默认的 “Deploy from a branch”，构建会按 Jekyll 执行导致失败；改为 **GitHub Actions** 后会用仓库里的 `.github/workflows/deploy-pages.yml` 正确构建并部署。
 
