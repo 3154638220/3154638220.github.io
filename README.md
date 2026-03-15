@@ -74,11 +74,28 @@ npm run build
 ## 部署
 
 可将整个文件夹部署到：
-- GitHub Pages
+- **GitHub Pages**（见下方「部署到 GitHub Pages」）
 - **Gitee Pages**（见下方详细步骤）
 - Netlify
 - Vercel
 - 或任何静态网站托管服务
+
+### 部署到 GitHub Pages
+
+本项目需先执行 `npm run build` 生成文章页，因此使用 **GitHub Actions** 在云端构建后再部署：
+
+1. **推送代码到 GitHub**
+   - 在 GitHub 新建仓库，将本地项目推送上去（若已推送可跳过）。
+
+2. **启用 Pages 并选择来源**
+   - 打开仓库 → **Settings** → **Pages**
+   - **Build and deployment** 下，Source 选择 **GitHub Actions**（不要选 “Deploy from a branch”）。
+
+3. **自动部署**
+   - 每次推送到 `main` 分支时，工作流会执行 `npm ci` 和 `npm run build`，再把构建结果部署到 GitHub Pages。
+   - 部署完成后访问：`https://<你的用户名>.github.io/<仓库名>/`
+
+若之前用的是默认的 “Deploy from a branch”，构建会按 Jekyll 执行导致失败；改为 **GitHub Actions** 后会用仓库里的 `.github/workflows/deploy-pages.yml` 正确构建并部署。
 
 ### 部署到 Gitee 并开启网站访问（Gitee Pages）
 
