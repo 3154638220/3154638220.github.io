@@ -1256,6 +1256,36 @@ main:has(.article-with-toc) .article-page {
   height: 1rem;
 }
 
+/* ===== 语言切换按钮 ===== */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 2.5rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-left: 0.5rem;
+}
+
+.lang-toggle .lang-flag {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+.lang-toggle:hover {
+  background: rgba(0, 245, 255, 0.1);
+  border-color: var(--color-accent);
+}
+
 /* ===== 回到顶部 ===== */
 .back-to-top {
   position: fixed;

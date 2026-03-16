@@ -28,6 +28,20 @@ navLinks?.querySelectorAll('a').forEach(link => {
   });
 });
 
+// 首页：随机显示 hero 标语（每次刷新随机，随语言切换）
+function initHeroTagline() {
+  const el = document.getElementById('hero-tagline-text');
+  if (!el) return;
+  const lang = window.i18n ? window.i18n.getLang() : 'en';
+  const taglines = (window.i18n && window.i18n.I18N[lang] && window.i18n.I18N[lang].hero && window.i18n.I18N[lang].hero.taglines) || [
+    'Explore · Create · Iterate',
+    'Build things · Ship fast · Learn always',
+    'Code · Create · Iterate'
+  ];
+  const tagline = taglines[Math.floor(Math.random() * taglines.length)];
+  el.textContent = tagline;
+}
+
 // 首页：锚点平滑滚动
 function initHomeAnchorScroll() {
   if (!document.body.classList.contains('page-home')) return;
@@ -252,7 +266,7 @@ function initCopyCode() {
     const btn = document.createElement('button');
     btn.className = 'code-copy-btn';
     btn.innerHTML = COPY_ICON;
-    btn.setAttribute('aria-label', '复制代码');
+    btn.setAttribute('aria-label', (window.i18n && window.i18n.t('aria.copyCode')) || 'Copy code');
     wrapper.appendChild(btn);
     btn.addEventListener('click', async () => {
       const codeEl = pre.querySelector('code');
@@ -290,7 +304,7 @@ function initToc() {
   if (headings.length < 2) return;
   const toc = document.createElement('nav');
   toc.className = 'article-toc';
-  toc.innerHTML = '<div class="article-toc-title">目录</div><ul class="article-toc-list"></ul>';
+  toc.innerHTML = '<div class="article-toc-title">' + ((window.i18n && window.i18n.t('toc.title')) || 'Contents') + '</div><ul class="article-toc-list"></ul>';
   const list = toc.querySelector('ul');
   headings.forEach((h, i) => {
     const id = h.id || `toc-${i}`;
@@ -343,7 +357,7 @@ function initToc() {
 function initBackToTop() {
   const btn = document.createElement('button');
   btn.className = 'back-to-top';
-  btn.setAttribute('aria-label', '回到顶部');
+  btn.setAttribute('aria-label', (window.i18n && window.i18n.t('aria.backToTop')) || 'Back to top');
   btn.innerHTML = '<span class="back-to-top-icon" aria-hidden="true">↑</span>';
   document.body.appendChild(btn);
 
@@ -383,16 +397,64 @@ function initArticlePage() {
 }
 initThemeToggle();
 
+// 语言切换：需在 i18n.js 加载后执行（使用图片避免 Windows 下 emoji 显示为 US/CN）
+const FLAG_US = '<img src="https://flagcdn.com/w20/us.png" alt="" width="20" height="15" class="lang-flag">';
+const FLAG_CN = '<img src="https://flagcdn.com/w20/cn.png" alt="" width="20" height="15" class="lang-flag">';
+
+function getLangButtonContent(lang) {
+  return lang === 'zh' ? FLAG_US + ' EN' : FLAG_CN + ' 中文';
+}
+
+function initLang() {
+  if (!window.i18n) return;
+  const lang = window.i18n.getLang();
+  window.i18n.applyLang(lang);
+  const btn = document.querySelector('.lang-toggle');
+  if (btn) {
+    btn.innerHTML = getLangButtonContent(lang);
+    btn.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
+    btn.onclick = () => {
+      const current = window.i18n.getLang();
+      const next = current === 'zh' ? 'en' : 'zh';
+      window.i18n.setLang(next);
+      btn.innerHTML = getLangButtonContent(next);
+      btn.setAttribute('aria-label', next === 'zh' ? 'Switch to English' : '切换到中文');
+      initHeroTagline();
+      document.querySelectorAll('[data-i18n-option]').forEach(el => {
+        const key = el.getAttribute('data-i18n-option');
+        if (key) el.textContent = window.i18n.t(key);
+      });
+    };
+  }
+  window.onLangChange = (newLang) => {
+    const langBtn = document.querySelector('.lang-toggle');
+    if (langBtn) {
+      langBtn.innerHTML = getLangButtonContent(newLang);
+      langBtn.setAttribute('aria-label', newLang === 'zh' ? 'Switch to English' : '切换到中文');
+    }
+    initHeroTagline();
+    document.querySelectorAll('.code-copy-btn').forEach(btn => btn.setAttribute('aria-label', window.i18n.t('aria.copyCode')));
+    document.querySelector('.back-to-top')?.setAttribute('aria-label', window.i18n.t('aria.backToTop'));
+    const tocTitle = document.querySelector('.article-toc-title');
+    if (tocTitle) tocTitle.textContent = window.i18n.t('toc.title');
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: newLang } }));
+  };
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     init404Redirect();
     initBackToTop();
     initArticlePage();
     initHomeAnchorScroll();
+    initLang();
+    initHeroTagline();
   });
 } else {
   init404Redirect();
   initBackToTop();
   initArticlePage();
   initHomeAnchorScroll();
+  initLang();
+  initHeroTagline();
 }

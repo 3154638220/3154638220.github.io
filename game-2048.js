@@ -236,7 +236,7 @@
         tileMap.set(key(newTile.r, newTile.c), el);
       }
       isAnimating = false;
-      if (checkGameOver()) showOverlay('游戏结束！');
+      if (checkGameOver()) showOverlay((window.i18n && window.i18n.t('game.gameOverExclaim')) || 'Game Over!');
     }, ANIM_DURATION);
     return true;
   }

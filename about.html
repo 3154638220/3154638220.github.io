@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="About qnxy - undergraduate in Mathematics and Applied Mathematics at BNU">
-  <title>关于 - qnxy</title>
+  <title>About - qnxy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,15 +16,16 @@
   <nav class="navbar">
     <div class="nav-brand"><a href="index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
     <ul class="nav-links">
-      <li><a href="index.html">首页</a></li>
-      <li><a href="about.html">关于</a></li>
-      <li><a href="projects.html">项目</a></li>
-      <li><a href="blog.html">文章</a></li>
-      <li><a href="game.html">小游戏</a></li>
-      <li><a href="contact.html">联系</a></li>
-      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="projects.html" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="game.html" data-i18n="nav.games">Games</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+      <li><button class="lang-toggle" type="button" aria-label="Language">中文</button></li>
+      <li><button class="theme-toggle" aria-label="Toggle theme" type="button" data-i18n-aria="aria.theme"></button></li>
     </ul>
-    <button class="nav-toggle" aria-label="菜单">
+    <button class="nav-toggle" aria-label="Menu" data-i18n-aria="aria.menu">
       <span></span>
       <span></span>
       <span></span>
@@ -33,24 +34,25 @@
 
   <main>
     <section class="section page-header">
-      <h1 class="section-title"><span class="section-num">01.</span> 关于我</h1>
+      <h1 class="section-title"><span class="section-num">01.</span> <span data-i18n="section.aboutMe">About Me</span></h1>
       <div class="about-content">
         <div class="about-text">
           <p>qnxy, undergraduate in Mathematics and Applied Mathematics at Beijing Normal University (BNU).</p>
         </div>
       </div>
       <div class="page-actions">
-        <a href="projects.html" class="btn btn-primary">查看项目</a>
-        <a href="contact.html" class="btn btn-outline">联系我</a>
+        <a href="projects.html" class="btn btn-primary" data-i18n="btn.viewProjects">View Projects</a>
+        <a href="contact.html" class="btn btn-outline" data-i18n="btn.contactMe">Contact Me</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · 本站已有 <span id="busuanzi_site_uv"></span> 人访问 · 总访问量 <span id="busuanzi_site_pv"></span> 次</p>
+    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · <span id="busuanzi_site_uv"></span> <span data-i18n="footer.visitors">visitors</span> · <span id="busuanzi_site_pv"></span> <span data-i18n="footer.pageViews">page views</span></p>
   </footer>
 
   <script async src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

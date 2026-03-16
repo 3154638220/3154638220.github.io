@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +18,16 @@
   <nav class="navbar">
     <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
     <ul class="nav-links">
-      <li><a href="../index.html">首页</a></li>
-      <li><a href="../about.html">关于</a></li>
-      <li><a href="../projects.html">项目</a></li>
-      <li><a href="../blog.html">文章</a></li>
-      <li><a href="../contact.html">联系</a></li>
-      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
+      <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="../projects.html" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="../blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="../game.html" data-i18n="nav.games">Games</a></li>
+      <li><a href="../contact.html" data-i18n="nav.contact">Contact</a></li>
+      <li><button class="lang-toggle" type="button" aria-label="Language">中文</button></li>
+      <li><button class="theme-toggle" aria-label="Toggle theme" type="button" data-i18n-aria="aria.theme"></button></li>
     </ul>
-    <button class="nav-toggle" aria-label="菜单">
+    <button class="nav-toggle" aria-label="Menu" data-i18n-aria="aria.menu">
       <span></span>
       <span></span>
       <span></span>
@@ -37,7 +39,7 @@
       <header class="article-header">
         <h1 class="article-title">2024 蓝桥杯省赛 python A组 解题报告</h1>
         <time class="article-date" datetime="2024-10-19">2024-10-19</time>
-        <span class="article-reading-time">约 11 分钟</span>
+        <span class="article-reading-time">~11 min read</span>
       </header>
       <div class="article-body">
         <p><a href="https://www.lanqiao.cn/paper/4403/result/">题目传送门</a></p>
@@ -365,16 +367,17 @@ if __name__ == '__main__':
           <a href="CF2001D.html" class="article-nav-prev">← 上一篇：CF2001D Longest Max Min Subsequence</a>
           <a href="2024蓝桥杯省赛pyb组.html" class="article-nav-next">下一篇：2024 蓝桥杯省赛 python B组 解题报告 →</a>
         </nav>
-        <a href="../blog.html" class="btn btn-outline article-back-list">← 返回文章列表</a>
+        <a href="../blog.html" class="btn btn-outline article-back-list" data-i18n="btn.backToBlog">← Back to Blog</a>
       </footer>
     </article>
   </main>
 
   <footer class="footer">
-    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · 本站已有 <span id="busuanzi_site_uv"></span> 人访问 · 总访问量 <span id="busuanzi_site_pv"></span> 次</p>
+    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · <span id="busuanzi_site_uv"></span> <span data-i18n="footer.visitors">visitors</span> · <span id="busuanzi_site_pv"></span> <span data-i18n="footer.pageViews">page views</span></p>
   </footer>
 
   <script async src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
+  <script src="../i18n.js"></script>
   <script src="../script.js"></script>
 </body>
 </html>

@@ -46,20 +46,20 @@
     state = 'ready';
     area.classList.remove('reaction-waiting');
     area.classList.add('reaction-ready');
-    hint.textContent = '点击！';
+    hint.textContent = (window.i18n && window.i18n.t('game.click')) || 'Click!';
   }
 
   function reset() {
     state = 'idle';
     area.classList.remove('reaction-waiting', 'reaction-ready');
-    hint.textContent = '点击「开始测试」后等待变绿再点击';
+    hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click "Start Test" then wait for green and click';
   }
 
   function startTest() {
     if (state !== 'idle') return;
     state = 'waiting';
     area.classList.add('reaction-waiting');
-    hint.textContent = '等待变绿...';
+    hint.textContent = (window.i18n && window.i18n.t('game.waitGreen')) || 'Wait for green...';
 
     const delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
 
@@ -81,7 +81,7 @@
     if (state === 'waiting') {
       clearTimeout(timer);
       timer = null;
-      hint.textContent = '太早了！请等待变绿后再点击';
+      hint.textContent = (window.i18n && window.i18n.t('game.tooEarly')) || 'Too early! Wait for green then click';
       state = 'idle';
       area.classList.remove('reaction-waiting');
       setTimeout(reset, 1500);
@@ -96,13 +96,18 @@
       times.push(elapsed);
       setBest(elapsed);
       updateStats();
-      hint.textContent = elapsed + ' ms！点击「开始测试」继续下一轮';
+      hint.textContent = elapsed + ' ms! ' + ((window.i18n && window.i18n.t('game.nextRound')) || 'Click "Start Test" for next round');
       state = 'idle';
       area.classList.remove('reaction-ready');
     }
   }
 
   startBtn?.addEventListener('click', startTest);
+  document.addEventListener('langchange', () => {
+    if (state === 'idle') hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click "Start Test" then wait for green and click';
+    else if (state === 'waiting') hint.textContent = (window.i18n && window.i18n.t('game.waitGreen')) || 'Wait for green...';
+    else if (state === 'ready') hint.textContent = (window.i18n && window.i18n.t('game.click')) || 'Click!';
+  });
   // 使用 pointerdown 而非 click：click 需等按下+松开，会多算 50–150ms；pointerdown 在首次按下时即触发，更接近真实反应时间
   area?.addEventListener('pointerdown', (e) => {
     e.preventDefault();

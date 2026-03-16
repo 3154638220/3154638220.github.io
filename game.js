@@ -166,10 +166,11 @@
     startBtn.disabled = false;
     stopBtn.disabled = true;
     overlay.classList.remove('hidden');
-    let msg = reason === 'time' ? `时间到！最终得分: ${state.score}` : `游戏结束，得分: ${state.score}`;
+    const t = (key) => (window.i18n && window.i18n.t(key)) || key;
+    let msg = reason === 'time' ? `${t('game.timeUp')} ${state.score}` : `${t('game.gameOverScore')} ${state.score}`;
     if (state.reactionTimes.length > 0) {
       const avg = Math.round(state.reactionTimes.reduce((a, b) => a + b, 0) / state.reactionTimes.length);
-      msg += ` · 平均反应延迟: ${avg} ms`;
+      msg += ` · ${t('game.avgReaction')} ${avg} ms`;
     }
     overlayText.textContent = msg;
     overlayBtn.style.display = 'inline-block';

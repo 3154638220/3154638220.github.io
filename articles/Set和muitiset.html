@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +18,16 @@
   <nav class="navbar">
     <div class="nav-brand"><a href="../index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
     <ul class="nav-links">
-      <li><a href="../index.html">首页</a></li>
-      <li><a href="../about.html">关于</a></li>
-      <li><a href="../projects.html">项目</a></li>
-      <li><a href="../blog.html">文章</a></li>
-      <li><a href="../contact.html">联系</a></li>
-      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
+      <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="../about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="../projects.html" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="../blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="../game.html" data-i18n="nav.games">Games</a></li>
+      <li><a href="../contact.html" data-i18n="nav.contact">Contact</a></li>
+      <li><button class="lang-toggle" type="button" aria-label="Language">中文</button></li>
+      <li><button class="theme-toggle" aria-label="Toggle theme" type="button" data-i18n-aria="aria.theme"></button></li>
     </ul>
-    <button class="nav-toggle" aria-label="菜单">
+    <button class="nav-toggle" aria-label="Menu" data-i18n-aria="aria.menu">
       <span></span>
       <span></span>
       <span></span>
@@ -37,7 +39,7 @@
       <header class="article-header">
         <h1 class="article-title">Set 和 muitiset</h1>
         <time class="article-date" datetime="2024-05-28">2024-05-28</time>
-        <span class="article-reading-time">约 2 分钟</span>
+        <span class="article-reading-time">~2 min read</span>
       </header>
       <div class="article-body">
         <h2>简介</h2>
@@ -70,16 +72,17 @@ s.count(k) // 返回 k 的个数
           <a href="CF1618G.html" class="article-nav-prev">← 上一篇：题解 CF1618G Trader Problem</a>
           <a href="luoguP1470.html" class="article-nav-next">下一篇：USACO2.3 最长前缀 Longest Prefix →</a>
         </nav>
-        <a href="../blog.html" class="btn btn-outline article-back-list">← 返回文章列表</a>
+        <a href="../blog.html" class="btn btn-outline article-back-list" data-i18n="btn.backToBlog">← Back to Blog</a>
       </footer>
     </article>
   </main>
 
   <footer class="footer">
-    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · 本站已有 <span id="busuanzi_site_uv"></span> 人访问 · 总访问量 <span id="busuanzi_site_pv"></span> 次</p>
+    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · <span id="busuanzi_site_uv"></span> <span data-i18n="footer.visitors">visitors</span> · <span id="busuanzi_site_pv"></span> <span data-i18n="footer.pageViews">page views</span></p>
   </footer>
 
   <script async src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
+  <script src="../i18n.js"></script>
   <script src="../script.js"></script>
 </body>
 </html>

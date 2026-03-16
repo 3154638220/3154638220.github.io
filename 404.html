@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="404 - 页面未找到">
-  <title>404 - 页面未找到 - qnxy</title>
+  <meta name="description" content="404 - Page Not Found">
+  <title>404 - Page Not Found - qnxy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,15 +17,16 @@
   <nav class="navbar">
     <div class="nav-brand"><a href="index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
     <ul class="nav-links">
-      <li><a href="index.html">首页</a></li>
-      <li><a href="about.html">关于</a></li>
-      <li><a href="projects.html">项目</a></li>
-      <li><a href="blog.html">文章</a></li>
-      <li><a href="game.html">小游戏</a></li>
-      <li><a href="contact.html">联系</a></li>
-      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="projects.html" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="game.html" data-i18n="nav.games">Games</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+      <li><button class="lang-toggle" type="button" aria-label="Language">中文</button></li>
+      <li><button class="theme-toggle" aria-label="Toggle theme" type="button" data-i18n-aria="aria.theme"></button></li>
     </ul>
-    <button class="nav-toggle" aria-label="菜单">
+    <button class="nav-toggle" aria-label="Menu" data-i18n-aria="aria.menu">
       <span></span>
       <span></span>
       <span></span>
@@ -34,7 +35,7 @@
 
   <main class="page-404-main">
     <section class="page-404">
-      <h1 class="page-404-title">404 <span class="page-404-sep">/</span> 页面未找到</h1>
+      <h1 class="page-404-title">404 <span class="page-404-sep">/</span> <span data-i18n="page404.title">Page Not Found</span></h1>
       <div class="page-404-terminal">
         <div class="terminal-header">
           <span class="terminal-dot"></span>
@@ -45,11 +46,11 @@
         <div class="terminal-body">
           <div class="code-line"><span class="code-prompt">$</span> cd 404 && cat README</div>
           <div class="code-line"><span class="code-output">cat: README: No such file or directory</span></div>
-          <div class="code-line"><span class="code-output">// 此路不通，试试回首页？</span></div>
+          <div class="code-line"><span class="code-output" data-i18n="page404.hint">// Dead end. Try heading back home?</span></div>
           <div class="code-line code-line-dynamic"><span class="cursor-blink">_</span></div>
         </div>
       </div>
-      <a href="index.html" class="btn btn-primary page-404-btn">← 回首页</a>
+      <a href="index.html" class="btn btn-primary page-404-btn" data-i18n="btn.backToHome">← Back to Home</a>
     </section>
   </main>
 
@@ -57,6 +58,7 @@
     <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span></p>
   </footer>
 
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
