@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="小游戏 - 射击、2048、反应速度测试">
+  <title>小游戏 - qnxy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-game">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+  <nav class="navbar">
+    <div class="nav-brand"><a href="index.html"><span class="bracket">[</span>DEV<span class="bracket">]</span></a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="about.html">关于</a></li>
+      <li><a href="projects.html">项目</a></li>
+      <li><a href="blog.html">文章</a></li>
+      <li><a href="game.html">小游戏</a></li>
+      <li><a href="contact.html">联系</a></li>
+      <li style="margin-left:auto"><button class="theme-toggle" aria-label="切换主题" type="button"></button></li>
+    </ul>
+    <button class="nav-toggle" aria-label="菜单">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <main class="game-main">
+    <div class="game-tabs" role="tablist">
+      <button class="game-tab active" data-game="shoot" role="tab" aria-selected="true">射击</button>
+      <button class="game-tab" data-game="2048" role="tab" aria-selected="false">2048</button>
+      <button class="game-tab" data-game="reaction" role="tab" aria-selected="false">反应速度</button>
+    </div>
+
+    <!-- 射击游戏 -->
+    <section class="game-section active" id="game-shoot" role="tabpanel">
+      <h1 class="section-title"><span class="section-num">GAME.</span> 射击小游戏</h1>
+      <p class="game-desc">移动鼠标瞄准，点击射击目标。击中得分，倒计时从第一次击中目标开始，游戏结束可查看平均反应延迟。</p>
+      <div class="game-ui">
+        <div class="game-duration-select">
+          <span class="game-duration-label">时长：</span>
+          <label><input type="radio" name="game-duration" value="10" /> 10s</label>
+          <label><input type="radio" name="game-duration" value="30" /> 30s</label>
+          <label><input type="radio" name="game-duration" value="60" checked /> 60s</label>
+        </div>
+        <div class="game-stats">
+          <span class="game-stat">得分: <strong id="game-score">0</strong></span>
+          <span class="game-stat">剩余: <strong id="game-targets">0</strong></span>
+          <span class="game-stat">时间: <strong id="game-time">60</strong>s</span>
+        </div>
+        <div class="game-buttons">
+          <button id="game-start" class="btn btn-primary">开始游戏</button>
+          <button id="game-stop" class="btn btn-outline" disabled>结束</button>
+        </div>
+      </div>
+      <div class="game-canvas-wrap">
+        <canvas id="game-canvas" width="800" height="500"></canvas>
+        <div id="game-crosshair" class="game-crosshair" aria-hidden="true"></div>
+        <div id="game-overlay" class="game-overlay">
+          <div class="game-overlay-content">
+            <p id="game-overlay-text">点击「开始游戏」开始</p>
+            <button id="game-overlay-btn" class="btn btn-primary" style="display:none">再玩一局</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2048 游戏 -->
+    <section class="game-section" id="game-2048" role="tabpanel" hidden>
+      <h1 class="section-title"><span class="section-num">GAME.</span> 2048</h1>
+      <p class="game-desc">使用方向键或 WASD 移动方块，相同数字合并，目标是得到 2048！</p>
+      <div class="game-ui">
+        <div class="game-stats">
+          <span class="game-stat">得分: <strong id="game2048-score">0</strong></span>
+          <span class="game-stat">最高: <strong id="game2048-best">0</strong></span>
+        </div>
+        <div class="game-buttons">
+          <button id="game2048-start" class="btn btn-primary">新游戏</button>
+        </div>
+      </div>
+      <div class="game2048-wrap">
+        <div id="game2048-grid" class="game2048-grid"></div>
+        <div id="game2048-overlay" class="game-overlay hidden">
+          <div class="game-overlay-content">
+            <p id="game2048-overlay-text">游戏结束</p>
+            <button id="game2048-overlay-btn" class="btn btn-primary">再玩一局</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 反应速度测试 -->
+    <section class="game-section" id="game-reaction" role="tabpanel" hidden>
+      <h1 class="section-title"><span class="section-num">GAME.</span> 反应速度测试</h1>
+      <p class="game-desc">等待屏幕变绿后立即点击，测试你的反应速度！</p>
+      <div class="game-ui">
+        <div class="game-stats">
+          <span class="game-stat">平均: <strong id="reaction-avg">--</strong> ms</span>
+          <span class="game-stat">最佳: <strong id="reaction-best">--</strong> ms</span>
+          <span class="game-stat">次数: <strong id="reaction-count">0</strong></span>
+        </div>
+        <div class="game-buttons">
+          <button id="reaction-start" class="btn btn-primary">开始测试</button>
+        </div>
+      </div>
+      <div class="reaction-wrap">
+        <div id="reaction-area" class="reaction-area">
+          <span id="reaction-hint">点击「开始测试」后等待变绿再点击</span>
+        </div>
+      </div>
+      <div class="reaction-levels">
+        <p class="reaction-levels-title">参考水平：</p>
+        <table class="reaction-levels-table">
+          <thead>
+            <tr><th>延迟</th><th>水平</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 150 ms</td><td>顶尖水平（职业电竞选手、赛车手级别）</td></tr>
+            <tr><td>150–200 ms</td><td>优秀（业余高手、反应较快）</td></tr>
+            <tr><td>200–250 ms</td><td>普通（大多数人水平）</td></tr>
+            <tr><td>250–300 ms</td><td>偏慢</td></tr>
+            <tr><td>&gt; 300 ms</td><td>较慢</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><span class="footer-code">//</span> © 2025 · by qnxy <span style="color:red;">❤</span> · 本站已有 <span id="busuanzi_site_uv"></span> 人访问 · 总访问量 <span id="busuanzi_site_pv"></span> 次</p>
+  </footer>
+
+  <script async src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
+  <script src="script.js"></script>
+  <script src="game.js"></script>
+  <script src="game-2048.js"></script>
+  <script src="game-reaction.js"></script>
+</body>
+</html>

@@ -1,3 +1,18 @@
+// 子页面不存在时跳转到 404.html
+function init404Redirect() {
+  const pathname = (location.pathname || '/').replace(/\/$/, '') || '/';
+  if (pathname.endsWith('404.html')) return;
+  fetch(location.href, { method: 'HEAD', cache: 'no-store' })
+    .then(res => {
+      if (res.status === 404) {
+        const depth = Math.max(0, pathname.split('/').filter(Boolean).length - 1);
+        const url404 = '../'.repeat(depth) + '404.html';
+        location.replace(url404);
+      }
+    })
+    .catch(() => {});
+}
+
 // 移动端导航切换
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
@@ -370,11 +385,13 @@ initThemeToggle();
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    init404Redirect();
     initBackToTop();
     initArticlePage();
     initHomeAnchorScroll();
   });
 } else {
+  init404Redirect();
   initBackToTop();
   initArticlePage();
   initHomeAnchorScroll();

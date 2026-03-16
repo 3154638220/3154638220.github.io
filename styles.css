@@ -968,6 +968,53 @@ body.page-home .blog-more-wrap {
   transform: translateY(-2px);
 }
 
+/* ===== 首页小游戏预览 ===== */
+.game-preview-content p {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+.game-preview-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.game-preview-card {
+  padding: 1.5rem;
+  background: var(--color-bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+  transition: var(--transition);
+  transition-property: border-color, box-shadow, transform;
+}
+
+.game-preview-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--color-glow);
+  transform: translateY(-2px);
+}
+
+.game-preview-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.game-preview-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.game-preview-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
 /* ===== 404 页 ===== */
 .page-404-main {
   min-height: calc(100vh - 70px);
@@ -1260,4 +1307,345 @@ main:has(.article-with-toc) .article-page {
 
 .back-to-top-icon {
   line-height: 1;
+}
+
+/* ===== 射击小游戏 ===== */
+.game-main {
+  padding-top: 70px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 3rem;
+}
+
+.game-section {
+  margin-top: 2rem;
+}
+
+.game-desc {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.game-ui {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.game-duration-select {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.game-duration-select label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.game-duration-select input {
+  accent-color: var(--color-accent);
+}
+
+.game-stats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.game-stat strong {
+  color: var(--color-accent);
+}
+
+.game-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.game-canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  min-height: 300px;
+  margin: 0 auto;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--color-glow);
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cline x1='12' y1='0' x2='12' y2='24' stroke='%2300f5ff' stroke-width='2'/%3E%3Cline x1='0' y1='12' x2='24' y2='12' stroke='%2300f5ff' stroke-width='2'/%3E%3C/svg%3E") 12 12, crosshair;
+}
+
+.game-canvas-wrap::before {
+  content: '';
+  display: block;
+  padding-top: 62.5%;
+}
+
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.game-crosshair {
+  display: none;
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 23, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.game-overlay.hidden {
+  display: none;
+}
+
+.game-overlay-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.game-overlay-content p {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.game-overlay-content .btn {
+  margin-top: 0.5rem;
+}
+
+/* ===== 游戏标签切换 ===== */
+.game-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.game-tab {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.game-tab:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.game-tab.active {
+  background: rgba(0, 245, 255, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.game-section {
+  display: none;
+}
+
+.game-section.active {
+  display: block;
+}
+
+/* ===== 2048 游戏 ===== */
+.game2048-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--color-glow);
+}
+
+.game2048-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size, 4), 1fr);
+  grid-template-rows: repeat(var(--grid-size, 4), 1fr);
+  gap: 0.5rem;
+  aspect-ratio: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.game2048-cells {
+  position: absolute;
+  inset: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size, 4), 1fr);
+  grid-template-rows: repeat(var(--grid-size, 4), 1fr);
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.game2048-cell {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.game2048-tiles {
+  position: absolute;
+  inset: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size, 4), 1fr);
+  grid-template-rows: repeat(var(--grid-size, 4), 1fr);
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.game2048-tile {
+  grid-column: calc(var(--col) + 1);
+  grid-row: calc(var(--row) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-weight: 700;
+  border-radius: 4px;
+  transition: grid-column 0.15s ease, grid-row 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.game2048-tile-new {
+  animation: game2048-pop 0.2s ease;
+}
+
+.game2048-tile-merge {
+  animation: game2048-merge 0.2s ease;
+}
+
+@keyframes game2048-pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@keyframes game2048-merge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.game2048-wrap .game-overlay {
+  border-radius: 8px;
+}
+
+/* ===== 反应速度测试 ===== */
+.reaction-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.reaction-area {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation; /* 消除移动端 300ms 点击延迟 */
+  /* 不使用 transition：变绿需瞬间完成，否则 200ms 渐变会被计入反应时间 */
+}
+
+.reaction-area #reaction-hint {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+.reaction-area.reaction-waiting {
+  background: #dc2626;
+  border-color: #b91c1c;
+}
+
+.reaction-area.reaction-waiting #reaction-hint {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.reaction-area.reaction-ready {
+  background: #16a34a;
+  border-color: #15803d;
+}
+
+.reaction-area.reaction-ready #reaction-hint {
+  color: #fff;
+  font-weight: 600;
+}
+
+[data-theme="light"] .reaction-area.reaction-waiting {
+  background: #ef4444;
+  border-color: #dc2626;
+}
+
+[data-theme="light"] .reaction-area.reaction-ready {
+  background: #22c55e;
+  border-color: #16a34a;
+}
+
+.reaction-levels {
+  max-width: 600px;
+  margin: 1.5rem auto 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.reaction-levels-title {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.reaction-levels-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.reaction-levels-table th,
+.reaction-levels-table td {
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reaction-levels-table th {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.reaction-levels-table tr:last-child td {
+  border-bottom: none;
 }

@@ -15,8 +15,8 @@ Blog/
 ├── vendor/            # 构建时复制的 KaTeX、代码高亮等静态资源
 ├── CNAME              # 自定义域名（GitHub Pages 用）
 ├── index.html         # 首页
-├── about.html / projects.html / blog.html / contact.html
-├── styles.css / script.js
+├── about.html / projects.html / blog.html / game.html / contact.html
+├── styles.css / script.js / game.js
 ├── posts.json         # 构建生成的文章列表数据
 ├── package.json
 └── README.md
@@ -30,6 +30,7 @@ Blog/
 - **关于** (`about.html`)：个人简介与技能标签
 - **项目** (`projects.html`)：项目展示卡片
 - **文章** (`blog.html`)：博客文章列表
+- **小游戏** (`game.html`)：射击小游戏（鼠标控制准星）
 - **联系** (`contact.html`)：联系方式与社交链接
 
 ## 使用方式
