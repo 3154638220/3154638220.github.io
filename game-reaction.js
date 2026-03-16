@@ -52,7 +52,7 @@
   function reset() {
     state = 'idle';
     area.classList.remove('reaction-waiting', 'reaction-ready');
-    hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click "Start Test" then wait for green and click';
+    hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click to start, wait for green then click';
   }
 
   function startTest() {
@@ -76,7 +76,10 @@
   }
 
   function onAreaClick(ev) {
-    if (state === 'idle') return;
+    if (state === 'idle') {
+      startTest();
+      return;
+    }
 
     if (state === 'waiting') {
       clearTimeout(timer);
@@ -96,7 +99,7 @@
       times.push(elapsed);
       setBest(elapsed);
       updateStats();
-      hint.textContent = elapsed + ' ms! ' + ((window.i18n && window.i18n.t('game.nextRound')) || 'Click "Start Test" for next round');
+      hint.textContent = elapsed + ' ms! ' + ((window.i18n && window.i18n.t('game.nextRound')) || 'Click to start next round');
       state = 'idle';
       area.classList.remove('reaction-ready');
     }
@@ -104,7 +107,7 @@
 
   startBtn?.addEventListener('click', startTest);
   document.addEventListener('langchange', () => {
-    if (state === 'idle') hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click "Start Test" then wait for green and click';
+    if (state === 'idle') hint.textContent = (window.i18n && window.i18n.t('game.clickHint')) || 'Click to start, wait for green then click';
     else if (state === 'waiting') hint.textContent = (window.i18n && window.i18n.t('game.waitGreen')) || 'Wait for green...';
     else if (state === 'ready') hint.textContent = (window.i18n && window.i18n.t('game.click')) || 'Click!';
   });
