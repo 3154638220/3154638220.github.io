@@ -106,6 +106,15 @@ a {
   transition: var(--transition);
 }
 
+/* 焦点可见性：键盘与可访问性友好 */
+a:focus-visible,
+button:focus-visible,
+.blog-search-input:focus-visible,
+.blog-sort-select:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 /* ===== 选区颜色 ===== */
 ::selection {
   background: rgba(0, 245, 255, 0.25);
@@ -201,6 +210,75 @@ main {
   margin: 0 auto;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+/* ===== 首页全屏滚动 ===== */
+body.page-home {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+body.page-home .fullpage-main {
+  padding-top: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+body.page-home .fullpage-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  padding-top: calc(70px + 2rem);
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body.page-home .fullpage-section.hero {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  padding: calc(70px + 4rem) 0 4rem;
+}
+
+body.page-home .fullpage-section#blog {
+  justify-content: flex-start;
+  padding-top: 3rem;
+}
+
+body.page-home .fullpage-section#blog .blog-list-preview {
+  max-height: 50vh;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-dim) transparent;
+}
+
+body.page-home .fullpage-section#blog .blog-list-preview::-webkit-scrollbar {
+  width: 6px;
+}
+
+body.page-home .fullpage-section#blog .blog-list-preview::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body.page-home .fullpage-section#blog .blog-list-preview::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+body.page-home .fullpage-section#blog .blog-list-preview::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dim);
+}
+
+body.page-home .blog-more-wrap {
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 /* ===== Hero 区域 ===== */
@@ -721,6 +799,10 @@ main {
   margin: 1rem 0;
 }
 
+.article-body .code-block code {
+  line-height: 1.5;
+}
+
 .code-block-wrapper {
   position: relative;
   margin: 1rem 0;
@@ -730,9 +812,12 @@ main {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  padding: 0.35rem 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
   color: var(--color-accent);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -740,6 +825,10 @@ main {
   cursor: pointer;
   transition: var(--transition);
   z-index: 2;
+}
+
+.code-copy-btn svg {
+  flex-shrink: 0;
 }
 
 .code-copy-btn:hover {
@@ -755,6 +844,7 @@ main {
 .article-body code {
   font-family: var(--font-mono);
   font-size: 0.9rem;
+  font-variant-ligatures: none; /* 禁用连字，避免减号等操作符显示异常 */
 }
 
 .article-body pre code {
@@ -811,6 +901,30 @@ main {
   border-top: 1px solid var(--color-border);
 }
 
+.article-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-nav-prev,
+.article-nav-next {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  max-width: 45%;
+}
+
+.article-nav-prev:hover,
+.article-nav-next:hover {
+  text-decoration: underline;
+}
+
+.article-back-list {
+  display: inline-block;
+}
+
 /* ===== 联系 ===== */
 .contact-content p {
   color: var(--color-text-muted);
@@ -852,6 +966,52 @@ main {
   border-color: var(--color-accent);
   box-shadow: var(--color-glow);
   transform: translateY(-2px);
+}
+
+/* ===== 404 页 ===== */
+.page-404-main {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.page-404 {
+  text-align: center;
+  max-width: 480px;
+}
+
+.page-404-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+.page-404-sep {
+  color: var(--color-accent);
+  margin: 0 0.5rem;
+}
+
+.page-404-terminal {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.page-404-terminal .code-prompt {
+  color: var(--color-accent);
+  margin-right: 0.5rem;
+}
+
+.page-404-terminal .code-output {
+  color: var(--color-text-muted);
+}
+
+.page-404-btn {
+  margin-top: 0.5rem;
 }
 
 /* ===== 页脚 ===== */
@@ -926,6 +1086,19 @@ main {
   .section {
     padding: 3rem 0;
   }
+
+  body.page-home .fullpage-section {
+    padding-top: calc(70px + 1.5rem);
+  }
+
+  body.page-home .fullpage-section.hero {
+    flex-direction: column;
+    padding-top: calc(70px + 2rem);
+  }
+
+  body.page-home .fullpage-section#blog .blog-list-preview {
+    max-height: 40vh;
+  }
 }
 
 /* ===== 文章目录 TOC ===== */
@@ -970,11 +1143,25 @@ main {
   font-size: 0.8rem;
 }
 
+/* 有目录时放宽 article-page 宽度，由内部 grid 控制居中 */
+main:has(.article-with-toc) .article-page {
+  max-width: none;
+}
+
 .article-with-toc {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr 200px minmax(0, 800px) 1fr;
   gap: 2rem;
   align-items: start;
+}
+
+.article-with-toc > .article-toc {
+  grid-column: 2;
+}
+
+.article-with-toc > div:not(.article-toc) {
+  grid-column: 3;
+  min-width: 0;
 }
 
 @media (max-width: 900px) {
@@ -982,6 +1169,10 @@ main {
     grid-template-columns: 1fr;
     display: flex;
     flex-direction: column-reverse;
+  }
+  .article-with-toc > .article-toc,
+  .article-with-toc > div:not(.article-toc) {
+    grid-column: auto;
   }
   .article-toc {
     position: static;
@@ -1052,7 +1243,17 @@ main {
   box-shadow: var(--color-glow);
 }
 
-.back-to-top:focus {
+.back-to-top.scrolling .back-to-top-icon {
+  animation: back-to-top-spin 0.6s ease-in-out;
+}
+
+@keyframes back-to-top-spin {
+  from { transform: rotate(0deg); opacity: 1; }
+  50% { transform: rotate(180deg); opacity: 0.7; }
+  to { transform: rotate(360deg); opacity: 1; }
+}
+
+.back-to-top:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }

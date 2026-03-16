@@ -13,22 +13,77 @@ navLinks?.querySelectorAll('a').forEach(link => {
   });
 });
 
-// 根据当前 URL 高亮导航项
+// 首页：锚点平滑滚动
+function initHomeAnchorScroll() {
+  if (!document.body.classList.contains('page-home')) return;
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    const hash = a.getAttribute('href');
+    if (hash === '#') return;
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(hash);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', hash);
+      }
+    });
+  });
+  // 页面加载时若有 hash，滚动到对应区块
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+}
+
+// 根据当前 URL 或滚动位置高亮导航项
 function initNavActive() {
   const links = document.querySelectorAll('.nav-links a');
   if (!links.length) return;
   const path = (location.pathname || location.href).replace(/\\/g, '/').replace(/\/$/, '') || '/';
   const basename = path.split('/').pop() || 'index.html';
-  links.forEach(a => {
-    a.classList.remove('active');
-    const href = a.getAttribute('href') || '';
-    const linkBasename = href.split('/').pop();
-    if (basename === linkBasename || (basename === 'index.html' && (linkBasename === 'index.html' || href === '../index.html'))) {
-      a.classList.add('active');
-    } else if (path.includes('/articles/') && (linkBasename === 'blog.html' || href.includes('blog.html'))) {
-      a.classList.add('active');
-    }
-  });
+  const isHome = basename === 'index.html' || basename === '' || path.endsWith('/');
+
+  function updateActiveByPath() {
+    links.forEach(a => {
+      a.classList.remove('active');
+      const href = a.getAttribute('href') || '';
+      const linkBasename = (href.split('#')[0] || '').split('/').pop();
+      const hash = (href.split('#')[1] || '').toLowerCase();
+      if (isHome && hash) {
+        const curHash = (location.hash || '#home').slice(1).toLowerCase();
+        if (hash === curHash) a.classList.add('active');
+      } else if (basename === linkBasename || (basename === 'index.html' && (linkBasename === 'index.html' || href === '../index.html'))) {
+        a.classList.add('active');
+      } else if (path.includes('/articles/') && (linkBasename === 'blog.html' || href.includes('blog.html'))) {
+        a.classList.add('active');
+      }
+    });
+  }
+
+  function updateActiveByScroll() {
+    if (!document.body.classList.contains('page-home')) return;
+    const sections = document.querySelectorAll('.fullpage-section');
+    if (!sections.length) return;
+    const vh = window.innerHeight;
+    const scrollY = window.scrollY;
+    let activeId = 'home';
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollY >= top - vh * 0.3) activeId = sec.id || 'home';
+    });
+    links.forEach(a => {
+      a.classList.remove('active');
+      const hash = (a.getAttribute('href') || '').split('#')[1];
+      if (hash && hash.toLowerCase() === activeId) a.classList.add('active');
+    });
+  }
+
+  updateActiveByPath();
+  if (isHome) {
+    window.addEventListener('scroll', updateActiveByScroll, { passive: true });
+    window.addEventListener('hashchange', updateActiveByPath);
+  }
 }
 initNavActive();
 
@@ -118,7 +173,61 @@ function initReadProgress() {
   update();
 }
 
-// 文章页：复制代码块
+// 文章页：代码高亮（动态加载 highlight.js，无需重新构建文章）
+function runCodeHighlight() {
+  const body = document.querySelector('.article-body');
+  if (!body || typeof hljs === 'undefined') return;
+  const langAliases = { py: 'python', 'c++': 'cpp', 'c#': 'csharp', js: 'javascript', ts: 'typescript' };
+  body.querySelectorAll('pre code[class*="language-"]').forEach(codeEl => {
+    if (codeEl.classList.contains('hljs')) return;
+    const m = codeEl.className.match(/language-(\S+)/);
+    const lang = m ? (langAliases[m[1]] || m[1]) : null;
+    let text;
+    const lines = codeEl.querySelectorAll('.code-line');
+    if (lines.length) {
+      text = [...lines].map(l => {
+        const clone = l.cloneNode(true);
+        const num = clone.querySelector('.line-num');
+        if (num) num.remove();
+        return clone.textContent.replace(/\s+$/, '');
+      }).join('\n');
+    } else {
+      text = codeEl.textContent;
+    }
+    if (!text) return;
+    try {
+      const result = lang && hljs.getLanguage(lang)
+        ? hljs.highlight(text, { language: lang, ignoreIllegals: true })
+        : hljs.highlightAuto(text);
+      codeEl.innerHTML = result.value;
+      codeEl.classList.add('hljs', 'language-' + (result.language || 'plaintext'));
+    } catch (_) {}
+  });
+}
+
+function initCodeHighlight() {
+  const body = document.querySelector('.article-body');
+  if (!body || !body.querySelector('pre code[class*="language-"]')) return;
+  if (typeof hljs !== 'undefined') {
+    runCodeHighlight();
+    return;
+  }
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+  link.crossOrigin = 'anonymous';
+  document.head.appendChild(link);
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+  script.crossOrigin = 'anonymous';
+  script.onload = runCodeHighlight;
+  document.body.appendChild(script);
+}
+
+// 文章页：复制代码块（图标）
+const COPY_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+const COPIED_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
 function initCopyCode() {
   document.querySelectorAll('.article-body pre, .article-body .code-block').forEach(pre => {
     const wrapper = document.createElement('div');
@@ -127,16 +236,32 @@ function initCopyCode() {
     wrapper.appendChild(pre);
     const btn = document.createElement('button');
     btn.className = 'code-copy-btn';
-    btn.textContent = '复制';
+    btn.innerHTML = COPY_ICON;
     btn.setAttribute('aria-label', '复制代码');
     wrapper.appendChild(btn);
     btn.addEventListener('click', async () => {
-      const code = pre.querySelector('code')?.innerText || pre.innerText;
+      const codeEl = pre.querySelector('code');
+      let code;
+      if (codeEl) {
+        const lines = codeEl.querySelectorAll('.code-line');
+        if (lines.length) {
+          code = [...lines].map(l => {
+            const clone = l.cloneNode(true);
+            const num = clone.querySelector('.line-num');
+            if (num) num.remove();
+            return clone.textContent.replace(/\s+$/, '');
+          }).join('\n');
+        } else {
+          code = codeEl.innerText;
+        }
+      } else {
+        code = pre.innerText;
+      }
       try {
-        await navigator.clipboard.writeText(code);
-        btn.textContent = '已复制';
+        await navigator.clipboard.writeText(code || '');
+        btn.innerHTML = COPIED_ICON;
         btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1500);
+        setTimeout(() => { btn.innerHTML = COPY_ICON; btn.classList.remove('copied'); }, 1500);
       } catch (_) {}
     });
   });
@@ -220,48 +345,37 @@ function initBackToTop() {
   updateVisibility();
 
   btn.addEventListener('click', () => {
+    btn.classList.add('scrolling');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      btn.classList.remove('scrolling');
+      window.removeEventListener('scroll', onScroll);
+    };
+    const onScroll = () => { if (window.scrollY < 10) finish(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setTimeout(finish, 600);
   });
 }
 
 function initArticlePage() {
   initReadProgress();
+  initCodeHighlight();
   initCopyCode();
   initToc();
 }
 initThemeToggle();
 
-// 首页终端：假命令逐行出现
-function initTerminalCommands() {
-  const body = document.getElementById('terminal-body');
-  if (!body) return;
-  const dynamicLine = body.querySelector('.code-line-dynamic');
-  if (!dynamicLine) return;
-  const commands = [
-    '<span class="code-string">$</span> npm run deploy',
-    '<span class="code-string">$</span> git push origin main'
-  ];
-  let idx = 0;
-  function addLine() {
-    if (idx >= commands.length) return;
-    const div = document.createElement('div');
-    div.className = 'code-line';
-    div.innerHTML = commands[idx];
-    dynamicLine.parentNode.insertBefore(div, dynamicLine);
-    idx++;
-    if (idx < commands.length) setTimeout(addLine, 1200);
-  }
-  setTimeout(addLine, 2000);
-}
-
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
     initArticlePage();
-    initTerminalCommands();
+    initHomeAnchorScroll();
   });
 } else {
   initBackToTop();
   initArticlePage();
-  initTerminalCommands();
+  initHomeAnchorScroll();
 }

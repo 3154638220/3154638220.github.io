@@ -92,7 +92,7 @@ if (!fs.existsSync(ARTICLES_DIR)) {
 
 // 读取所有 md 文件
 const mdFiles = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'));
-const posts = [];
+const postData = [];
 
 for (const file of mdFiles) {
   const filePath = path.join(POSTS_DIR, file);
@@ -120,9 +120,7 @@ for (const file of mdFiles) {
     .replace('{{BODY}}', html)
     .replace(/\{\{META_DESCRIPTION\}\}/g, escapeHtml(excerpt));
 
-  fs.writeFileSync(path.join(ARTICLES_DIR, htmlFile), htmlContent, 'utf-8');
-
-  posts.push({
+  postData.push({
     title,
     date,
     slug,
@@ -130,12 +128,32 @@ for (const file of mdFiles) {
     excerpt,
     tags,
     categories,
-    readingMins
+    readingMins,
+    htmlContent
   });
 }
 
-// 按日期倒序
-posts.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+// 按日期倒序（新的在前）
+postData.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+// 写入文章页（含上一篇/下一篇）
+for (let i = 0; i < postData.length; i++) {
+  const p = postData[i];
+  const prev = postData[i + 1]; // 上一篇（更早）
+  const next = postData[i - 1]; // 下一篇（更新）
+  const prevLink = prev
+    ? `<a href="${prev.htmlFile}" class="article-nav-prev">← 上一篇：${escapeHtml(prev.title)}</a>`
+    : '';
+  const nextLink = next
+    ? `<a href="${next.htmlFile}" class="article-nav-next">下一篇：${escapeHtml(next.title)} →</a>`
+    : '';
+  const htmlContent = p.htmlContent
+    .replace('{{PREV_LINK}}', prevLink)
+    .replace('{{NEXT_LINK}}', nextLink);
+  fs.writeFileSync(path.join(ARTICLES_DIR, p.htmlFile), htmlContent, 'utf-8');
+}
+
+const posts = postData.map(({ htmlContent, ...p }) => p);
 
 // 写入 posts.json
 fs.writeFileSync(
@@ -157,6 +175,24 @@ let blogContent = fs.readFileSync(blogPath, 'utf-8');
 blogContent = blogContent.replace('<!-- BLOG_LIST -->', blogListHtml);
 fs.writeFileSync(blogPath, blogContent, 'utf-8');
 
+// 首页预览：注入前 8 篇文章到 index.html
+const previewCount = 8;
+const blogPreviewHtml = posts.slice(0, previewCount).map(p => `
+          <article class="blog-card">
+            <time datetime="${p.date}">${p.date}</time>
+            <span class="blog-reading-time">约 ${p.readingMins} 分钟</span>
+            <h3><a href="articles/${p.htmlFile}">${escapeHtml(p.title)}</a></h3>
+            <p>${escapeHtml(p.excerpt)}</p>
+          </article>`).join('');
+const indexPath = path.join(ROOT, 'index.html');
+if (fs.existsSync(indexPath)) {
+  let indexContent = fs.readFileSync(indexPath, 'utf-8');
+  if (indexContent.includes('<!-- BLOG_PREVIEW -->')) {
+    indexContent = indexContent.replace('<!-- BLOG_PREVIEW -->', blogPreviewHtml);
+    fs.writeFileSync(indexPath, indexContent, 'utf-8');
+  }
+}
+
 function escapeHtml(str) {
   if (!str) return '';
   return String(str)
@@ -166,5 +202,33 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// 生成 sitemap.xml（posts.json + 固定页）
+const SITE_BASE = 'https://qianianxy.cn';
+const FIXED_PAGES = [
+  { loc: '', changefreq: 'weekly', priority: '1.0' },
+  { loc: 'about.html', changefreq: 'monthly', priority: '0.8' },
+  { loc: 'projects.html', changefreq: 'monthly', priority: '0.8' },
+  { loc: 'blog.html', changefreq: 'weekly', priority: '0.9' },
+  { loc: 'contact.html', changefreq: 'monthly', priority: '0.7' },
+  { loc: '404.html', changefreq: 'yearly', priority: '0.1' }
+];
+const sitemapUrls = FIXED_PAGES.map(p => {
+  const loc = p.loc ? `${SITE_BASE}/${p.loc}` : `${SITE_BASE}/`;
+  return `  <url>\n    <loc>${loc}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`;
+});
+const articleUrls = posts.map(p => {
+  const loc = `${SITE_BASE}/articles/${p.htmlFile}`;
+  const lastmod = p.date ? `\n    <lastmod>${p.date}</lastmod>` : '';
+  return `  <url>\n    <loc>${loc}</loc>${lastmod}\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+});
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.join('\n')}
+${articleUrls.join('\n')}
+</urlset>
+`;
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemap, 'utf-8');
+
 console.log(`✓ 已生成 ${posts.length} 篇文章到 articles/`);
 console.log(`✓ 已生成 posts.json`);
+console.log(`✓ 已生成 sitemap.xml`);
