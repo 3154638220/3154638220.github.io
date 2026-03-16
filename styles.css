@@ -225,8 +225,16 @@ main {
 }
 
 .hero-greeting .prompt {
+  display: inline-flex;
+  align-items: center;
   color: var(--color-accent-2);
   margin-right: 0.5rem;
+}
+
+.hero-prompt-icon {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.25em;
 }
 
 .hero-title {
@@ -253,7 +261,15 @@ main {
 }
 
 .hero-subtitle .accent {
+  display: inline-flex;
+  align-items: center;
   color: var(--color-accent);
+}
+
+.hero-accent-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
 }
 
 .hero-desc {
@@ -820,8 +836,16 @@ main {
 }
 
 .contact-icon {
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.5rem;
   color: var(--color-accent);
+}
+
+.contact-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
 }
 
 .contact-item:hover {
