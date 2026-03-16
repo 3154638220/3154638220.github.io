@@ -353,6 +353,15 @@ function initToc() {
   updateActive();
 }
 
+// 看板娘（Live2D 二次元女生，桌面端加载）
+function initMascot() {
+  if (screen.width < 768) return;
+  const script = document.createElement('script');
+  script.src = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js';
+  script.async = true;
+  document.body.appendChild(script);
+}
+
 // 回到顶部按钮
 function initBackToTop() {
   const btn = document.createElement('button');
@@ -444,6 +453,7 @@ function initLang() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     init404Redirect();
+    initMascot();
     initBackToTop();
     initArticlePage();
     initHomeAnchorScroll();
@@ -452,6 +462,7 @@ if (document.readyState === 'loading') {
   });
 } else {
   init404Redirect();
+  initMascot();
   initBackToTop();
   initArticlePage();
   initHomeAnchorScroll();

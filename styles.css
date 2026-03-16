@@ -1339,6 +1339,15 @@ main:has(.article-with-toc) .article-page {
   line-height: 1;
 }
 
+/* ===== 看板娘 Live2D ===== */
+#waifu {
+  z-index: 80 !important;
+}
+
+#waifu-toggle {
+  z-index: 81 !important;
+}
+
 /* ===== 射击小游戏 ===== */
 .game-main {
   padding-top: 70px;

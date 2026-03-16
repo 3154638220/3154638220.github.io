@@ -9,6 +9,7 @@
     en: {
       nav: { home: 'Home', about: 'About', projects: 'Projects', blog: 'Blog', contact: 'Contact', games: 'Games' },
       aria: { theme: 'Toggle theme', menu: 'Menu', copyCode: 'Copy code', backToTop: 'Back to top' },
+      mascot: { aria: 'Mascot', tooltip: 'Hi~' },
       hero: {
         subtitle: 'Developer',
         subtitle2: 'Creator',
@@ -98,6 +99,7 @@
     zh: {
       nav: { home: '首页', about: '关于', projects: '项目', blog: '文章', contact: '联系', games: '小游戏' },
       aria: { theme: '切换主题', menu: '菜单', copyCode: '复制代码', backToTop: '回到顶部' },
+      mascot: { aria: '看板娘', tooltip: '你好呀~' },
       hero: {
         subtitle: '开发者',
         subtitle2: '创作者',
